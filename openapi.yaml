@@ -13,7 +13,7 @@ servers:
     variables:
       username:
         description: Your local username
-        default: BL_DOMAIN
+        default: xwang
   - url: https://{environment}.bolt.com/v3
     variables:
       environment:
@@ -154,7 +154,9 @@ paths:
       tags:
         - Account
       security:
-        - api-key: []
+        - oauth:
+            - bolt.account.manage
+          api-key: []
       parameters:
         - $ref: '#/components/parameters/x-publishable-key'
         - in: path
@@ -630,7 +632,6 @@ components:
     address:
       type: object
       required:
-        - id
         - first_name
         - last_name
         - street_address1
@@ -640,7 +641,6 @@ components:
       properties:
         id:
           type: string
-          readOnly: true
           example: D4g3h5tBuVYK9
         first_name:
           type: string
@@ -793,11 +793,6 @@ components:
               description: The credit card's billing address
               writeOnly: true
               $ref: '#/components/schemas/address-reference'
-            billing_address_id:
-              description: The ID of credit card's billing address
-              type: string
-              readOnly: true
-              example: D4g3h5tBuVYK9
         - $ref: '#/components/schemas/credit-card'
     payment-method:
       oneOf:
