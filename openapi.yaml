@@ -632,6 +632,7 @@ components:
     address:
       type: object
       required:
+        - id
         - first_name
         - last_name
         - street_address1
@@ -641,6 +642,7 @@ components:
       properties:
         id:
           type: string
+          readOnly: true
           example: D4g3h5tBuVYK9
         first_name:
           type: string
@@ -771,7 +773,7 @@ components:
           required:
             - .tag
             - type
-            - billing_address
+            - billing_address_input
           properties:
             .tag:
               type: string
@@ -789,10 +791,15 @@ components:
                 - credit
                 - plcc
               example: credit
-            billing_address:
+            billing_address_input:
               description: The credit card's billing address
               writeOnly: true
               $ref: '#/components/schemas/address-reference'
+            billing_address_id:
+              description: The ID of credit card's billing address
+              type: string
+              readOnly: true
+              example: D4g3h5tBuVYK9
         - $ref: '#/components/schemas/credit-card'
     payment-method:
       oneOf:
@@ -1467,7 +1474,7 @@ components:
         last4: '1004'
         expiration: 2025-03
         token: a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0
-        billing_address:
+        billing_address_input:
           .tag: id
           id: D4g3h5tBuVYK9
     credit-card-with-address-explicit:
@@ -1480,7 +1487,7 @@ components:
         last4: '1004'
         expiration: 2025-03
         token: a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0
-        billing_address:
+        billing_address_input:
           .tag: explicit
           first_name: Charlie
           last_name: Dunn
