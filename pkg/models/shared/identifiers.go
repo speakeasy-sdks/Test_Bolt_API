@@ -13,7 +13,7 @@ func (o *IdentifiersMerchantDivisions) GetPublishableKey() string {
 	return o.PublishableKey
 }
 
-// Identifiers - Identifiers were successfully retrieved
+// Identifiers were successfully retrieved
 type Identifiers struct {
 	MerchantDivisions []IdentifiersMerchantDivisions `json:"merchant_divisions"`
 	MerchantID        string                         `json:"merchant_id"`
