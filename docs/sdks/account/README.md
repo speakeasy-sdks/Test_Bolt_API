@@ -37,7 +37,7 @@ import(
 )
 
 func main() {
-    s := testbolt.New()
+    s := Test_Bolt_API.New()
     operationSecurity := operations.AccountAddPaymentMethodSecurity{
             APIKey: "",
             Oauth: "",
@@ -47,12 +47,12 @@ func main() {
     res, err := s.Account.AccountAddPaymentMethod(ctx, operations.AccountAddPaymentMethodRequest{
         XPublishableKey: "provident",
         PaymentMethodCreditCard: shared.PaymentMethodCreditCard{
-            DotTag: shared.PaymentMethodCreditCardTagCreditCard,
-            BillingAddressID: testbolt.String("D4g3h5tBuVYK9"),
+            DotTag: "credit_card",
+            BillingAddressID: Test_Bolt_API.String("D4g3h5tBuVYK9"),
             BillingAddressInput: &shared.AddressReference{},
             Bin: "411111",
             Expiration: "2025-03",
-            ID: testbolt.String("X5h6j8uLpVGK0"),
+            ID: Test_Bolt_API.String("X5h6j8uLpVGK0"),
             Last4: "1004",
             Network: shared.PaymentMethodCreditCardNetworkVisa,
             Token: "a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0",
@@ -101,7 +101,7 @@ import(
 )
 
 func main() {
-    s := testbolt.New()
+    s := Test_Bolt_API.New()
     operationSecurity := operations.AccountAddressCreateSecurity{
             APIKey: "",
             Oauth: "",
@@ -111,19 +111,19 @@ func main() {
     res, err := s.Account.AccountAddressCreate(ctx, operations.AccountAddressCreateRequest{
         XPublishableKey: "distinctio",
         AddressListing: shared.AddressListing{
-            Company: testbolt.String("ACME Corporation"),
+            Company: Test_Bolt_API.String("ACME Corporation"),
             CountryCode: "US",
-            Email: testbolt.String("alice@example.com"),
+            Email: Test_Bolt_API.String("alice@example.com"),
             FirstName: "Alice",
-            ID: testbolt.String("D4g3h5tBuVYK9"),
-            IsDefault: testbolt.Bool(true),
+            ID: Test_Bolt_API.String("D4g3h5tBuVYK9"),
+            IsDefault: Test_Bolt_API.Bool(true),
             LastName: "Baker",
             Locality: "San Francisco",
-            Phone: testbolt.String("+14155550199"),
+            Phone: Test_Bolt_API.String("+14155550199"),
             PostalCode: "94105",
-            Region: testbolt.String("CA"),
+            Region: Test_Bolt_API.String("CA"),
             StreetAddress1: "535 Mission St, Ste 1401",
-            StreetAddress2: testbolt.String("c/o Shipping Department"),
+            StreetAddress2: Test_Bolt_API.String("c/o Shipping Department"),
         },
     }, operationSecurity)
     if err != nil {
@@ -169,7 +169,7 @@ import(
 )
 
 func main() {
-    s := testbolt.New()
+    s := Test_Bolt_API.New()
     operationSecurity := operations.AccountAddressDeleteSecurity{
             APIKey: "",
             Oauth: "",
@@ -225,7 +225,7 @@ import(
 )
 
 func main() {
-    s := testbolt.New()
+    s := Test_Bolt_API.New()
     operationSecurity := operations.AccountAddressEditSecurity{
             APIKey: "",
             Oauth: "",
@@ -235,19 +235,19 @@ func main() {
     res, err := s.Account.AccountAddressEdit(ctx, operations.AccountAddressEditRequest{
         XPublishableKey: "unde",
         AddressListing: shared.AddressListing{
-            Company: testbolt.String("ACME Corporation"),
+            Company: Test_Bolt_API.String("ACME Corporation"),
             CountryCode: "US",
-            Email: testbolt.String("alice@example.com"),
+            Email: Test_Bolt_API.String("alice@example.com"),
             FirstName: "Alice",
-            ID: testbolt.String("D4g3h5tBuVYK9"),
-            IsDefault: testbolt.Bool(true),
+            ID: Test_Bolt_API.String("D4g3h5tBuVYK9"),
+            IsDefault: Test_Bolt_API.Bool(true),
             LastName: "Baker",
             Locality: "San Francisco",
-            Phone: testbolt.String("+14155550199"),
+            Phone: Test_Bolt_API.String("+14155550199"),
             PostalCode: "94105",
-            Region: testbolt.String("CA"),
+            Region: Test_Bolt_API.String("CA"),
             StreetAddress1: "535 Mission St, Ste 1401",
-            StreetAddress2: testbolt.String("c/o Shipping Department"),
+            StreetAddress2: Test_Bolt_API.String("c/o Shipping Department"),
         },
         ID: "D4g3h5tBuVYK9",
     }, operationSecurity)
@@ -293,7 +293,7 @@ import(
 )
 
 func main() {
-    s := testbolt.New()
+    s := Test_Bolt_API.New()
 
     ctx := context.Background()
     res, err := s.Account.AccountExists(ctx, operations.AccountExistsRequest{
@@ -343,7 +343,7 @@ import(
 )
 
 func main() {
-    s := testbolt.New()
+    s := Test_Bolt_API.New()
     operationSecurity := operations.AccountGetSecurity{
             APIKey: "",
             Oauth: "",

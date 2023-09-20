@@ -32,7 +32,7 @@ import(
 )
 
 func main() {
-    s := testbolt.New()
+    s := Test_Bolt_API.New()
     operationSecurity := operations.TestingAccountCreateSecurity{
             APIKey: "",
         }
@@ -41,8 +41,8 @@ func main() {
     res, err := s.Testing.TestingAccountCreate(ctx, shared.AccountTestCreationDataInput{
         DeactivateAt: types.MustTimeFromString("2017-07-21T17:32:28Z"),
         EmailState: shared.AccountTestCreationDataEmailStateUnverified,
-        HasAddress: testbolt.Bool(true),
-        IsMigrated: testbolt.Bool(true),
+        HasAddress: Test_Bolt_API.Bool(true),
+        IsMigrated: Test_Bolt_API.Bool(true),
         PhoneState: shared.AccountTestCreationDataPhoneStateVerified,
     }, operationSecurity)
     if err != nil {
@@ -88,7 +88,7 @@ import(
 )
 
 func main() {
-    s := testbolt.New()
+    s := Test_Bolt_API.New()
     operationSecurity := operations.TestingCreditCardGetSecurity{
             APIKey: "",
         }
@@ -140,7 +140,7 @@ import(
 )
 
 func main() {
-    s := testbolt.New()
+    s := Test_Bolt_API.New()
     operationSecurity := operations.TestingShipmentTrackingCreateSecurity{
             APIKey: "",
         }
@@ -151,12 +151,12 @@ func main() {
         Status: shared.ShipmentTrackingUpdateStatusInTransit,
         TrackingDetails: []shared.ShipmentTrackingUpdateTrackingDetails{
             shared.ShipmentTrackingUpdateTrackingDetails{
-                CountryCode: testbolt.String("US"),
-                EventDate: testbolt.String("2014-08-21:T14:24:00Z"),
-                Locality: testbolt.String("San Francisco"),
-                Message: testbolt.String("Billing information received"),
-                PostalCode: testbolt.String("94105"),
-                Region: testbolt.String("CA"),
+                CountryCode: Test_Bolt_API.String("US"),
+                EventDate: Test_Bolt_API.String("2014-08-21:T14:24:00Z"),
+                Locality: Test_Bolt_API.String("San Francisco"),
+                Message: Test_Bolt_API.String("Billing information received"),
+                PostalCode: Test_Bolt_API.String("94105"),
+                Region: Test_Bolt_API.String("CA"),
                 Status: shared.ShipmentTrackingUpdateTrackingDetailsStatusPreTransit.ToPointer(),
             },
         },

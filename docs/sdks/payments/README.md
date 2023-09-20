@@ -31,7 +31,7 @@ import(
 )
 
 func main() {
-    s := testbolt.New()
+    s := Test_Bolt_API.New()
     operationSecurity := operations.GuestPaymentsInitializeSecurity{
             APIKey: "",
         }
@@ -43,25 +43,25 @@ func main() {
             Cart: shared.Cart{
                 Amounts: shared.Amounts{
                     Currency: "USD",
-                    Tax: testbolt.Int64(900),
+                    Tax: Test_Bolt_API.Int64(900),
                     Total: 900,
                 },
                 Discounts: []shared.CartDiscount{
                     shared.CartDiscount{
                         Amounts: shared.Amounts{
                             Currency: "USD",
-                            Tax: testbolt.Int64(900),
+                            Tax: Test_Bolt_API.Int64(900),
                             Total: 900,
                         },
-                        Code: testbolt.String("SUMMER10DISCOUNT"),
-                        DetailsURL: testbolt.String("https://www.example.com/SUMMER-SALE"),
+                        Code: Test_Bolt_API.String("SUMMER10DISCOUNT"),
+                        DetailsURL: Test_Bolt_API.String("https://www.example.com/SUMMER-SALE"),
                     },
                 },
-                DisplayID: testbolt.String("215614191"),
+                DisplayID: Test_Bolt_API.String("215614191"),
                 Items: []shared.CartItem{
                     shared.CartItem{
-                        Description: testbolt.String("Large tote with Bolt logo."),
-                        ImageURL: testbolt.String("https://www.example.com/products/123456/images/1.png"),
+                        Description: Test_Bolt_API.String("Large tote with Bolt logo."),
+                        ImageURL: Test_Bolt_API.String("https://www.example.com/products/123456/images/1.png"),
                         Name: "Bolt Swag Bag",
                         Quantity: 1,
                         Reference: "item_100",
@@ -69,22 +69,22 @@ func main() {
                         UnitPrice: 1000,
                     },
                 },
-                OrderDescription: testbolt.String("Order #1234567890"),
+                OrderDescription: Test_Bolt_API.String("Order #1234567890"),
                 OrderReference: "order_100",
                 Shipments: []shared.CartShipment{
                     shared.CartShipment{
                         Address: &shared.AddressReference{},
-                        Carrier: testbolt.String("FedEx"),
+                        Carrier: Test_Bolt_API.String("FedEx"),
                         Cost: &shared.Amounts{
                             Currency: "USD",
-                            Tax: testbolt.Int64(900),
+                            Tax: Test_Bolt_API.Int64(900),
                             Total: 900,
                         },
                     },
                 },
             },
             PaymentMethod: shared.PaymentMethodPaypal{
-                DotTag: shared.PaymentMethodPaypalTagPaypal,
+                DotTag: "paypal",
                 Cancel: "www.example.com/handle_paypal_cancel",
                 Success: "www.example.com/handle_paypal_success",
             },
@@ -134,7 +134,7 @@ import(
 )
 
 func main() {
-    s := testbolt.New()
+    s := Test_Bolt_API.New()
     operationSecurity := operations.PaymentsInitializeSecurity{
             APIKey: "",
             Oauth: "",
@@ -147,25 +147,25 @@ func main() {
             Cart: shared.Cart{
                 Amounts: shared.Amounts{
                     Currency: "USD",
-                    Tax: testbolt.Int64(900),
+                    Tax: Test_Bolt_API.Int64(900),
                     Total: 900,
                 },
                 Discounts: []shared.CartDiscount{
                     shared.CartDiscount{
                         Amounts: shared.Amounts{
                             Currency: "USD",
-                            Tax: testbolt.Int64(900),
+                            Tax: Test_Bolt_API.Int64(900),
                             Total: 900,
                         },
-                        Code: testbolt.String("SUMMER10DISCOUNT"),
-                        DetailsURL: testbolt.String("https://www.example.com/SUMMER-SALE"),
+                        Code: Test_Bolt_API.String("SUMMER10DISCOUNT"),
+                        DetailsURL: Test_Bolt_API.String("https://www.example.com/SUMMER-SALE"),
                     },
                 },
-                DisplayID: testbolt.String("215614191"),
+                DisplayID: Test_Bolt_API.String("215614191"),
                 Items: []shared.CartItem{
                     shared.CartItem{
-                        Description: testbolt.String("Large tote with Bolt logo."),
-                        ImageURL: testbolt.String("https://www.example.com/products/123456/images/1.png"),
+                        Description: Test_Bolt_API.String("Large tote with Bolt logo."),
+                        ImageURL: Test_Bolt_API.String("https://www.example.com/products/123456/images/1.png"),
                         Name: "Bolt Swag Bag",
                         Quantity: 1,
                         Reference: "item_100",
@@ -173,22 +173,22 @@ func main() {
                         UnitPrice: 1000,
                     },
                 },
-                OrderDescription: testbolt.String("Order #1234567890"),
+                OrderDescription: Test_Bolt_API.String("Order #1234567890"),
                 OrderReference: "order_100",
                 Shipments: []shared.CartShipment{
                     shared.CartShipment{
                         Address: &shared.AddressReference{},
-                        Carrier: testbolt.String("FedEx"),
+                        Carrier: Test_Bolt_API.String("FedEx"),
                         Cost: &shared.Amounts{
                             Currency: "USD",
-                            Tax: testbolt.Int64(900),
+                            Tax: Test_Bolt_API.Int64(900),
                             Total: 900,
                         },
                     },
                 },
             },
             PaymentMethod: shared.PaymentMethodSavedPaymentMethod{
-                DotTag: shared.PaymentMethodSavedPaymentMethodTagSavedPaymentMethod,
+                DotTag: "saved_payment_method",
                 ID: "id",
             },
         },
