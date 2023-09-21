@@ -30,7 +30,7 @@ import(
 )
 
 func main() {
-    s := testbolt.New()
+    s := Test_Bolt_API.New()
     operationSecurity := operations.MerchantCallbacksGetSecurity{
             APIKey: "",
         }
@@ -82,7 +82,7 @@ import(
 )
 
 func main() {
-    s := testbolt.New()
+    s := Test_Bolt_API.New()
     operationSecurity := operations.MerchantCallbacksUpdateSecurity{
             APIKey: "",
         }
@@ -91,25 +91,25 @@ func main() {
     res, err := s.Configuration.MerchantCallbacksUpdate(ctx, operations.MerchantCallbacksUpdateRequest{
         XPublishableKey: "vel",
         CallbackUrls: shared.CallbackUrls{
-            AccountPage: testbolt.String("https://www.example.com/account"),
-            BaseDomain: testbolt.String("https://www.example.com/"),
-            ConfirmationRedirect: testbolt.String("https://www.example.com/bolt/redirect"),
-            CreateOrder: testbolt.String("https://www.example.com/bolt/order"),
-            Debug: testbolt.String("https://www.example.com/bolt/debug"),
-            GetAccount: testbolt.String("https://www.example.com/bolt/account"),
-            MobileAppDomain: testbolt.String("https://m.example.com/"),
-            OauthLogout: testbolt.String("https://www.example.com/bolt/logout"),
-            OauthRedirect: testbolt.String("https://www.example.com/bolt/oauth"),
-            PrivacyPolicy: testbolt.String("https://www.example.com/privacy-policy"),
-            ProductInfo: testbolt.String("https://www.example.com/bolt/product"),
-            RemoteAPI: testbolt.String("https://www.example.com/bolt/remote-api"),
-            Shipping: testbolt.String("https://www.example.com/bolt/shipping"),
-            SupportPage: testbolt.String("https://www.example.com/help"),
-            Tax: testbolt.String("https://www.example.com/bolt/tax"),
-            TermsOfService: testbolt.String("https://www.example.com/terms-of-service"),
-            UniversalMerchantAPI: testbolt.String("https://www.example.com/bolt/merchant-api"),
-            UpdateCart: testbolt.String("https://www.example.com/bolt/cart"),
-            ValidateAdditionalAccountData: testbolt.String("https://www.example.com/bolt/validate-account"),
+            AccountPage: Test_Bolt_API.String("https://www.example.com/account"),
+            BaseDomain: Test_Bolt_API.String("https://www.example.com/"),
+            ConfirmationRedirect: Test_Bolt_API.String("https://www.example.com/bolt/redirect"),
+            CreateOrder: Test_Bolt_API.String("https://www.example.com/bolt/order"),
+            Debug: Test_Bolt_API.String("https://www.example.com/bolt/debug"),
+            GetAccount: Test_Bolt_API.String("https://www.example.com/bolt/account"),
+            MobileAppDomain: Test_Bolt_API.String("https://m.example.com/"),
+            OauthLogout: Test_Bolt_API.String("https://www.example.com/bolt/logout"),
+            OauthRedirect: Test_Bolt_API.String("https://www.example.com/bolt/oauth"),
+            PrivacyPolicy: Test_Bolt_API.String("https://www.example.com/privacy-policy"),
+            ProductInfo: Test_Bolt_API.String("https://www.example.com/bolt/product"),
+            RemoteAPI: Test_Bolt_API.String("https://www.example.com/bolt/remote-api"),
+            Shipping: Test_Bolt_API.String("https://www.example.com/bolt/shipping"),
+            SupportPage: Test_Bolt_API.String("https://www.example.com/help"),
+            Tax: Test_Bolt_API.String("https://www.example.com/bolt/tax"),
+            TermsOfService: Test_Bolt_API.String("https://www.example.com/terms-of-service"),
+            UniversalMerchantAPI: Test_Bolt_API.String("https://www.example.com/bolt/merchant-api"),
+            UpdateCart: Test_Bolt_API.String("https://www.example.com/bolt/cart"),
+            ValidateAdditionalAccountData: Test_Bolt_API.String("https://www.example.com/bolt/validate-account"),
         },
     }, operationSecurity)
     if err != nil {
@@ -153,7 +153,7 @@ import(
 )
 
 func main() {
-    s := testbolt.New()
+    s := Test_Bolt_API.New()
     operationSecurity := operations.MerchantIdentifiersGetSecurity{
             APIKey: "",
         }

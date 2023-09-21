@@ -34,7 +34,7 @@ import(
 )
 
 func main() {
-    s := testbolt.New()
+    s := Test_Bolt_API.New()
     operationSecurity := operations.WebhooksCreateSecurity{
             APIKey: "",
         }
@@ -85,7 +85,7 @@ import(
 )
 
 func main() {
-    s := testbolt.New()
+    s := Test_Bolt_API.New()
     operationSecurity := operations.WebhooksDeleteSecurity{
             APIKey: "",
         }
@@ -135,7 +135,7 @@ import(
 )
 
 func main() {
-    s := testbolt.New()
+    s := Test_Bolt_API.New()
     operationSecurity := operations.WebhooksGetSecurity{
             APIKey: "",
         }
@@ -185,7 +185,7 @@ import(
 )
 
 func main() {
-    s := testbolt.New()
+    s := Test_Bolt_API.New()
     operationSecurity := operations.WebhooksGetAllSecurity{
             APIKey: "",
         }
