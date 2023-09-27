@@ -1,4 +1,5 @@
 # Account
+(*Account*)
 
 ## Overview
 
@@ -31,13 +32,13 @@ package main
 import(
 	"context"
 	"log"
-	"github.com/speakeasy-sdks/Test_Bolt_API"
+	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
 )
 
 func main() {
-    s := testbolt.New()
+    s := testboltapi.New()
     operationSecurity := operations.AccountAddPaymentMethodSecurity{
             APIKey: "",
             Oauth: "",
@@ -45,14 +46,14 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Account.AccountAddPaymentMethod(ctx, operations.AccountAddPaymentMethodRequest{
-        XPublishableKey: "provident",
+        XPublishableKey: "distinctio",
         PaymentMethodCreditCard: shared.PaymentMethodCreditCard{
-            DotTag: shared.PaymentMethodCreditCardTagCreditCard,
-            BillingAddressID: testbolt.String("D4g3h5tBuVYK9"),
+            DotTag: "credit_card",
+            BillingAddressID: testboltapi.String("D4g3h5tBuVYK9"),
             BillingAddressInput: &shared.AddressReference{},
             Bin: "411111",
             Expiration: "2025-03",
-            ID: testbolt.String("X5h6j8uLpVGK0"),
+            ID: testboltapi.String("X5h6j8uLpVGK0"),
             Last4: "1004",
             Network: shared.PaymentMethodCreditCardNetworkVisa,
             Token: "a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0",
@@ -95,13 +96,13 @@ package main
 import(
 	"context"
 	"log"
-	"github.com/speakeasy-sdks/Test_Bolt_API"
+	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
 )
 
 func main() {
-    s := testbolt.New()
+    s := testboltapi.New()
     operationSecurity := operations.AccountAddressCreateSecurity{
             APIKey: "",
             Oauth: "",
@@ -109,21 +110,21 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Account.AccountAddressCreate(ctx, operations.AccountAddressCreateRequest{
-        XPublishableKey: "distinctio",
+        XPublishableKey: "quibusdam",
         AddressListing: shared.AddressListing{
-            Company: testbolt.String("ACME Corporation"),
+            Company: testboltapi.String("ACME Corporation"),
             CountryCode: "US",
-            Email: testbolt.String("alice@example.com"),
+            Email: testboltapi.String("alice@example.com"),
             FirstName: "Alice",
-            ID: testbolt.String("D4g3h5tBuVYK9"),
-            IsDefault: testbolt.Bool(true),
+            ID: testboltapi.String("D4g3h5tBuVYK9"),
+            IsDefault: testboltapi.Bool(true),
             LastName: "Baker",
             Locality: "San Francisco",
-            Phone: testbolt.String("+14155550199"),
+            Phone: testboltapi.String("+14155550199"),
             PostalCode: "94105",
-            Region: testbolt.String("CA"),
+            Region: testboltapi.String("CA"),
             StreetAddress1: "535 Mission St, Ste 1401",
-            StreetAddress2: testbolt.String("c/o Shipping Department"),
+            StreetAddress2: testboltapi.String("c/o Shipping Department"),
         },
     }, operationSecurity)
     if err != nil {
@@ -164,12 +165,12 @@ package main
 import(
 	"context"
 	"log"
-	"github.com/speakeasy-sdks/Test_Bolt_API"
+	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
 )
 
 func main() {
-    s := testbolt.New()
+    s := testboltapi.New()
     operationSecurity := operations.AccountAddressDeleteSecurity{
             APIKey: "",
             Oauth: "",
@@ -177,7 +178,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Account.AccountAddressDelete(ctx, operations.AccountAddressDeleteRequest{
-        XPublishableKey: "quibusdam",
+        XPublishableKey: "unde",
         ID: "D4g3h5tBuVYK9",
     }, operationSecurity)
     if err != nil {
@@ -219,13 +220,13 @@ package main
 import(
 	"context"
 	"log"
-	"github.com/speakeasy-sdks/Test_Bolt_API"
+	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
 )
 
 func main() {
-    s := testbolt.New()
+    s := testboltapi.New()
     operationSecurity := operations.AccountAddressEditSecurity{
             APIKey: "",
             Oauth: "",
@@ -233,21 +234,21 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Account.AccountAddressEdit(ctx, operations.AccountAddressEditRequest{
-        XPublishableKey: "unde",
+        XPublishableKey: "nulla",
         AddressListing: shared.AddressListing{
-            Company: testbolt.String("ACME Corporation"),
+            Company: testboltapi.String("ACME Corporation"),
             CountryCode: "US",
-            Email: testbolt.String("alice@example.com"),
+            Email: testboltapi.String("alice@example.com"),
             FirstName: "Alice",
-            ID: testbolt.String("D4g3h5tBuVYK9"),
-            IsDefault: testbolt.Bool(true),
+            ID: testboltapi.String("D4g3h5tBuVYK9"),
+            IsDefault: testboltapi.Bool(true),
             LastName: "Baker",
             Locality: "San Francisco",
-            Phone: testbolt.String("+14155550199"),
+            Phone: testboltapi.String("+14155550199"),
             PostalCode: "94105",
-            Region: testbolt.String("CA"),
+            Region: testboltapi.String("CA"),
             StreetAddress1: "535 Mission St, Ste 1401",
-            StreetAddress2: testbolt.String("c/o Shipping Department"),
+            StreetAddress2: testboltapi.String("c/o Shipping Department"),
         },
         ID: "D4g3h5tBuVYK9",
     }, operationSecurity)
@@ -287,17 +288,21 @@ package main
 import(
 	"context"
 	"log"
-	"github.com/speakeasy-sdks/Test_Bolt_API"
-	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
 )
 
 func main() {
-    s := testbolt.New()
+    s := testboltapi.New(
+        testboltapi.WithSecurity(shared.Security{
+            APIKey: "",
+        }),
+    )
 
     ctx := context.Background()
     res, err := s.Account.AccountExists(ctx, operations.AccountExistsRequest{
-        XPublishableKey: "nulla",
+        XPublishableKey: "corrupti",
         Identifier: shared.Identifier{
             IdentifierType: shared.IdentifierIdentifierTypeEmail,
             IdentifierValue: "alice@example.com",
@@ -338,12 +343,12 @@ package main
 import(
 	"context"
 	"log"
-	"github.com/speakeasy-sdks/Test_Bolt_API"
+	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
 )
 
 func main() {
-    s := testbolt.New()
+    s := testboltapi.New()
     operationSecurity := operations.AccountGetSecurity{
             APIKey: "",
             Oauth: "",
@@ -351,7 +356,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Account.AccountGet(ctx, operations.AccountGetRequest{
-        XPublishableKey: "corrupti",
+        XPublishableKey: "illum",
     }, operationSecurity)
     if err != nil {
         log.Fatal(err)
