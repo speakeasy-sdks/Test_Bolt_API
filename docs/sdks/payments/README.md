@@ -1,4 +1,5 @@
 # Payments
+(*Payments*)
 
 ## Overview
 
@@ -25,43 +26,44 @@ package main
 import(
 	"context"
 	"log"
-	"github.com/speakeasy-sdks/Test_Bolt_API"
-	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
 )
 
 func main() {
-    s := testbolt.New()
-    operationSecurity := operations.GuestPaymentsInitializeSecurity{
+    s := testboltapi.New(
+        testboltapi.WithSecurity(shared.Security{
             APIKey: "",
-        }
+        }),
+    )
 
     ctx := context.Background()
     res, err := s.Payments.GuestPaymentsInitialize(ctx, operations.GuestPaymentsInitializeRequest{
-        XPublishableKey: "error",
+        XPublishableKey: "Soap whereas input",
         GuestPaymentMethodInitializeRequest: shared.GuestPaymentMethodInitializeRequest{
             Cart: shared.Cart{
                 Amounts: shared.Amounts{
                     Currency: "USD",
-                    Tax: testbolt.Int64(900),
+                    Tax: testboltapi.Int64(900),
                     Total: 900,
                 },
                 Discounts: []shared.CartDiscount{
                     shared.CartDiscount{
                         Amounts: shared.Amounts{
                             Currency: "USD",
-                            Tax: testbolt.Int64(900),
+                            Tax: testboltapi.Int64(900),
                             Total: 900,
                         },
-                        Code: testbolt.String("SUMMER10DISCOUNT"),
-                        DetailsURL: testbolt.String("https://www.example.com/SUMMER-SALE"),
+                        Code: testboltapi.String("SUMMER10DISCOUNT"),
+                        DetailsURL: testboltapi.String("https://www.example.com/SUMMER-SALE"),
                     },
                 },
-                DisplayID: testbolt.String("215614191"),
+                DisplayID: testboltapi.String("215614191"),
                 Items: []shared.CartItem{
                     shared.CartItem{
-                        Description: testbolt.String("Large tote with Bolt logo."),
-                        ImageURL: testbolt.String("https://www.example.com/products/123456/images/1.png"),
+                        Description: testboltapi.String("Large tote with Bolt logo."),
+                        ImageURL: testboltapi.String("https://www.example.com/products/123456/images/1.png"),
                         Name: "Bolt Swag Bag",
                         Quantity: 1,
                         Reference: "item_100",
@@ -69,27 +71,27 @@ func main() {
                         UnitPrice: 1000,
                     },
                 },
-                OrderDescription: testbolt.String("Order #1234567890"),
+                OrderDescription: testboltapi.String("Order #1234567890"),
                 OrderReference: "order_100",
                 Shipments: []shared.CartShipment{
                     shared.CartShipment{
                         Address: &shared.AddressReference{},
-                        Carrier: testbolt.String("FedEx"),
+                        Carrier: testboltapi.String("FedEx"),
                         Cost: &shared.Amounts{
                             Currency: "USD",
-                            Tax: testbolt.Int64(900),
+                            Tax: testboltapi.Int64(900),
                             Total: 900,
                         },
                     },
                 },
             },
             PaymentMethod: shared.PaymentMethodPaypal{
-                DotTag: shared.PaymentMethodPaypalTagPaypal,
+                DotTag: "paypal",
                 Cancel: "www.example.com/handle_paypal_cancel",
                 Success: "www.example.com/handle_paypal_success",
             },
         },
-    }, operationSecurity)
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -102,11 +104,10 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                                | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
-| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                                    | [context.Context](https://pkg.go.dev/context#Context)                                                    | :heavy_check_mark:                                                                                       | The context to use for the request.                                                                      |
-| `request`                                                                                                | [operations.GuestPaymentsInitializeRequest](../../models/operations/guestpaymentsinitializerequest.md)   | :heavy_check_mark:                                                                                       | The request object to use for the request.                                                               |
-| `security`                                                                                               | [operations.GuestPaymentsInitializeSecurity](../../models/operations/guestpaymentsinitializesecurity.md) | :heavy_check_mark:                                                                                       | The security requirements to use for the request.                                                        |
+| Parameter                                                                                              | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                                  | :heavy_check_mark:                                                                                     | The context to use for the request.                                                                    |
+| `request`                                                                                              | [operations.GuestPaymentsInitializeRequest](../../models/operations/guestpaymentsinitializerequest.md) | :heavy_check_mark:                                                                                     | The request object to use for the request.                                                             |
 
 
 ### Response
@@ -128,13 +129,13 @@ package main
 import(
 	"context"
 	"log"
-	"github.com/speakeasy-sdks/Test_Bolt_API"
+	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
 )
 
 func main() {
-    s := testbolt.New()
+    s := testboltapi.New()
     operationSecurity := operations.PaymentsInitializeSecurity{
             APIKey: "",
             Oauth: "",
@@ -142,30 +143,30 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Payments.PaymentsInitialize(ctx, operations.PaymentsInitializeRequest{
-        XPublishableKey: "deserunt",
+        XPublishableKey: "possimus",
         PaymentMethodInitializeRequest: shared.PaymentMethodInitializeRequest{
             Cart: shared.Cart{
                 Amounts: shared.Amounts{
                     Currency: "USD",
-                    Tax: testbolt.Int64(900),
+                    Tax: testboltapi.Int64(900),
                     Total: 900,
                 },
                 Discounts: []shared.CartDiscount{
                     shared.CartDiscount{
                         Amounts: shared.Amounts{
                             Currency: "USD",
-                            Tax: testbolt.Int64(900),
+                            Tax: testboltapi.Int64(900),
                             Total: 900,
                         },
-                        Code: testbolt.String("SUMMER10DISCOUNT"),
-                        DetailsURL: testbolt.String("https://www.example.com/SUMMER-SALE"),
+                        Code: testboltapi.String("SUMMER10DISCOUNT"),
+                        DetailsURL: testboltapi.String("https://www.example.com/SUMMER-SALE"),
                     },
                 },
-                DisplayID: testbolt.String("215614191"),
+                DisplayID: testboltapi.String("215614191"),
                 Items: []shared.CartItem{
                     shared.CartItem{
-                        Description: testbolt.String("Large tote with Bolt logo."),
-                        ImageURL: testbolt.String("https://www.example.com/products/123456/images/1.png"),
+                        Description: testboltapi.String("Large tote with Bolt logo."),
+                        ImageURL: testboltapi.String("https://www.example.com/products/123456/images/1.png"),
                         Name: "Bolt Swag Bag",
                         Quantity: 1,
                         Reference: "item_100",
@@ -173,22 +174,22 @@ func main() {
                         UnitPrice: 1000,
                     },
                 },
-                OrderDescription: testbolt.String("Order #1234567890"),
+                OrderDescription: testboltapi.String("Order #1234567890"),
                 OrderReference: "order_100",
                 Shipments: []shared.CartShipment{
                     shared.CartShipment{
                         Address: &shared.AddressReference{},
-                        Carrier: testbolt.String("FedEx"),
+                        Carrier: testboltapi.String("FedEx"),
                         Cost: &shared.Amounts{
                             Currency: "USD",
-                            Tax: testbolt.Int64(900),
+                            Tax: testboltapi.Int64(900),
                             Total: 900,
                         },
                     },
                 },
             },
             PaymentMethod: shared.PaymentMethodSavedPaymentMethod{
-                DotTag: shared.PaymentMethodSavedPaymentMethodTagSavedPaymentMethod,
+                DotTag: "saved_payment_method",
                 ID: "id",
             },
         },
