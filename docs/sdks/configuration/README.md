@@ -1,4 +1,5 @@
 # Configuration
+(*Configuration*)
 
 ## Overview
 
@@ -25,20 +26,22 @@ package main
 import(
 	"context"
 	"log"
-	"github.com/speakeasy-sdks/Test_Bolt_API"
+	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
 )
 
 func main() {
-    s := testbolt.New()
-    operationSecurity := operations.MerchantCallbacksGetSecurity{
+    s := testboltapi.New(
+        testboltapi.WithSecurity(shared.Security{
             APIKey: "",
-        }
+        }),
+    )
 
     ctx := context.Background()
     res, err := s.Configuration.MerchantCallbacksGet(ctx, operations.MerchantCallbacksGetRequest{
-        XPublishableKey: "illum",
-    }, operationSecurity)
+        XPublishableKey: "North",
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -51,11 +54,10 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        |
-| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                              | [context.Context](https://pkg.go.dev/context#Context)                                              | :heavy_check_mark:                                                                                 | The context to use for the request.                                                                |
-| `request`                                                                                          | [operations.MerchantCallbacksGetRequest](../../models/operations/merchantcallbacksgetrequest.md)   | :heavy_check_mark:                                                                                 | The request object to use for the request.                                                         |
-| `security`                                                                                         | [operations.MerchantCallbacksGetSecurity](../../models/operations/merchantcallbacksgetsecurity.md) | :heavy_check_mark:                                                                                 | The security requirements to use for the request.                                                  |
+| Parameter                                                                                        | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                            | :heavy_check_mark:                                                                               | The context to use for the request.                                                              |
+| `request`                                                                                        | [operations.MerchantCallbacksGetRequest](../../models/operations/merchantcallbacksgetrequest.md) | :heavy_check_mark:                                                                               | The request object to use for the request.                                                       |
 
 
 ### Response
@@ -76,42 +78,43 @@ package main
 import(
 	"context"
 	"log"
-	"github.com/speakeasy-sdks/Test_Bolt_API"
-	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
 )
 
 func main() {
-    s := testbolt.New()
-    operationSecurity := operations.MerchantCallbacksUpdateSecurity{
+    s := testboltapi.New(
+        testboltapi.WithSecurity(shared.Security{
             APIKey: "",
-        }
+        }),
+    )
 
     ctx := context.Background()
     res, err := s.Configuration.MerchantCallbacksUpdate(ctx, operations.MerchantCallbacksUpdateRequest{
-        XPublishableKey: "vel",
+        XPublishableKey: "Savings Analyst",
         CallbackUrls: shared.CallbackUrls{
-            AccountPage: testbolt.String("https://www.example.com/account"),
-            BaseDomain: testbolt.String("https://www.example.com/"),
-            ConfirmationRedirect: testbolt.String("https://www.example.com/bolt/redirect"),
-            CreateOrder: testbolt.String("https://www.example.com/bolt/order"),
-            Debug: testbolt.String("https://www.example.com/bolt/debug"),
-            GetAccount: testbolt.String("https://www.example.com/bolt/account"),
-            MobileAppDomain: testbolt.String("https://m.example.com/"),
-            OauthLogout: testbolt.String("https://www.example.com/bolt/logout"),
-            OauthRedirect: testbolt.String("https://www.example.com/bolt/oauth"),
-            PrivacyPolicy: testbolt.String("https://www.example.com/privacy-policy"),
-            ProductInfo: testbolt.String("https://www.example.com/bolt/product"),
-            RemoteAPI: testbolt.String("https://www.example.com/bolt/remote-api"),
-            Shipping: testbolt.String("https://www.example.com/bolt/shipping"),
-            SupportPage: testbolt.String("https://www.example.com/help"),
-            Tax: testbolt.String("https://www.example.com/bolt/tax"),
-            TermsOfService: testbolt.String("https://www.example.com/terms-of-service"),
-            UniversalMerchantAPI: testbolt.String("https://www.example.com/bolt/merchant-api"),
-            UpdateCart: testbolt.String("https://www.example.com/bolt/cart"),
-            ValidateAdditionalAccountData: testbolt.String("https://www.example.com/bolt/validate-account"),
+            AccountPage: testboltapi.String("https://www.example.com/account"),
+            BaseDomain: testboltapi.String("https://www.example.com/"),
+            ConfirmationRedirect: testboltapi.String("https://www.example.com/bolt/redirect"),
+            CreateOrder: testboltapi.String("https://www.example.com/bolt/order"),
+            Debug: testboltapi.String("https://www.example.com/bolt/debug"),
+            GetAccount: testboltapi.String("https://www.example.com/bolt/account"),
+            MobileAppDomain: testboltapi.String("https://m.example.com/"),
+            OauthLogout: testboltapi.String("https://www.example.com/bolt/logout"),
+            OauthRedirect: testboltapi.String("https://www.example.com/bolt/oauth"),
+            PrivacyPolicy: testboltapi.String("https://www.example.com/privacy-policy"),
+            ProductInfo: testboltapi.String("https://www.example.com/bolt/product"),
+            RemoteAPI: testboltapi.String("https://www.example.com/bolt/remote-api"),
+            Shipping: testboltapi.String("https://www.example.com/bolt/shipping"),
+            SupportPage: testboltapi.String("https://www.example.com/help"),
+            Tax: testboltapi.String("https://www.example.com/bolt/tax"),
+            TermsOfService: testboltapi.String("https://www.example.com/terms-of-service"),
+            UniversalMerchantAPI: testboltapi.String("https://www.example.com/bolt/merchant-api"),
+            UpdateCart: testboltapi.String("https://www.example.com/bolt/cart"),
+            ValidateAdditionalAccountData: testboltapi.String("https://www.example.com/bolt/validate-account"),
         },
-    }, operationSecurity)
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -124,11 +127,10 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                                | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
-| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                                    | [context.Context](https://pkg.go.dev/context#Context)                                                    | :heavy_check_mark:                                                                                       | The context to use for the request.                                                                      |
-| `request`                                                                                                | [operations.MerchantCallbacksUpdateRequest](../../models/operations/merchantcallbacksupdaterequest.md)   | :heavy_check_mark:                                                                                       | The request object to use for the request.                                                               |
-| `security`                                                                                               | [operations.MerchantCallbacksUpdateSecurity](../../models/operations/merchantcallbacksupdatesecurity.md) | :heavy_check_mark:                                                                                       | The security requirements to use for the request.                                                        |
+| Parameter                                                                                              | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                                  | :heavy_check_mark:                                                                                     | The context to use for the request.                                                                    |
+| `request`                                                                                              | [operations.MerchantCallbacksUpdateRequest](../../models/operations/merchantcallbacksupdaterequest.md) | :heavy_check_mark:                                                                                     | The request object to use for the request.                                                             |
 
 
 ### Response
@@ -148,18 +150,19 @@ package main
 import(
 	"context"
 	"log"
-	"github.com/speakeasy-sdks/Test_Bolt_API"
-	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
 )
 
 func main() {
-    s := testbolt.New()
-    operationSecurity := operations.MerchantIdentifiersGetSecurity{
+    s := testboltapi.New(
+        testboltapi.WithSecurity(shared.Security{
             APIKey: "",
-        }
+        }),
+    )
 
     ctx := context.Background()
-    res, err := s.Configuration.MerchantIdentifiersGet(ctx, operationSecurity)
+    res, err := s.Configuration.MerchantIdentifiersGet(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -172,10 +175,9 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                              | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
-| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `ctx`                                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                                  | :heavy_check_mark:                                                                                     | The context to use for the request.                                                                    |
-| `security`                                                                                             | [operations.MerchantIdentifiersGetSecurity](../../models/operations/merchantidentifiersgetsecurity.md) | :heavy_check_mark:                                                                                     | The security requirements to use for the request.                                                      |
+| Parameter                                             | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
 
 
 ### Response
