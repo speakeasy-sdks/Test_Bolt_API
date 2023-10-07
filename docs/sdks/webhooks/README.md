@@ -30,7 +30,6 @@ import(
 	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/callbacks"
-	"net/http"
 )
 
 func main() {
@@ -42,7 +41,15 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Webhooks.WebhooksCreate(ctx, shared.WebhookInput{
-        Event: shared.WebhookEvent{},
+        Event: shared.CreateWebhookEventEventList(
+                shared.EventList{
+                    DotTag: shared.EventListTagList,
+                    EventList: []shared.EventListEventList{
+                        shared.EventListEventListAuth,
+                        shared.EventListEventListCapture,
+                    },
+                },
+        ),
         URL: "https://www.example.com/webhook",
     })
     if err != nil {
