@@ -33,9 +33,7 @@ import(
 
 func main() {
     s := testboltapi.New(
-        testboltapi.WithSecurity(shared.Security{
-            APIKey: "",
-        }),
+        testboltapi.WithSecurity(""),
     )
 
     ctx := context.Background()
@@ -143,6 +141,8 @@ import(
 
 func main() {
     s := testboltapi.New()
+
+
     operationSecurity := operations.PaymentsInitializeSecurity{
             APIKey: "",
             Oauth: "",
