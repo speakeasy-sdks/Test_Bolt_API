@@ -38,7 +38,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Payments.GuestPaymentsInitialize(ctx, operations.GuestPaymentsInitializeRequest{
-        XPublishableKey: "Soap whereas input",
+        XPublishableKey: "string",
         GuestPaymentMethodInitializeRequest: shared.GuestPaymentMethodInitializeRequest{
             Cart: shared.Cart{
                 Amounts: shared.Amounts{
@@ -150,7 +150,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Payments.PaymentsInitialize(ctx, operations.PaymentsInitializeRequest{
-        XPublishableKey: "possimus",
+        XPublishableKey: "string",
         PaymentMethodInitializeRequest: shared.PaymentMethodInitializeRequest{
             Cart: shared.Cart{
                 Amounts: shared.Amounts{
@@ -185,10 +185,21 @@ func main() {
                 OrderReference: "order_100",
                 Shipments: []shared.CartShipment{
                     shared.CartShipment{
-                        Address: shared.CreateAddressReferenceAddressReferenceID(
-                                shared.AddressReferenceID{
-                                    DotTag: shared.AddressReferenceIDTagID,
-                                    ID: "D4g3h5tBuVYK9",
+                        Address: shared.CreateAddressReferenceAddressReferenceExplicit(
+                                shared.AddressReferenceExplicit{
+                                    DotTag: shared.AddressReferenceExplicitTagExplicit,
+                                    Company: testboltapi.String("ACME Corporation"),
+                                    CountryCode: "US",
+                                    Email: testboltapi.String("alice@example.com"),
+                                    FirstName: "Alice",
+                                    ID: testboltapi.String("D4g3h5tBuVYK9"),
+                                    LastName: "Baker",
+                                    Locality: "San Francisco",
+                                    Phone: testboltapi.String("+14155550199"),
+                                    PostalCode: "94105",
+                                    Region: testboltapi.String("CA"),
+                                    StreetAddress1: "535 Mission St, Ste 1401",
+                                    StreetAddress2: testboltapi.String("c/o Shipping Department"),
                                 },
                         ),
                         Carrier: testboltapi.String("FedEx"),

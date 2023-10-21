@@ -38,7 +38,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Configuration.MerchantCallbacksGet(ctx, operations.MerchantCallbacksGetRequest{
-        XPublishableKey: "North",
+        XPublishableKey: "string",
     })
     if err != nil {
         log.Fatal(err)
@@ -88,7 +88,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Configuration.MerchantCallbacksUpdate(ctx, operations.MerchantCallbacksUpdateRequest{
-        XPublishableKey: "Savings Analyst",
+        XPublishableKey: "string",
         CallbackUrls: shared.CallbackUrls{
             AccountPage: testboltapi.String("https://www.example.com/account"),
             BaseDomain: testboltapi.String("https://www.example.com/"),

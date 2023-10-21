@@ -48,7 +48,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Account.AccountAddPaymentMethod(ctx, operations.AccountAddPaymentMethodRequest{
-        XPublishableKey: "maroon Silicon female",
+        XPublishableKey: "string",
         PaymentMethod: shared.CreatePaymentMethodPaymentMethodCreditCard(
                 shared.PaymentMethodCreditCard{
                     DotTag: shared.PaymentMethodCreditCardTagCreditCard,
@@ -121,7 +121,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Account.AccountAddressCreate(ctx, operations.AccountAddressCreateRequest{
-        XPublishableKey: "Corporate Designer",
+        XPublishableKey: "string",
         AddressListing: shared.AddressListing{
             Company: testboltapi.String("ACME Corporation"),
             CountryCode: "US",
@@ -191,7 +191,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Account.AccountAddressDelete(ctx, operations.AccountAddressDeleteRequest{
-        XPublishableKey: "bypassing Interactions inasmuch",
+        XPublishableKey: "string",
         ID: "D4g3h5tBuVYK9",
     }, operationSecurity)
     if err != nil {
@@ -249,7 +249,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Account.AccountAddressEdit(ctx, operations.AccountAddressEditRequest{
-        XPublishableKey: "Convertible",
+        XPublishableKey: "string",
         AddressListing: shared.AddressListing{
             Company: testboltapi.String("ACME Corporation"),
             CountryCode: "US",
@@ -315,7 +315,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Account.AccountExists(ctx, operations.AccountExistsRequest{
-        XPublishableKey: "productize South Manager",
+        XPublishableKey: "string",
         Identifier: shared.Identifier{
             IdentifierType: shared.IdentifierIdentifierTypeEmail,
             IdentifierValue: "alice@example.com",
@@ -371,7 +371,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Account.AccountGet(ctx, operations.AccountGetRequest{
-        XPublishableKey: "shrilly",
+        XPublishableKey: "string",
     }, operationSecurity)
     if err != nil {
         log.Fatal(err)
