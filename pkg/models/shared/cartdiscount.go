@@ -3,18 +3,19 @@
 package shared
 
 type CartDiscount struct {
-	Amounts Amounts `json:"amounts"`
+	// A monetary amount, i.e. a base unit amount and a supported currency.
+	Amount Amount `json:"amount"`
 	// Discount code.
 	Code *string `json:"code,omitempty"`
 	// Used to provide a link to additional details, such as a landing page, associated with the discount offering.
 	DetailsURL *string `json:"details_url,omitempty"`
 }
 
-func (o *CartDiscount) GetAmounts() Amounts {
+func (o *CartDiscount) GetAmount() Amount {
 	if o == nil {
-		return Amounts{}
+		return Amount{}
 	}
-	return o.Amounts
+	return o.Amount
 }
 
 func (o *CartDiscount) GetCode() *string {

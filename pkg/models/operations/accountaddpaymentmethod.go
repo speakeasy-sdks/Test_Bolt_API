@@ -7,29 +7,10 @@ import (
 	"net/http"
 )
 
-type AccountAddPaymentMethodSecurity struct {
-	APIKey string `security:"scheme,type=apiKey,subtype=header,name=X-API-Key"`
-	Oauth  string `security:"scheme,type=oauth2,name=Authorization"`
-}
-
-func (o *AccountAddPaymentMethodSecurity) GetAPIKey() string {
-	if o == nil {
-		return ""
-	}
-	return o.APIKey
-}
-
-func (o *AccountAddPaymentMethodSecurity) GetOauth() string {
-	if o == nil {
-		return ""
-	}
-	return o.Oauth
-}
-
 type AccountAddPaymentMethodRequest struct {
 	// The publicly viewable identifier used to identify a merchant division.
-	XPublishableKey string               `header:"style=simple,explode=false,name=X-Publishable-Key"`
-	PaymentMethod   shared.PaymentMethod `request:"mediaType=application/json"`
+	XPublishableKey    string                    `header:"style=simple,explode=false,name=X-Publishable-Key"`
+	PaymentMethodInput shared.PaymentMethodInput `request:"mediaType=application/json"`
 }
 
 func (o *AccountAddPaymentMethodRequest) GetXPublishableKey() string {
@@ -39,15 +20,19 @@ func (o *AccountAddPaymentMethodRequest) GetXPublishableKey() string {
 	return o.XPublishableKey
 }
 
-func (o *AccountAddPaymentMethodRequest) GetPaymentMethod() shared.PaymentMethod {
+func (o *AccountAddPaymentMethodRequest) GetPaymentMethodInput() shared.PaymentMethodInput {
 	if o == nil {
-		return shared.PaymentMethod{}
+		return shared.PaymentMethodInput{}
 	}
-	return o.PaymentMethod
+	return o.PaymentMethodInput
 }
 
-func (o *AccountAddPaymentMethodRequest) GetPaymentMethodCreditCard() *shared.PaymentMethodCreditCard {
-	return o.GetPaymentMethod().PaymentMethodCreditCard
+func (o *AccountAddPaymentMethodRequest) GetPaymentMethodInputCreditCard() *shared.PaymentMethodCreditCardInput {
+	return o.GetPaymentMethodInput().PaymentMethodCreditCardInput
+}
+
+func (o *AccountAddPaymentMethodRequest) GetPaymentMethodInputPaypal() *shared.PaymentMethodPaypal {
+	return o.GetPaymentMethodInput().PaymentMethodPaypal
 }
 
 type AccountAddPaymentMethodResponse struct {
@@ -58,7 +43,7 @@ type AccountAddPaymentMethodResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// The payment method was successfully added
-	PaymentMethod *shared.PaymentMethod
+	PaymentMethod *shared.PaymentMethodOutput
 }
 
 func (o *AccountAddPaymentMethodResponse) GetContentType() string {
@@ -82,16 +67,23 @@ func (o *AccountAddPaymentMethodResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *AccountAddPaymentMethodResponse) GetPaymentMethod() *shared.PaymentMethod {
+func (o *AccountAddPaymentMethodResponse) GetPaymentMethod() *shared.PaymentMethodOutput {
 	if o == nil {
 		return nil
 	}
 	return o.PaymentMethod
 }
 
-func (o *AccountAddPaymentMethodResponse) GetPaymentMethodCreditCard() *shared.PaymentMethodCreditCard {
+func (o *AccountAddPaymentMethodResponse) GetPaymentMethodCreditCard() *shared.PaymentMethodCreditCardOutput {
 	if v := o.GetPaymentMethod(); v != nil {
-		return v.PaymentMethodCreditCard
+		return v.PaymentMethodCreditCardOutput
+	}
+	return nil
+}
+
+func (o *AccountAddPaymentMethodResponse) GetPaymentMethodPaypal() *shared.PaymentMethodPaypalOutput {
+	if v := o.GetPaymentMethod(); v != nil {
+		return v.PaymentMethodPaypalOutput
 	}
 	return nil
 }

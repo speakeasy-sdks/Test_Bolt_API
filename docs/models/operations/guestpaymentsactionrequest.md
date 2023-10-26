@@ -1,0 +1,10 @@
+# GuestPaymentsActionRequest
+
+
+## Fields
+
+| Field                                                                      | Type                                                                       | Required                                                                   | Description                                                                | Example                                                                    |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `XPublishableKey`                                                          | *string*                                                                   | :heavy_check_mark:                                                         | The publicly viewable identifier used to identify a merchant division.     |                                                                            |
+| `ID`                                                                       | *string*                                                                   | :heavy_check_mark:                                                         | The ID of the guest payment to operate on                                  | iKv7t5bgt1gg                                                               |
+| `PaymentActionRequest`                                                     | [shared.PaymentActionRequest](../../models/shared/paymentactionrequest.md) | :heavy_check_mark:                                                         | N/A                                                                        |                                                                            |

@@ -99,3 +99,13 @@ Based on:
 - [go v0.7.0] .
 ### Releases
 - [Go v0.7.0] https://github.com/speakeasy-sdks/Test_Bolt_API/releases/tag/v0.7.0 - .
+
+## 2023-10-26 21:16:45
+### Changes
+Based on:
+- OpenAPI Doc 3.0.1 
+- Speakeasy CLI 1.108.1 (2.172.4) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.1] .
+### Releases
+- [Go v0.7.1] https://github.com/speakeasy-sdks/Test_Bolt_API/releases/tag/v0.7.1 - .

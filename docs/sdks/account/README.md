@@ -9,14 +9,81 @@ you can add or remove addresses and payment information.
 
 ### Available Operations
 
-* [AccountAddPaymentMethod](#accountaddpaymentmethod) - Add a payment method to a shopper's Bolt account Wallet.
-* [AccountAddressCreate](#accountaddresscreate) - Add an address
-* [AccountAddressDelete](#accountaddressdelete) - Delete an existing address
-* [AccountAddressEdit](#accountaddressedit) - Edit an existing address
-* [AccountExists](#accountexists) - Determine the existence of a Bolt account
-* [AccountGet](#accountget) - Retrieve account details
+* [AddAddress](#addaddress) - Add an address
+* [AddPaymentMethod](#addpaymentmethod) - Add a payment method to a shopper's Bolt account Wallet.
+* [DeleteAddress](#deleteaddress) - Delete an existing address
+* [DeletePaymentMethod](#deletepaymentmethod) - Delete an existing payment method
+* [Detect](#detect) - Determine the existence of a Bolt account
+* [GetDetails](#getdetails) - Retrieve account details
+* [UpdateAddress](#updateaddress) - Edit an existing address
 
-## AccountAddPaymentMethod
+## AddAddress
+
+Add an address to the shopper's account
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"log"
+	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+)
+
+func main() {
+    s := testboltapi.New(
+        testboltapi.WithSecurity(shared.Security{
+            APIKey: "",
+            Oauth: "",
+        }),
+    )
+
+    ctx := context.Background()
+    res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
+        XPublishableKey: "string",
+        AddressListingInput: shared.AddressListingInput{
+            Company: testboltapi.String("ACME Corporation"),
+            CountryCode: shared.AddressListingCountryCodeUs,
+            Email: testboltapi.String("alice@example.com"),
+            FirstName: "Alice",
+            IsDefault: testboltapi.Bool(true),
+            LastName: "Baker",
+            Locality: "San Francisco",
+            Phone: testboltapi.String("+14155550199"),
+            PostalCode: "94105",
+            Region: testboltapi.String("CA"),
+            StreetAddress1: "535 Mission St, Ste 1401",
+            StreetAddress2: testboltapi.String("c/o Shipping Department"),
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    if res.AddressListing != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                        | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                            | :heavy_check_mark:                                                                               | The context to use for the request.                                                              |
+| `request`                                                                                        | [operations.AccountAddressCreateRequest](../../models/operations/accountaddresscreaterequest.md) | :heavy_check_mark:                                                                               | The request object to use for the request.                                                       |
+
+
+### Response
+
+**[*operations.AccountAddressCreateResponse](../../models/operations/accountaddresscreateresponse.md), error**
+
+
+## AddPaymentMethod
 
 Add a payment method to a shopper's Bolt account Wallet. For security purposes, this request must come from
 your backend because authentication requires the use of your private key.<br />
@@ -33,42 +100,38 @@ import(
 	"context"
 	"log"
 	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
-	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
 )
 
 func main() {
-    s := testboltapi.New()
-
-
-    operationSecurity := operations.AccountAddPaymentMethodSecurity{
+    s := testboltapi.New(
+        testboltapi.WithSecurity(shared.Security{
             APIKey: "",
             Oauth: "",
-        }
+        }),
+    )
 
     ctx := context.Background()
-    res, err := s.Account.AccountAddPaymentMethod(ctx, operations.AccountAddPaymentMethodRequest{
+    res, err := s.Account.AddPaymentMethod(ctx, operations.AccountAddPaymentMethodRequest{
         XPublishableKey: "string",
-        PaymentMethod: shared.CreatePaymentMethodPaymentMethodCreditCard(
-                shared.PaymentMethodCreditCard{
+        PaymentMethodInput: shared.CreatePaymentMethodInputPaymentMethodCreditCardInput(
+                shared.PaymentMethodCreditCardInput{
                     DotTag: shared.PaymentMethodCreditCardTagCreditCard,
-                    BillingAddressID: testboltapi.String("D4g3h5tBuVYK9"),
-                    BillingAddressInput: shared.CreateAddressReferenceAddressReferenceID(
-                            shared.AddressReferenceID{
-                                DotTag: shared.AddressReferenceIDTagID,
+                    BillingAddress: shared.CreateAddressReferenceInputAddressReferenceAddressReferenceID(
+                            shared.AddressReferenceAddressReferenceID{
+                                DotTag: shared.AddressReferenceAddressReferenceIDTagID,
                                 ID: "D4g3h5tBuVYK9",
                             },
                     ),
                     Bin: "411111",
-                    Expiration: "2025-03",
-                    ID: testboltapi.String("X5h6j8uLpVGK0"),
+                    Expiration: "2029-03",
                     Last4: "1004",
                     Network: shared.PaymentMethodCreditCardNetworkVisa,
                     Token: "a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0",
-                    Type: shared.PaymentMethodCreditCardTypeCredit,
                 },
         ),
-    }, operationSecurity)
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -81,11 +144,10 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                                | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
-| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                                    | [context.Context](https://pkg.go.dev/context#Context)                                                    | :heavy_check_mark:                                                                                       | The context to use for the request.                                                                      |
-| `request`                                                                                                | [operations.AccountAddPaymentMethodRequest](../../models/operations/accountaddpaymentmethodrequest.md)   | :heavy_check_mark:                                                                                       | The request object to use for the request.                                                               |
-| `security`                                                                                               | [operations.AccountAddPaymentMethodSecurity](../../models/operations/accountaddpaymentmethodsecurity.md) | :heavy_check_mark:                                                                                       | The security requirements to use for the request.                                                        |
+| Parameter                                                                                              | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                                  | :heavy_check_mark:                                                                                     | The context to use for the request.                                                                    |
+| `request`                                                                                              | [operations.AccountAddPaymentMethodRequest](../../models/operations/accountaddpaymentmethodrequest.md) | :heavy_check_mark:                                                                                     | The request object to use for the request.                                                             |
 
 
 ### Response
@@ -93,76 +155,7 @@ func main() {
 **[*operations.AccountAddPaymentMethodResponse](../../models/operations/accountaddpaymentmethodresponse.md), error**
 
 
-## AccountAddressCreate
-
-Add an address to the shopper's account
-
-### Example Usage
-
-```go
-package main
-
-import(
-	"context"
-	"log"
-	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
-	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
-	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
-)
-
-func main() {
-    s := testboltapi.New()
-
-
-    operationSecurity := operations.AccountAddressCreateSecurity{
-            APIKey: "",
-            Oauth: "",
-        }
-
-    ctx := context.Background()
-    res, err := s.Account.AccountAddressCreate(ctx, operations.AccountAddressCreateRequest{
-        XPublishableKey: "string",
-        AddressListing: shared.AddressListing{
-            Company: testboltapi.String("ACME Corporation"),
-            CountryCode: "US",
-            Email: testboltapi.String("alice@example.com"),
-            FirstName: "Alice",
-            ID: testboltapi.String("D4g3h5tBuVYK9"),
-            IsDefault: testboltapi.Bool(true),
-            LastName: "Baker",
-            Locality: "San Francisco",
-            Phone: testboltapi.String("+14155550199"),
-            PostalCode: "94105",
-            Region: testboltapi.String("CA"),
-            StreetAddress1: "535 Mission St, Ste 1401",
-            StreetAddress2: testboltapi.String("c/o Shipping Department"),
-        },
-    }, operationSecurity)
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    if res.AddressListing != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        |
-| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                              | [context.Context](https://pkg.go.dev/context#Context)                                              | :heavy_check_mark:                                                                                 | The context to use for the request.                                                                |
-| `request`                                                                                          | [operations.AccountAddressCreateRequest](../../models/operations/accountaddresscreaterequest.md)   | :heavy_check_mark:                                                                                 | The request object to use for the request.                                                         |
-| `security`                                                                                         | [operations.AccountAddressCreateSecurity](../../models/operations/accountaddresscreatesecurity.md) | :heavy_check_mark:                                                                                 | The security requirements to use for the request.                                                  |
-
-
-### Response
-
-**[*operations.AccountAddressCreateResponse](../../models/operations/accountaddresscreateresponse.md), error**
-
-
-## AccountAddressDelete
+## DeleteAddress
 
 Delete an existing address. Deleting an address does not invalidate transactions or
 shipments that are associated with it.
@@ -177,23 +170,23 @@ import(
 	"context"
 	"log"
 	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
 )
 
 func main() {
-    s := testboltapi.New()
-
-
-    operationSecurity := operations.AccountAddressDeleteSecurity{
+    s := testboltapi.New(
+        testboltapi.WithSecurity(shared.Security{
             APIKey: "",
             Oauth: "",
-        }
+        }),
+    )
 
     ctx := context.Background()
-    res, err := s.Account.AccountAddressDelete(ctx, operations.AccountAddressDeleteRequest{
+    res, err := s.Account.DeleteAddress(ctx, operations.AccountAddressDeleteRequest{
         XPublishableKey: "string",
         ID: "D4g3h5tBuVYK9",
-    }, operationSecurity)
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -206,11 +199,10 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        |
-| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                              | [context.Context](https://pkg.go.dev/context#Context)                                              | :heavy_check_mark:                                                                                 | The context to use for the request.                                                                |
-| `request`                                                                                          | [operations.AccountAddressDeleteRequest](../../models/operations/accountaddressdeleterequest.md)   | :heavy_check_mark:                                                                                 | The request object to use for the request.                                                         |
-| `security`                                                                                         | [operations.AccountAddressDeleteSecurity](../../models/operations/accountaddressdeletesecurity.md) | :heavy_check_mark:                                                                                 | The security requirements to use for the request.                                                  |
+| Parameter                                                                                        | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                            | :heavy_check_mark:                                                                               | The context to use for the request.                                                              |
+| `request`                                                                                        | [operations.AccountAddressDeleteRequest](../../models/operations/accountaddressdeleterequest.md) | :heavy_check_mark:                                                                               | The request object to use for the request.                                                       |
 
 
 ### Response
@@ -218,11 +210,10 @@ func main() {
 **[*operations.AccountAddressDeleteResponse](../../models/operations/accountaddressdeleteresponse.md), error**
 
 
-## AccountAddressEdit
+## DeletePaymentMethod
 
-Edit an existing address on the shopper's account. This does not edit addresses
-that are already associated with other resources, such as transactions or
-shipments.
+Delete an existing payment method. Deleting a payment method does not invalidate transactions or
+orders that are associated with it.
 
 
 ### Example Usage
@@ -234,44 +225,28 @@ import(
 	"context"
 	"log"
 	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
-	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
 )
 
 func main() {
-    s := testboltapi.New()
-
-
-    operationSecurity := operations.AccountAddressEditSecurity{
+    s := testboltapi.New(
+        testboltapi.WithSecurity(shared.Security{
             APIKey: "",
             Oauth: "",
-        }
+        }),
+    )
 
     ctx := context.Background()
-    res, err := s.Account.AccountAddressEdit(ctx, operations.AccountAddressEditRequest{
+    res, err := s.Account.DeletePaymentMethod(ctx, operations.AccountPaymentMethodDeleteRequest{
         XPublishableKey: "string",
-        AddressListing: shared.AddressListing{
-            Company: testboltapi.String("ACME Corporation"),
-            CountryCode: "US",
-            Email: testboltapi.String("alice@example.com"),
-            FirstName: "Alice",
-            ID: testboltapi.String("D4g3h5tBuVYK9"),
-            IsDefault: testboltapi.Bool(true),
-            LastName: "Baker",
-            Locality: "San Francisco",
-            Phone: testboltapi.String("+14155550199"),
-            PostalCode: "94105",
-            Region: testboltapi.String("CA"),
-            StreetAddress1: "535 Mission St, Ste 1401",
-            StreetAddress2: testboltapi.String("c/o Shipping Department"),
-        },
         ID: "D4g3h5tBuVYK9",
-    }, operationSecurity)
+    })
     if err != nil {
         log.Fatal(err)
     }
 
-    if res.AddressListing != nil {
+    if res.StatusCode == http.StatusOK {
         // handle response
     }
 }
@@ -279,19 +254,18 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                      | Type                                                                                           | Required                                                                                       | Description                                                                                    |
-| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                          | :heavy_check_mark:                                                                             | The context to use for the request.                                                            |
-| `request`                                                                                      | [operations.AccountAddressEditRequest](../../models/operations/accountaddresseditrequest.md)   | :heavy_check_mark:                                                                             | The request object to use for the request.                                                     |
-| `security`                                                                                     | [operations.AccountAddressEditSecurity](../../models/operations/accountaddresseditsecurity.md) | :heavy_check_mark:                                                                             | The security requirements to use for the request.                                              |
+| Parameter                                                                                                    | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                                        | [context.Context](https://pkg.go.dev/context#Context)                                                        | :heavy_check_mark:                                                                                           | The context to use for the request.                                                                          |
+| `request`                                                                                                    | [operations.AccountPaymentMethodDeleteRequest](../../models/operations/accountpaymentmethoddeleterequest.md) | :heavy_check_mark:                                                                                           | The request object to use for the request.                                                                   |
 
 
 ### Response
 
-**[*operations.AccountAddressEditResponse](../../models/operations/accountaddresseditresponse.md), error**
+**[*operations.AccountPaymentMethodDeleteResponse](../../models/operations/accountpaymentmethoddeleteresponse.md), error**
 
 
-## AccountExists
+## Detect
 
 Determine whether or not an identifier is associated with an existing Bolt account.
 
@@ -310,11 +284,14 @@ import(
 
 func main() {
     s := testboltapi.New(
-        testboltapi.WithSecurity(""),
+        testboltapi.WithSecurity(shared.Security{
+            APIKey: "",
+            Oauth: "",
+        }),
     )
 
     ctx := context.Background()
-    res, err := s.Account.AccountExists(ctx, operations.AccountExistsRequest{
+    res, err := s.Account.Detect(ctx, operations.AccountExistsRequest{
         XPublishableKey: "string",
         Identifier: shared.Identifier{
             IdentifierType: shared.IdentifierIdentifierTypeEmail,
@@ -344,7 +321,7 @@ func main() {
 **[*operations.AccountExistsResponse](../../models/operations/accountexistsresponse.md), error**
 
 
-## AccountGet
+## GetDetails
 
 Retrieve a shopper's account details, such as addresses and payment information
 
@@ -357,22 +334,22 @@ import(
 	"context"
 	"log"
 	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
 )
 
 func main() {
-    s := testboltapi.New()
-
-
-    operationSecurity := operations.AccountGetSecurity{
+    s := testboltapi.New(
+        testboltapi.WithSecurity(shared.Security{
             APIKey: "",
             Oauth: "",
-        }
+        }),
+    )
 
     ctx := context.Background()
-    res, err := s.Account.AccountGet(ctx, operations.AccountGetRequest{
+    res, err := s.Account.GetDetails(ctx, operations.AccountGetRequest{
         XPublishableKey: "string",
-    }, operationSecurity)
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -385,14 +362,83 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| `ctx`                                                                          | [context.Context](https://pkg.go.dev/context#Context)                          | :heavy_check_mark:                                                             | The context to use for the request.                                            |
-| `request`                                                                      | [operations.AccountGetRequest](../../models/operations/accountgetrequest.md)   | :heavy_check_mark:                                                             | The request object to use for the request.                                     |
-| `security`                                                                     | [operations.AccountGetSecurity](../../models/operations/accountgetsecurity.md) | :heavy_check_mark:                                                             | The security requirements to use for the request.                              |
+| Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `ctx`                                                                        | [context.Context](https://pkg.go.dev/context#Context)                        | :heavy_check_mark:                                                           | The context to use for the request.                                          |
+| `request`                                                                    | [operations.AccountGetRequest](../../models/operations/accountgetrequest.md) | :heavy_check_mark:                                                           | The request object to use for the request.                                   |
 
 
 ### Response
 
 **[*operations.AccountGetResponse](../../models/operations/accountgetresponse.md), error**
+
+
+## UpdateAddress
+
+Edit an existing address on the shopper's account. This does not edit addresses
+that are already associated with other resources, such as transactions or
+shipments.
+
+
+### Example Usage
+
+```go
+package main
+
+import(
+	"context"
+	"log"
+	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+)
+
+func main() {
+    s := testboltapi.New(
+        testboltapi.WithSecurity(shared.Security{
+            APIKey: "",
+            Oauth: "",
+        }),
+    )
+
+    ctx := context.Background()
+    res, err := s.Account.UpdateAddress(ctx, operations.AccountAddressEditRequest{
+        XPublishableKey: "string",
+        AddressListingInput: shared.AddressListingInput{
+            Company: testboltapi.String("ACME Corporation"),
+            CountryCode: shared.AddressListingCountryCodeUs,
+            Email: testboltapi.String("alice@example.com"),
+            FirstName: "Alice",
+            IsDefault: testboltapi.Bool(true),
+            LastName: "Baker",
+            Locality: "San Francisco",
+            Phone: testboltapi.String("+14155550199"),
+            PostalCode: "94105",
+            Region: testboltapi.String("CA"),
+            StreetAddress1: "535 Mission St, Ste 1401",
+            StreetAddress2: testboltapi.String("c/o Shipping Department"),
+        },
+        ID: "D4g3h5tBuVYK9",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    if res.AddressListing != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                    | Type                                                                                         | Required                                                                                     | Description                                                                                  |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                        | [context.Context](https://pkg.go.dev/context#Context)                                        | :heavy_check_mark:                                                                           | The context to use for the request.                                                          |
+| `request`                                                                                    | [operations.AccountAddressEditRequest](../../models/operations/accountaddresseditrequest.md) | :heavy_check_mark:                                                                           | The request object to use for the request.                                                   |
+
+
+### Response
+
+**[*operations.AccountAddressEditResponse](../../models/operations/accountaddresseditresponse.md), error**
 

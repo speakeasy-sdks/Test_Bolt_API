@@ -7,29 +7,10 @@ import (
 	"net/http"
 )
 
-type PaymentsInitializeSecurity struct {
-	APIKey string `security:"scheme,type=apiKey,subtype=header,name=X-API-Key"`
-	Oauth  string `security:"scheme,type=oauth2,name=Authorization"`
-}
-
-func (o *PaymentsInitializeSecurity) GetAPIKey() string {
-	if o == nil {
-		return ""
-	}
-	return o.APIKey
-}
-
-func (o *PaymentsInitializeSecurity) GetOauth() string {
-	if o == nil {
-		return ""
-	}
-	return o.Oauth
-}
-
 type PaymentsInitializeRequest struct {
 	// The publicly viewable identifier used to identify a merchant division.
-	XPublishableKey                string                                `header:"style=simple,explode=false,name=X-Publishable-Key"`
-	PaymentMethodInitializeRequest shared.PaymentMethodInitializeRequest `request:"mediaType=application/json"`
+	XPublishableKey          string                          `header:"style=simple,explode=false,name=X-Publishable-Key"`
+	PaymentInitializeRequest shared.PaymentInitializeRequest `request:"mediaType=application/json"`
 }
 
 func (o *PaymentsInitializeRequest) GetXPublishableKey() string {
@@ -39,11 +20,11 @@ func (o *PaymentsInitializeRequest) GetXPublishableKey() string {
 	return o.XPublishableKey
 }
 
-func (o *PaymentsInitializeRequest) GetPaymentMethodInitializeRequest() shared.PaymentMethodInitializeRequest {
+func (o *PaymentsInitializeRequest) GetPaymentInitializeRequest() shared.PaymentInitializeRequest {
 	if o == nil {
-		return shared.PaymentMethodInitializeRequest{}
+		return shared.PaymentInitializeRequest{}
 	}
-	return o.PaymentMethodInitializeRequest
+	return o.PaymentInitializeRequest
 }
 
 type PaymentsInitializeResponse struct {
@@ -53,8 +34,8 @@ type PaymentsInitializeResponse struct {
 	StatusCode int
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
-	// Payment token retrieved
-	PaymentMethodInitializeResponse *shared.PaymentMethodInitializeResponse
+	// The payment was successfully initialized, and was either immediately finalized or is pending
+	PaymentResponse *shared.PaymentResponse
 }
 
 func (o *PaymentsInitializeResponse) GetContentType() string {
@@ -78,9 +59,9 @@ func (o *PaymentsInitializeResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *PaymentsInitializeResponse) GetPaymentMethodInitializeResponse() *shared.PaymentMethodInitializeResponse {
+func (o *PaymentsInitializeResponse) GetPaymentResponse() *shared.PaymentResponse {
 	if o == nil {
 		return nil
 	}
-	return o.PaymentMethodInitializeResponse
+	return o.PaymentResponse
 }

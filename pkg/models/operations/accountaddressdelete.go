@@ -6,25 +6,6 @@ import (
 	"net/http"
 )
 
-type AccountAddressDeleteSecurity struct {
-	APIKey string `security:"scheme,type=apiKey,subtype=header,name=X-API-Key"`
-	Oauth  string `security:"scheme,type=oauth2,name=Authorization"`
-}
-
-func (o *AccountAddressDeleteSecurity) GetAPIKey() string {
-	if o == nil {
-		return ""
-	}
-	return o.APIKey
-}
-
-func (o *AccountAddressDeleteSecurity) GetOauth() string {
-	if o == nil {
-		return ""
-	}
-	return o.Oauth
-}
-
 type AccountAddressDeleteRequest struct {
 	// The publicly viewable identifier used to identify a merchant division.
 	XPublishableKey string `header:"style=simple,explode=false,name=X-Publishable-Key"`

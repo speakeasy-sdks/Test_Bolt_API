@@ -7,7 +7,7 @@ import (
 	"fmt"
 )
 
-// CreditCardNetwork - The credit card network.
+// CreditCardNetwork - The credit card's network.
 type CreditCardNetwork string
 
 const (
@@ -53,50 +53,32 @@ func (e *CreditCardNetwork) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type CreditCard struct {
-	// The Bank Identification Number for the credit card. This is typically the first 4-6 digits of the credit card number.
-	Bin string `json:"bin"`
-	// The expiration date of the credit card. TODO TO MAKE EXPIRATION REUSABLE
+type CreditCardOutput struct {
+	// The expiration date, in YYYY-MM format.
 	Expiration string `json:"expiration"`
-	// The last 4 digits of the credit card number.
+	// The account number's last four digits.
 	Last4 string `json:"last4"`
-	// The credit card network.
+	// The credit card's network.
 	Network CreditCardNetwork `json:"network"`
-	// The Bolt token associated to the credit card.
-	Token string `json:"token"`
 }
 
-func (o *CreditCard) GetBin() string {
-	if o == nil {
-		return ""
-	}
-	return o.Bin
-}
-
-func (o *CreditCard) GetExpiration() string {
+func (o *CreditCardOutput) GetExpiration() string {
 	if o == nil {
 		return ""
 	}
 	return o.Expiration
 }
 
-func (o *CreditCard) GetLast4() string {
+func (o *CreditCardOutput) GetLast4() string {
 	if o == nil {
 		return ""
 	}
 	return o.Last4
 }
 
-func (o *CreditCard) GetNetwork() CreditCardNetwork {
+func (o *CreditCardOutput) GetNetwork() CreditCardNetwork {
 	if o == nil {
 		return CreditCardNetwork("")
 	}
 	return o.Network
-}
-
-func (o *CreditCard) GetToken() string {
-	if o == nil {
-		return ""
-	}
-	return o.Token
 }

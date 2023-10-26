@@ -7,6 +7,37 @@ import (
 	"net/http"
 )
 
+type TestingAccountCreateSecurity struct {
+	APIKey string `security:"scheme,type=apiKey,subtype=header,name=X-API-Key"`
+}
+
+func (o *TestingAccountCreateSecurity) GetAPIKey() string {
+	if o == nil {
+		return ""
+	}
+	return o.APIKey
+}
+
+type TestingAccountCreateRequest struct {
+	// The publicly viewable identifier used to identify a merchant division.
+	XPublishableKey              string                              `header:"style=simple,explode=false,name=X-Publishable-Key"`
+	AccountTestCreationDataInput shared.AccountTestCreationDataInput `request:"mediaType=application/json"`
+}
+
+func (o *TestingAccountCreateRequest) GetXPublishableKey() string {
+	if o == nil {
+		return ""
+	}
+	return o.XPublishableKey
+}
+
+func (o *TestingAccountCreateRequest) GetAccountTestCreationDataInput() shared.AccountTestCreationDataInput {
+	if o == nil {
+		return shared.AccountTestCreationDataInput{}
+	}
+	return o.AccountTestCreationDataInput
+}
+
 type TestingAccountCreateResponse struct {
 	// HTTP response content type for this operation
 	ContentType string

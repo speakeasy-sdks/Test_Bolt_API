@@ -59,3 +59,14 @@ func (o *PaymentMethodPaypal) GetSuccess() string {
 	}
 	return o.Success
 }
+
+type PaymentMethodPaypalOutput struct {
+	DotTag PaymentMethodPaypalTag `json:".tag"`
+}
+
+func (o *PaymentMethodPaypalOutput) GetDotTag() PaymentMethodPaypalTag {
+	if o == nil {
+		return PaymentMethodPaypalTag("")
+	}
+	return o.DotTag
+}

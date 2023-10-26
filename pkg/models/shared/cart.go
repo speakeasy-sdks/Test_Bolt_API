@@ -3,9 +3,8 @@
 package shared
 
 type Cart struct {
-	Amounts   Amounts        `json:"amounts"`
 	Discounts []CartDiscount `json:"discounts,omitempty"`
-	// This field corresponds to the merchant's order reference associated with this Bolt transaction.
+	// A shopper-facing identifier corresponding to the order reference associated with this transaction.
 	DisplayID *string    `json:"display_id,omitempty"`
 	Items     []CartItem `json:"items,omitempty"`
 	// Used optionally to pass additional information like order numbers or other IDs as needed.
@@ -13,13 +12,10 @@ type Cart struct {
 	// This value is used by Bolt as an external reference to a given order. This reference must be unique per successful transaction.
 	OrderReference string         `json:"order_reference"`
 	Shipments      []CartShipment `json:"shipments,omitempty"`
-}
-
-func (o *Cart) GetAmounts() Amounts {
-	if o == nil {
-		return Amounts{}
-	}
-	return o.Amounts
+	// A monetary amount, i.e. a base unit amount and a supported currency.
+	Tax Amount `json:"tax"`
+	// A monetary amount, i.e. a base unit amount and a supported currency.
+	Total Amount `json:"total"`
 }
 
 func (o *Cart) GetDiscounts() []CartDiscount {
@@ -62,4 +58,18 @@ func (o *Cart) GetShipments() []CartShipment {
 		return nil
 	}
 	return o.Shipments
+}
+
+func (o *Cart) GetTax() Amount {
+	if o == nil {
+		return Amount{}
+	}
+	return o.Tax
+}
+
+func (o *Cart) GetTotal() Amount {
+	if o == nil {
+		return Amount{}
+	}
+	return o.Total
 }

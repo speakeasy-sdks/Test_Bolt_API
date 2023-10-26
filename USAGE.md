@@ -13,41 +13,36 @@ import (
 )
 
 func main() {
-	s := testboltapi.New()
-
-	operationSecurity := operations.AccountAddPaymentMethodSecurity{
-		APIKey: "",
-		Oauth:  "",
-	}
+	s := testboltapi.New(
+		testboltapi.WithSecurity(shared.Security{
+			APIKey: "",
+			Oauth:  "",
+		}),
+	)
 
 	ctx := context.Background()
-	res, err := s.Account.AccountAddPaymentMethod(ctx, operations.AccountAddPaymentMethodRequest{
+	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
 		XPublishableKey: "string",
-		PaymentMethod: shared.CreatePaymentMethodPaymentMethodCreditCard(
-			shared.PaymentMethodCreditCard{
-				DotTag:           shared.PaymentMethodCreditCardTagCreditCard,
-				BillingAddressID: testboltapi.String("D4g3h5tBuVYK9"),
-				BillingAddressInput: shared.CreateAddressReferenceAddressReferenceID(
-					shared.AddressReferenceID{
-						DotTag: shared.AddressReferenceIDTagID,
-						ID:     "D4g3h5tBuVYK9",
-					},
-				),
-				Bin:        "411111",
-				Expiration: "2025-03",
-				ID:         testboltapi.String("X5h6j8uLpVGK0"),
-				Last4:      "1004",
-				Network:    shared.PaymentMethodCreditCardNetworkVisa,
-				Token:      "a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0",
-				Type:       shared.PaymentMethodCreditCardTypeCredit,
-			},
-		),
-	}, operationSecurity)
+		AddressListingInput: shared.AddressListingInput{
+			Company:        testboltapi.String("ACME Corporation"),
+			CountryCode:    shared.AddressListingCountryCodeUs,
+			Email:          testboltapi.String("alice@example.com"),
+			FirstName:      "Alice",
+			IsDefault:      testboltapi.Bool(true),
+			LastName:       "Baker",
+			Locality:       "San Francisco",
+			Phone:          testboltapi.String("+14155550199"),
+			PostalCode:     "94105",
+			Region:         testboltapi.String("CA"),
+			StreetAddress1: "535 Mission St, Ste 1401",
+			StreetAddress2: testboltapi.String("c/o Shipping Department"),
+		},
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if res.PaymentMethod != nil {
+	if res.AddressListing != nil {
 		// handle response
 	}
 }

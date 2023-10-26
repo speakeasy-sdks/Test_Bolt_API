@@ -3,9 +3,11 @@
 package shared
 
 type Account struct {
-	Addresses      []AddressListing `json:"addresses"`
-	PaymentMethods []PaymentMethod  `json:"payment_methods"`
-	Profile        *Profile         `json:"profile,omitempty"`
+	// A list of addresses associated with this account.
+	Addresses []AddressListing `json:"addresses"`
+	// A list of payment methods associated with this account.
+	PaymentMethods []PaymentMethodOutput `json:"payment_methods"`
+	Profile        *Profile              `json:"profile,omitempty"`
 }
 
 func (o *Account) GetAddresses() []AddressListing {
@@ -15,9 +17,9 @@ func (o *Account) GetAddresses() []AddressListing {
 	return o.Addresses
 }
 
-func (o *Account) GetPaymentMethods() []PaymentMethod {
+func (o *Account) GetPaymentMethods() []PaymentMethodOutput {
 	if o == nil {
-		return []PaymentMethod{}
+		return []PaymentMethodOutput{}
 	}
 	return o.PaymentMethods
 }

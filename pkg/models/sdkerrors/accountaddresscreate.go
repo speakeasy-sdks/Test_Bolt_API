@@ -7,15 +7,15 @@ import (
 	"net/http"
 )
 
-// AccountAddressCreate400ApplicationJSON - The address is invalid and cannot be added
-type AccountAddressCreate400ApplicationJSON struct {
+// AccountAddressCreate4XXApplicationJSON - The address is invalid and cannot be added, or some other error has occurred
+type AccountAddressCreate4XXApplicationJSON struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response `json:"-"`
 }
 
-var _ error = &AccountAddressCreate400ApplicationJSON{}
+var _ error = &AccountAddressCreate4XXApplicationJSON{}
 
-func (e *AccountAddressCreate400ApplicationJSON) Error() string {
+func (e *AccountAddressCreate4XXApplicationJSON) Error() string {
 	data, _ := json.Marshal(e)
 	return string(data)
 }

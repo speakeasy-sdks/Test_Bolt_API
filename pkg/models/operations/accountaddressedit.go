@@ -7,29 +7,10 @@ import (
 	"net/http"
 )
 
-type AccountAddressEditSecurity struct {
-	APIKey string `security:"scheme,type=apiKey,subtype=header,name=X-API-Key"`
-	Oauth  string `security:"scheme,type=oauth2,name=Authorization"`
-}
-
-func (o *AccountAddressEditSecurity) GetAPIKey() string {
-	if o == nil {
-		return ""
-	}
-	return o.APIKey
-}
-
-func (o *AccountAddressEditSecurity) GetOauth() string {
-	if o == nil {
-		return ""
-	}
-	return o.Oauth
-}
-
 type AccountAddressEditRequest struct {
 	// The publicly viewable identifier used to identify a merchant division.
-	XPublishableKey string                `header:"style=simple,explode=false,name=X-Publishable-Key"`
-	AddressListing  shared.AddressListing `request:"mediaType=application/json"`
+	XPublishableKey     string                     `header:"style=simple,explode=false,name=X-Publishable-Key"`
+	AddressListingInput shared.AddressListingInput `request:"mediaType=application/json"`
 	// The ID of the address to edit
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
@@ -41,11 +22,11 @@ func (o *AccountAddressEditRequest) GetXPublishableKey() string {
 	return o.XPublishableKey
 }
 
-func (o *AccountAddressEditRequest) GetAddressListing() shared.AddressListing {
+func (o *AccountAddressEditRequest) GetAddressListingInput() shared.AddressListingInput {
 	if o == nil {
-		return shared.AddressListing{}
+		return shared.AddressListingInput{}
 	}
-	return o.AddressListing
+	return o.AddressListingInput
 }
 
 func (o *AccountAddressEditRequest) GetID() string {

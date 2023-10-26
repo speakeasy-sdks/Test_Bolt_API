@@ -2,19 +2,919 @@
 
 package shared
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// AddressListingCountryCode - The country (in its ISO 3166 alpha-2 format) associated with this address.
+type AddressListingCountryCode string
+
+const (
+	AddressListingCountryCodeAf AddressListingCountryCode = "AF"
+	AddressListingCountryCodeAx AddressListingCountryCode = "AX"
+	AddressListingCountryCodeAl AddressListingCountryCode = "AL"
+	AddressListingCountryCodeDz AddressListingCountryCode = "DZ"
+	AddressListingCountryCodeAs AddressListingCountryCode = "AS"
+	AddressListingCountryCodeAd AddressListingCountryCode = "AD"
+	AddressListingCountryCodeAo AddressListingCountryCode = "AO"
+	AddressListingCountryCodeAi AddressListingCountryCode = "AI"
+	AddressListingCountryCodeAq AddressListingCountryCode = "AQ"
+	AddressListingCountryCodeAg AddressListingCountryCode = "AG"
+	AddressListingCountryCodeAr AddressListingCountryCode = "AR"
+	AddressListingCountryCodeAm AddressListingCountryCode = "AM"
+	AddressListingCountryCodeAw AddressListingCountryCode = "AW"
+	AddressListingCountryCodeAu AddressListingCountryCode = "AU"
+	AddressListingCountryCodeAt AddressListingCountryCode = "AT"
+	AddressListingCountryCodeAz AddressListingCountryCode = "AZ"
+	AddressListingCountryCodeBh AddressListingCountryCode = "BH"
+	AddressListingCountryCodeBs AddressListingCountryCode = "BS"
+	AddressListingCountryCodeBd AddressListingCountryCode = "BD"
+	AddressListingCountryCodeBb AddressListingCountryCode = "BB"
+	AddressListingCountryCodeBy AddressListingCountryCode = "BY"
+	AddressListingCountryCodeBe AddressListingCountryCode = "BE"
+	AddressListingCountryCodeBz AddressListingCountryCode = "BZ"
+	AddressListingCountryCodeBj AddressListingCountryCode = "BJ"
+	AddressListingCountryCodeBm AddressListingCountryCode = "BM"
+	AddressListingCountryCodeBt AddressListingCountryCode = "BT"
+	AddressListingCountryCodeBo AddressListingCountryCode = "BO"
+	AddressListingCountryCodeBq AddressListingCountryCode = "BQ"
+	AddressListingCountryCodeBa AddressListingCountryCode = "BA"
+	AddressListingCountryCodeBw AddressListingCountryCode = "BW"
+	AddressListingCountryCodeBv AddressListingCountryCode = "BV"
+	AddressListingCountryCodeBr AddressListingCountryCode = "BR"
+	AddressListingCountryCodeIo AddressListingCountryCode = "IO"
+	AddressListingCountryCodeBn AddressListingCountryCode = "BN"
+	AddressListingCountryCodeBg AddressListingCountryCode = "BG"
+	AddressListingCountryCodeBf AddressListingCountryCode = "BF"
+	AddressListingCountryCodeBi AddressListingCountryCode = "BI"
+	AddressListingCountryCodeKh AddressListingCountryCode = "KH"
+	AddressListingCountryCodeCm AddressListingCountryCode = "CM"
+	AddressListingCountryCodeCa AddressListingCountryCode = "CA"
+	AddressListingCountryCodeCv AddressListingCountryCode = "CV"
+	AddressListingCountryCodeKy AddressListingCountryCode = "KY"
+	AddressListingCountryCodeCf AddressListingCountryCode = "CF"
+	AddressListingCountryCodeTd AddressListingCountryCode = "TD"
+	AddressListingCountryCodeCl AddressListingCountryCode = "CL"
+	AddressListingCountryCodeCn AddressListingCountryCode = "CN"
+	AddressListingCountryCodeCx AddressListingCountryCode = "CX"
+	AddressListingCountryCodeCc AddressListingCountryCode = "CC"
+	AddressListingCountryCodeCo AddressListingCountryCode = "CO"
+	AddressListingCountryCodeKm AddressListingCountryCode = "KM"
+	AddressListingCountryCodeCg AddressListingCountryCode = "CG"
+	AddressListingCountryCodeCd AddressListingCountryCode = "CD"
+	AddressListingCountryCodeCk AddressListingCountryCode = "CK"
+	AddressListingCountryCodeCr AddressListingCountryCode = "CR"
+	AddressListingCountryCodeCi AddressListingCountryCode = "CI"
+	AddressListingCountryCodeHr AddressListingCountryCode = "HR"
+	AddressListingCountryCodeCu AddressListingCountryCode = "CU"
+	AddressListingCountryCodeCw AddressListingCountryCode = "CW"
+	AddressListingCountryCodeCy AddressListingCountryCode = "CY"
+	AddressListingCountryCodeCz AddressListingCountryCode = "CZ"
+	AddressListingCountryCodeDk AddressListingCountryCode = "DK"
+	AddressListingCountryCodeDj AddressListingCountryCode = "DJ"
+	AddressListingCountryCodeDm AddressListingCountryCode = "DM"
+	AddressListingCountryCodeDo AddressListingCountryCode = "DO"
+	AddressListingCountryCodeEc AddressListingCountryCode = "EC"
+	AddressListingCountryCodeEg AddressListingCountryCode = "EG"
+	AddressListingCountryCodeSv AddressListingCountryCode = "SV"
+	AddressListingCountryCodeGq AddressListingCountryCode = "GQ"
+	AddressListingCountryCodeEr AddressListingCountryCode = "ER"
+	AddressListingCountryCodeEe AddressListingCountryCode = "EE"
+	AddressListingCountryCodeEt AddressListingCountryCode = "ET"
+	AddressListingCountryCodeFk AddressListingCountryCode = "FK"
+	AddressListingCountryCodeFo AddressListingCountryCode = "FO"
+	AddressListingCountryCodeFj AddressListingCountryCode = "FJ"
+	AddressListingCountryCodeFi AddressListingCountryCode = "FI"
+	AddressListingCountryCodeFr AddressListingCountryCode = "FR"
+	AddressListingCountryCodeGf AddressListingCountryCode = "GF"
+	AddressListingCountryCodePf AddressListingCountryCode = "PF"
+	AddressListingCountryCodeTf AddressListingCountryCode = "TF"
+	AddressListingCountryCodeGa AddressListingCountryCode = "GA"
+	AddressListingCountryCodeGm AddressListingCountryCode = "GM"
+	AddressListingCountryCodeGe AddressListingCountryCode = "GE"
+	AddressListingCountryCodeDe AddressListingCountryCode = "DE"
+	AddressListingCountryCodeGh AddressListingCountryCode = "GH"
+	AddressListingCountryCodeGi AddressListingCountryCode = "GI"
+	AddressListingCountryCodeGr AddressListingCountryCode = "GR"
+	AddressListingCountryCodeGl AddressListingCountryCode = "GL"
+	AddressListingCountryCodeGd AddressListingCountryCode = "GD"
+	AddressListingCountryCodeGp AddressListingCountryCode = "GP"
+	AddressListingCountryCodeGu AddressListingCountryCode = "GU"
+	AddressListingCountryCodeGt AddressListingCountryCode = "GT"
+	AddressListingCountryCodeGg AddressListingCountryCode = "GG"
+	AddressListingCountryCodeGn AddressListingCountryCode = "GN"
+	AddressListingCountryCodeGw AddressListingCountryCode = "GW"
+	AddressListingCountryCodeGy AddressListingCountryCode = "GY"
+	AddressListingCountryCodeHt AddressListingCountryCode = "HT"
+	AddressListingCountryCodeHm AddressListingCountryCode = "HM"
+	AddressListingCountryCodeVa AddressListingCountryCode = "VA"
+	AddressListingCountryCodeHn AddressListingCountryCode = "HN"
+	AddressListingCountryCodeHk AddressListingCountryCode = "HK"
+	AddressListingCountryCodeHu AddressListingCountryCode = "HU"
+	AddressListingCountryCodeIs AddressListingCountryCode = "IS"
+	AddressListingCountryCodeIn AddressListingCountryCode = "IN"
+	AddressListingCountryCodeID AddressListingCountryCode = "ID"
+	AddressListingCountryCodeIr AddressListingCountryCode = "IR"
+	AddressListingCountryCodeIq AddressListingCountryCode = "IQ"
+	AddressListingCountryCodeIe AddressListingCountryCode = "IE"
+	AddressListingCountryCodeIm AddressListingCountryCode = "IM"
+	AddressListingCountryCodeIl AddressListingCountryCode = "IL"
+	AddressListingCountryCodeIt AddressListingCountryCode = "IT"
+	AddressListingCountryCodeJm AddressListingCountryCode = "JM"
+	AddressListingCountryCodeJp AddressListingCountryCode = "JP"
+	AddressListingCountryCodeJe AddressListingCountryCode = "JE"
+	AddressListingCountryCodeJo AddressListingCountryCode = "JO"
+	AddressListingCountryCodeKz AddressListingCountryCode = "KZ"
+	AddressListingCountryCodeKe AddressListingCountryCode = "KE"
+	AddressListingCountryCodeKi AddressListingCountryCode = "KI"
+	AddressListingCountryCodeKp AddressListingCountryCode = "KP"
+	AddressListingCountryCodeKr AddressListingCountryCode = "KR"
+	AddressListingCountryCodeKw AddressListingCountryCode = "KW"
+	AddressListingCountryCodeKg AddressListingCountryCode = "KG"
+	AddressListingCountryCodeLa AddressListingCountryCode = "LA"
+	AddressListingCountryCodeLv AddressListingCountryCode = "LV"
+	AddressListingCountryCodeLb AddressListingCountryCode = "LB"
+	AddressListingCountryCodeLs AddressListingCountryCode = "LS"
+	AddressListingCountryCodeLr AddressListingCountryCode = "LR"
+	AddressListingCountryCodeLy AddressListingCountryCode = "LY"
+	AddressListingCountryCodeLi AddressListingCountryCode = "LI"
+	AddressListingCountryCodeLt AddressListingCountryCode = "LT"
+	AddressListingCountryCodeLu AddressListingCountryCode = "LU"
+	AddressListingCountryCodeMo AddressListingCountryCode = "MO"
+	AddressListingCountryCodeMk AddressListingCountryCode = "MK"
+	AddressListingCountryCodeMg AddressListingCountryCode = "MG"
+	AddressListingCountryCodeMw AddressListingCountryCode = "MW"
+	AddressListingCountryCodeMy AddressListingCountryCode = "MY"
+	AddressListingCountryCodeMv AddressListingCountryCode = "MV"
+	AddressListingCountryCodeMl AddressListingCountryCode = "ML"
+	AddressListingCountryCodeMt AddressListingCountryCode = "MT"
+	AddressListingCountryCodeMh AddressListingCountryCode = "MH"
+	AddressListingCountryCodeMq AddressListingCountryCode = "MQ"
+	AddressListingCountryCodeMr AddressListingCountryCode = "MR"
+	AddressListingCountryCodeMu AddressListingCountryCode = "MU"
+	AddressListingCountryCodeYt AddressListingCountryCode = "YT"
+	AddressListingCountryCodeMx AddressListingCountryCode = "MX"
+	AddressListingCountryCodeFm AddressListingCountryCode = "FM"
+	AddressListingCountryCodeMd AddressListingCountryCode = "MD"
+	AddressListingCountryCodeMc AddressListingCountryCode = "MC"
+	AddressListingCountryCodeMn AddressListingCountryCode = "MN"
+	AddressListingCountryCodeMe AddressListingCountryCode = "ME"
+	AddressListingCountryCodeMs AddressListingCountryCode = "MS"
+	AddressListingCountryCodeMa AddressListingCountryCode = "MA"
+	AddressListingCountryCodeMz AddressListingCountryCode = "MZ"
+	AddressListingCountryCodeMm AddressListingCountryCode = "MM"
+	AddressListingCountryCodeNa AddressListingCountryCode = "NA"
+	AddressListingCountryCodeNr AddressListingCountryCode = "NR"
+	AddressListingCountryCodeNp AddressListingCountryCode = "NP"
+	AddressListingCountryCodeNl AddressListingCountryCode = "NL"
+	AddressListingCountryCodeNc AddressListingCountryCode = "NC"
+	AddressListingCountryCodeNz AddressListingCountryCode = "NZ"
+	AddressListingCountryCodeNi AddressListingCountryCode = "NI"
+	AddressListingCountryCodeNe AddressListingCountryCode = "NE"
+	AddressListingCountryCodeNg AddressListingCountryCode = "NG"
+	AddressListingCountryCodeNu AddressListingCountryCode = "NU"
+	AddressListingCountryCodeNf AddressListingCountryCode = "NF"
+	AddressListingCountryCodeMp AddressListingCountryCode = "MP"
+	AddressListingCountryCodeNo AddressListingCountryCode = "NO"
+	AddressListingCountryCodeOm AddressListingCountryCode = "OM"
+	AddressListingCountryCodePk AddressListingCountryCode = "PK"
+	AddressListingCountryCodePw AddressListingCountryCode = "PW"
+	AddressListingCountryCodePs AddressListingCountryCode = "PS"
+	AddressListingCountryCodePa AddressListingCountryCode = "PA"
+	AddressListingCountryCodePg AddressListingCountryCode = "PG"
+	AddressListingCountryCodePy AddressListingCountryCode = "PY"
+	AddressListingCountryCodePe AddressListingCountryCode = "PE"
+	AddressListingCountryCodePh AddressListingCountryCode = "PH"
+	AddressListingCountryCodePn AddressListingCountryCode = "PN"
+	AddressListingCountryCodePl AddressListingCountryCode = "PL"
+	AddressListingCountryCodePt AddressListingCountryCode = "PT"
+	AddressListingCountryCodePr AddressListingCountryCode = "PR"
+	AddressListingCountryCodeQa AddressListingCountryCode = "QA"
+	AddressListingCountryCodeRe AddressListingCountryCode = "RE"
+	AddressListingCountryCodeRo AddressListingCountryCode = "RO"
+	AddressListingCountryCodeRu AddressListingCountryCode = "RU"
+	AddressListingCountryCodeRw AddressListingCountryCode = "RW"
+	AddressListingCountryCodeBl AddressListingCountryCode = "BL"
+	AddressListingCountryCodeSh AddressListingCountryCode = "SH"
+	AddressListingCountryCodeKn AddressListingCountryCode = "KN"
+	AddressListingCountryCodeLc AddressListingCountryCode = "LC"
+	AddressListingCountryCodeMf AddressListingCountryCode = "MF"
+	AddressListingCountryCodePm AddressListingCountryCode = "PM"
+	AddressListingCountryCodeVc AddressListingCountryCode = "VC"
+	AddressListingCountryCodeWs AddressListingCountryCode = "WS"
+	AddressListingCountryCodeSm AddressListingCountryCode = "SM"
+	AddressListingCountryCodeSt AddressListingCountryCode = "ST"
+	AddressListingCountryCodeSa AddressListingCountryCode = "SA"
+	AddressListingCountryCodeSn AddressListingCountryCode = "SN"
+	AddressListingCountryCodeRs AddressListingCountryCode = "RS"
+	AddressListingCountryCodeSc AddressListingCountryCode = "SC"
+	AddressListingCountryCodeSl AddressListingCountryCode = "SL"
+	AddressListingCountryCodeSg AddressListingCountryCode = "SG"
+	AddressListingCountryCodeSx AddressListingCountryCode = "SX"
+	AddressListingCountryCodeSk AddressListingCountryCode = "SK"
+	AddressListingCountryCodeSi AddressListingCountryCode = "SI"
+	AddressListingCountryCodeSb AddressListingCountryCode = "SB"
+	AddressListingCountryCodeSo AddressListingCountryCode = "SO"
+	AddressListingCountryCodeZa AddressListingCountryCode = "ZA"
+	AddressListingCountryCodeGs AddressListingCountryCode = "GS"
+	AddressListingCountryCodeSs AddressListingCountryCode = "SS"
+	AddressListingCountryCodeEs AddressListingCountryCode = "ES"
+	AddressListingCountryCodeLk AddressListingCountryCode = "LK"
+	AddressListingCountryCodeSd AddressListingCountryCode = "SD"
+	AddressListingCountryCodeSr AddressListingCountryCode = "SR"
+	AddressListingCountryCodeSj AddressListingCountryCode = "SJ"
+	AddressListingCountryCodeSz AddressListingCountryCode = "SZ"
+	AddressListingCountryCodeSe AddressListingCountryCode = "SE"
+	AddressListingCountryCodeCh AddressListingCountryCode = "CH"
+	AddressListingCountryCodeSy AddressListingCountryCode = "SY"
+	AddressListingCountryCodeTw AddressListingCountryCode = "TW"
+	AddressListingCountryCodeTj AddressListingCountryCode = "TJ"
+	AddressListingCountryCodeTz AddressListingCountryCode = "TZ"
+	AddressListingCountryCodeTh AddressListingCountryCode = "TH"
+	AddressListingCountryCodeTl AddressListingCountryCode = "TL"
+	AddressListingCountryCodeTg AddressListingCountryCode = "TG"
+	AddressListingCountryCodeTk AddressListingCountryCode = "TK"
+	AddressListingCountryCodeTo AddressListingCountryCode = "TO"
+	AddressListingCountryCodeTt AddressListingCountryCode = "TT"
+	AddressListingCountryCodeTn AddressListingCountryCode = "TN"
+	AddressListingCountryCodeTr AddressListingCountryCode = "TR"
+	AddressListingCountryCodeTm AddressListingCountryCode = "TM"
+	AddressListingCountryCodeTc AddressListingCountryCode = "TC"
+	AddressListingCountryCodeTv AddressListingCountryCode = "TV"
+	AddressListingCountryCodeUg AddressListingCountryCode = "UG"
+	AddressListingCountryCodeUa AddressListingCountryCode = "UA"
+	AddressListingCountryCodeAe AddressListingCountryCode = "AE"
+	AddressListingCountryCodeGb AddressListingCountryCode = "GB"
+	AddressListingCountryCodeUs AddressListingCountryCode = "US"
+	AddressListingCountryCodeUm AddressListingCountryCode = "UM"
+	AddressListingCountryCodeUy AddressListingCountryCode = "UY"
+	AddressListingCountryCodeUz AddressListingCountryCode = "UZ"
+	AddressListingCountryCodeVu AddressListingCountryCode = "VU"
+	AddressListingCountryCodeVe AddressListingCountryCode = "VE"
+	AddressListingCountryCodeVn AddressListingCountryCode = "VN"
+	AddressListingCountryCodeVg AddressListingCountryCode = "VG"
+	AddressListingCountryCodeVi AddressListingCountryCode = "VI"
+	AddressListingCountryCodeWf AddressListingCountryCode = "WF"
+	AddressListingCountryCodeEh AddressListingCountryCode = "EH"
+	AddressListingCountryCodeYe AddressListingCountryCode = "YE"
+	AddressListingCountryCodeZm AddressListingCountryCode = "ZM"
+	AddressListingCountryCodeZw AddressListingCountryCode = "ZW"
+)
+
+func (e AddressListingCountryCode) ToPointer() *AddressListingCountryCode {
+	return &e
+}
+
+func (e *AddressListingCountryCode) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "AF":
+		fallthrough
+	case "AX":
+		fallthrough
+	case "AL":
+		fallthrough
+	case "DZ":
+		fallthrough
+	case "AS":
+		fallthrough
+	case "AD":
+		fallthrough
+	case "AO":
+		fallthrough
+	case "AI":
+		fallthrough
+	case "AQ":
+		fallthrough
+	case "AG":
+		fallthrough
+	case "AR":
+		fallthrough
+	case "AM":
+		fallthrough
+	case "AW":
+		fallthrough
+	case "AU":
+		fallthrough
+	case "AT":
+		fallthrough
+	case "AZ":
+		fallthrough
+	case "BH":
+		fallthrough
+	case "BS":
+		fallthrough
+	case "BD":
+		fallthrough
+	case "BB":
+		fallthrough
+	case "BY":
+		fallthrough
+	case "BE":
+		fallthrough
+	case "BZ":
+		fallthrough
+	case "BJ":
+		fallthrough
+	case "BM":
+		fallthrough
+	case "BT":
+		fallthrough
+	case "BO":
+		fallthrough
+	case "BQ":
+		fallthrough
+	case "BA":
+		fallthrough
+	case "BW":
+		fallthrough
+	case "BV":
+		fallthrough
+	case "BR":
+		fallthrough
+	case "IO":
+		fallthrough
+	case "BN":
+		fallthrough
+	case "BG":
+		fallthrough
+	case "BF":
+		fallthrough
+	case "BI":
+		fallthrough
+	case "KH":
+		fallthrough
+	case "CM":
+		fallthrough
+	case "CA":
+		fallthrough
+	case "CV":
+		fallthrough
+	case "KY":
+		fallthrough
+	case "CF":
+		fallthrough
+	case "TD":
+		fallthrough
+	case "CL":
+		fallthrough
+	case "CN":
+		fallthrough
+	case "CX":
+		fallthrough
+	case "CC":
+		fallthrough
+	case "CO":
+		fallthrough
+	case "KM":
+		fallthrough
+	case "CG":
+		fallthrough
+	case "CD":
+		fallthrough
+	case "CK":
+		fallthrough
+	case "CR":
+		fallthrough
+	case "CI":
+		fallthrough
+	case "HR":
+		fallthrough
+	case "CU":
+		fallthrough
+	case "CW":
+		fallthrough
+	case "CY":
+		fallthrough
+	case "CZ":
+		fallthrough
+	case "DK":
+		fallthrough
+	case "DJ":
+		fallthrough
+	case "DM":
+		fallthrough
+	case "DO":
+		fallthrough
+	case "EC":
+		fallthrough
+	case "EG":
+		fallthrough
+	case "SV":
+		fallthrough
+	case "GQ":
+		fallthrough
+	case "ER":
+		fallthrough
+	case "EE":
+		fallthrough
+	case "ET":
+		fallthrough
+	case "FK":
+		fallthrough
+	case "FO":
+		fallthrough
+	case "FJ":
+		fallthrough
+	case "FI":
+		fallthrough
+	case "FR":
+		fallthrough
+	case "GF":
+		fallthrough
+	case "PF":
+		fallthrough
+	case "TF":
+		fallthrough
+	case "GA":
+		fallthrough
+	case "GM":
+		fallthrough
+	case "GE":
+		fallthrough
+	case "DE":
+		fallthrough
+	case "GH":
+		fallthrough
+	case "GI":
+		fallthrough
+	case "GR":
+		fallthrough
+	case "GL":
+		fallthrough
+	case "GD":
+		fallthrough
+	case "GP":
+		fallthrough
+	case "GU":
+		fallthrough
+	case "GT":
+		fallthrough
+	case "GG":
+		fallthrough
+	case "GN":
+		fallthrough
+	case "GW":
+		fallthrough
+	case "GY":
+		fallthrough
+	case "HT":
+		fallthrough
+	case "HM":
+		fallthrough
+	case "VA":
+		fallthrough
+	case "HN":
+		fallthrough
+	case "HK":
+		fallthrough
+	case "HU":
+		fallthrough
+	case "IS":
+		fallthrough
+	case "IN":
+		fallthrough
+	case "ID":
+		fallthrough
+	case "IR":
+		fallthrough
+	case "IQ":
+		fallthrough
+	case "IE":
+		fallthrough
+	case "IM":
+		fallthrough
+	case "IL":
+		fallthrough
+	case "IT":
+		fallthrough
+	case "JM":
+		fallthrough
+	case "JP":
+		fallthrough
+	case "JE":
+		fallthrough
+	case "JO":
+		fallthrough
+	case "KZ":
+		fallthrough
+	case "KE":
+		fallthrough
+	case "KI":
+		fallthrough
+	case "KP":
+		fallthrough
+	case "KR":
+		fallthrough
+	case "KW":
+		fallthrough
+	case "KG":
+		fallthrough
+	case "LA":
+		fallthrough
+	case "LV":
+		fallthrough
+	case "LB":
+		fallthrough
+	case "LS":
+		fallthrough
+	case "LR":
+		fallthrough
+	case "LY":
+		fallthrough
+	case "LI":
+		fallthrough
+	case "LT":
+		fallthrough
+	case "LU":
+		fallthrough
+	case "MO":
+		fallthrough
+	case "MK":
+		fallthrough
+	case "MG":
+		fallthrough
+	case "MW":
+		fallthrough
+	case "MY":
+		fallthrough
+	case "MV":
+		fallthrough
+	case "ML":
+		fallthrough
+	case "MT":
+		fallthrough
+	case "MH":
+		fallthrough
+	case "MQ":
+		fallthrough
+	case "MR":
+		fallthrough
+	case "MU":
+		fallthrough
+	case "YT":
+		fallthrough
+	case "MX":
+		fallthrough
+	case "FM":
+		fallthrough
+	case "MD":
+		fallthrough
+	case "MC":
+		fallthrough
+	case "MN":
+		fallthrough
+	case "ME":
+		fallthrough
+	case "MS":
+		fallthrough
+	case "MA":
+		fallthrough
+	case "MZ":
+		fallthrough
+	case "MM":
+		fallthrough
+	case "NA":
+		fallthrough
+	case "NR":
+		fallthrough
+	case "NP":
+		fallthrough
+	case "NL":
+		fallthrough
+	case "NC":
+		fallthrough
+	case "NZ":
+		fallthrough
+	case "NI":
+		fallthrough
+	case "NE":
+		fallthrough
+	case "NG":
+		fallthrough
+	case "NU":
+		fallthrough
+	case "NF":
+		fallthrough
+	case "MP":
+		fallthrough
+	case "NO":
+		fallthrough
+	case "OM":
+		fallthrough
+	case "PK":
+		fallthrough
+	case "PW":
+		fallthrough
+	case "PS":
+		fallthrough
+	case "PA":
+		fallthrough
+	case "PG":
+		fallthrough
+	case "PY":
+		fallthrough
+	case "PE":
+		fallthrough
+	case "PH":
+		fallthrough
+	case "PN":
+		fallthrough
+	case "PL":
+		fallthrough
+	case "PT":
+		fallthrough
+	case "PR":
+		fallthrough
+	case "QA":
+		fallthrough
+	case "RE":
+		fallthrough
+	case "RO":
+		fallthrough
+	case "RU":
+		fallthrough
+	case "RW":
+		fallthrough
+	case "BL":
+		fallthrough
+	case "SH":
+		fallthrough
+	case "KN":
+		fallthrough
+	case "LC":
+		fallthrough
+	case "MF":
+		fallthrough
+	case "PM":
+		fallthrough
+	case "VC":
+		fallthrough
+	case "WS":
+		fallthrough
+	case "SM":
+		fallthrough
+	case "ST":
+		fallthrough
+	case "SA":
+		fallthrough
+	case "SN":
+		fallthrough
+	case "RS":
+		fallthrough
+	case "SC":
+		fallthrough
+	case "SL":
+		fallthrough
+	case "SG":
+		fallthrough
+	case "SX":
+		fallthrough
+	case "SK":
+		fallthrough
+	case "SI":
+		fallthrough
+	case "SB":
+		fallthrough
+	case "SO":
+		fallthrough
+	case "ZA":
+		fallthrough
+	case "GS":
+		fallthrough
+	case "SS":
+		fallthrough
+	case "ES":
+		fallthrough
+	case "LK":
+		fallthrough
+	case "SD":
+		fallthrough
+	case "SR":
+		fallthrough
+	case "SJ":
+		fallthrough
+	case "SZ":
+		fallthrough
+	case "SE":
+		fallthrough
+	case "CH":
+		fallthrough
+	case "SY":
+		fallthrough
+	case "TW":
+		fallthrough
+	case "TJ":
+		fallthrough
+	case "TZ":
+		fallthrough
+	case "TH":
+		fallthrough
+	case "TL":
+		fallthrough
+	case "TG":
+		fallthrough
+	case "TK":
+		fallthrough
+	case "TO":
+		fallthrough
+	case "TT":
+		fallthrough
+	case "TN":
+		fallthrough
+	case "TR":
+		fallthrough
+	case "TM":
+		fallthrough
+	case "TC":
+		fallthrough
+	case "TV":
+		fallthrough
+	case "UG":
+		fallthrough
+	case "UA":
+		fallthrough
+	case "AE":
+		fallthrough
+	case "GB":
+		fallthrough
+	case "US":
+		fallthrough
+	case "UM":
+		fallthrough
+	case "UY":
+		fallthrough
+	case "UZ":
+		fallthrough
+	case "VU":
+		fallthrough
+	case "VE":
+		fallthrough
+	case "VN":
+		fallthrough
+	case "VG":
+		fallthrough
+	case "VI":
+		fallthrough
+	case "WF":
+		fallthrough
+	case "EH":
+		fallthrough
+	case "YE":
+		fallthrough
+	case "ZM":
+		fallthrough
+	case "ZW":
+		*e = AddressListingCountryCode(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for AddressListingCountryCode: %v", v)
+	}
+}
+
+// AddressListingInput - A physical address.
+type AddressListingInput struct {
+	// The company associated with this address.
+	Company *string `json:"company,omitempty"`
+	// The country (in its ISO 3166 alpha-2 format) associated with this address.
+	CountryCode AddressListingCountryCode `json:"country_code"`
+	// The email address associated with this address.
+	Email *string `json:"email,omitempty"`
+	// The first name of the person associated with this address.
+	FirstName string `json:"first_name"`
+	// Whether or not this is the default address saved.
+	IsDefault *bool `json:"is_default,omitempty"`
+	// The last name of the person associated with this address.
+	LastName string `json:"last_name"`
+	// The locality (e.g. city, town, etc...) associated with this address.
+	Locality string `json:"locality"`
+	// The phone number associated with this address.
+	Phone *string `json:"phone,omitempty"`
+	// The postal code associated with this address.
+	PostalCode string `json:"postal_code"`
+	// The region or administrative area (e.g. state, province, county, etc...) associated with this address.
+	Region *string `json:"region,omitempty"`
+	// The street address associated with this address.
+	StreetAddress1 string `json:"street_address1"`
+	// Any additional, optional, street address information associated with this address.
+	StreetAddress2 *string `json:"street_address2,omitempty"`
+}
+
+func (o *AddressListingInput) GetCompany() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Company
+}
+
+func (o *AddressListingInput) GetCountryCode() AddressListingCountryCode {
+	if o == nil {
+		return AddressListingCountryCode("")
+	}
+	return o.CountryCode
+}
+
+func (o *AddressListingInput) GetEmail() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Email
+}
+
+func (o *AddressListingInput) GetFirstName() string {
+	if o == nil {
+		return ""
+	}
+	return o.FirstName
+}
+
+func (o *AddressListingInput) GetIsDefault() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.IsDefault
+}
+
+func (o *AddressListingInput) GetLastName() string {
+	if o == nil {
+		return ""
+	}
+	return o.LastName
+}
+
+func (o *AddressListingInput) GetLocality() string {
+	if o == nil {
+		return ""
+	}
+	return o.Locality
+}
+
+func (o *AddressListingInput) GetPhone() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Phone
+}
+
+func (o *AddressListingInput) GetPostalCode() string {
+	if o == nil {
+		return ""
+	}
+	return o.PostalCode
+}
+
+func (o *AddressListingInput) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *AddressListingInput) GetStreetAddress1() string {
+	if o == nil {
+		return ""
+	}
+	return o.StreetAddress1
+}
+
+func (o *AddressListingInput) GetStreetAddress2() *string {
+	if o == nil {
+		return nil
+	}
+	return o.StreetAddress2
+}
+
+// AddressListing - A physical address.
 type AddressListing struct {
-	Company        *string `json:"company,omitempty"`
-	CountryCode    string  `json:"country_code"`
-	Email          *string `json:"email,omitempty"`
-	FirstName      string  `json:"first_name"`
-	ID             *string `json:"id,omitempty"`
-	IsDefault      *bool   `json:"is_default,omitempty"`
-	LastName       string  `json:"last_name"`
-	Locality       string  `json:"locality"`
-	Phone          *string `json:"phone,omitempty"`
-	PostalCode     string  `json:"postal_code"`
-	Region         *string `json:"region,omitempty"`
-	StreetAddress1 string  `json:"street_address1"`
+	// The company associated with this address.
+	Company *string `json:"company,omitempty"`
+	// The country (in its ISO 3166 alpha-2 format) associated with this address.
+	CountryCode AddressListingCountryCode `json:"country_code"`
+	// The email address associated with this address.
+	Email *string `json:"email,omitempty"`
+	// The first name of the person associated with this address.
+	FirstName string `json:"first_name"`
+	// The address's unique identifier.
+	ID string `json:"id"`
+	// Whether or not this is the default address saved.
+	IsDefault *bool `json:"is_default,omitempty"`
+	// The last name of the person associated with this address.
+	LastName string `json:"last_name"`
+	// The locality (e.g. city, town, etc...) associated with this address.
+	Locality string `json:"locality"`
+	// The phone number associated with this address.
+	Phone *string `json:"phone,omitempty"`
+	// The postal code associated with this address.
+	PostalCode string `json:"postal_code"`
+	// The region or administrative area (e.g. state, province, county, etc...) associated with this address.
+	Region *string `json:"region,omitempty"`
+	// The street address associated with this address.
+	StreetAddress1 string `json:"street_address1"`
+	// Any additional, optional, street address information associated with this address.
 	StreetAddress2 *string `json:"street_address2,omitempty"`
 }
 
@@ -25,9 +925,9 @@ func (o *AddressListing) GetCompany() *string {
 	return o.Company
 }
 
-func (o *AddressListing) GetCountryCode() string {
+func (o *AddressListing) GetCountryCode() AddressListingCountryCode {
 	if o == nil {
-		return ""
+		return AddressListingCountryCode("")
 	}
 	return o.CountryCode
 }
@@ -46,9 +946,9 @@ func (o *AddressListing) GetFirstName() string {
 	return o.FirstName
 }
 
-func (o *AddressListing) GetID() *string {
+func (o *AddressListing) GetID() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.ID
 }

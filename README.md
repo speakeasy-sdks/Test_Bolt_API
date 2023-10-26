@@ -27,41 +27,36 @@ import (
 )
 
 func main() {
-	s := testboltapi.New()
-
-	operationSecurity := operations.AccountAddPaymentMethodSecurity{
-		APIKey: "",
-		Oauth:  "",
-	}
+	s := testboltapi.New(
+		testboltapi.WithSecurity(shared.Security{
+			APIKey: "",
+			Oauth:  "",
+		}),
+	)
 
 	ctx := context.Background()
-	res, err := s.Account.AccountAddPaymentMethod(ctx, operations.AccountAddPaymentMethodRequest{
+	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
 		XPublishableKey: "string",
-		PaymentMethod: shared.CreatePaymentMethodPaymentMethodCreditCard(
-			shared.PaymentMethodCreditCard{
-				DotTag:           shared.PaymentMethodCreditCardTagCreditCard,
-				BillingAddressID: testboltapi.String("D4g3h5tBuVYK9"),
-				BillingAddressInput: shared.CreateAddressReferenceAddressReferenceID(
-					shared.AddressReferenceID{
-						DotTag: shared.AddressReferenceIDTagID,
-						ID:     "D4g3h5tBuVYK9",
-					},
-				),
-				Bin:        "411111",
-				Expiration: "2025-03",
-				ID:         testboltapi.String("X5h6j8uLpVGK0"),
-				Last4:      "1004",
-				Network:    shared.PaymentMethodCreditCardNetworkVisa,
-				Token:      "a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0",
-				Type:       shared.PaymentMethodCreditCardTypeCredit,
-			},
-		),
-	}, operationSecurity)
+		AddressListingInput: shared.AddressListingInput{
+			Company:        testboltapi.String("ACME Corporation"),
+			CountryCode:    shared.AddressListingCountryCodeUs,
+			Email:          testboltapi.String("alice@example.com"),
+			FirstName:      "Alice",
+			IsDefault:      testboltapi.Bool(true),
+			LastName:       "Baker",
+			Locality:       "San Francisco",
+			Phone:          testboltapi.String("+14155550199"),
+			PostalCode:     "94105",
+			Region:         testboltapi.String("CA"),
+			StreetAddress1: "535 Mission St, Ste 1401",
+			StreetAddress2: testboltapi.String("c/o Shipping Department"),
+		},
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if res.PaymentMethod != nil {
+	if res.AddressListing != nil {
 		// handle response
 	}
 }
@@ -75,36 +70,38 @@ func main() {
 
 ### [Account](docs/sdks/account/README.md)
 
-* [AccountAddPaymentMethod](docs/sdks/account/README.md#accountaddpaymentmethod) - Add a payment method to a shopper's Bolt account Wallet.
-* [AccountAddressCreate](docs/sdks/account/README.md#accountaddresscreate) - Add an address
-* [AccountAddressDelete](docs/sdks/account/README.md#accountaddressdelete) - Delete an existing address
-* [AccountAddressEdit](docs/sdks/account/README.md#accountaddressedit) - Edit an existing address
-* [AccountExists](docs/sdks/account/README.md#accountexists) - Determine the existence of a Bolt account
-* [AccountGet](docs/sdks/account/README.md#accountget) - Retrieve account details
+* [AddAddress](docs/sdks/account/README.md#addaddress) - Add an address
+* [AddPaymentMethod](docs/sdks/account/README.md#addpaymentmethod) - Add a payment method to a shopper's Bolt account Wallet.
+* [DeleteAddress](docs/sdks/account/README.md#deleteaddress) - Delete an existing address
+* [DeletePaymentMethod](docs/sdks/account/README.md#deletepaymentmethod) - Delete an existing payment method
+* [Detect](docs/sdks/account/README.md#detect) - Determine the existence of a Bolt account
+* [GetDetails](docs/sdks/account/README.md#getdetails) - Retrieve account details
+* [UpdateAddress](docs/sdks/account/README.md#updateaddress) - Edit an existing address
 
-### [Configuration](docs/sdks/configuration/README.md)
 
-* [MerchantCallbacksGet](docs/sdks/configuration/README.md#merchantcallbacksget) - Retrieve callback URLs for the merchant
-* [MerchantCallbacksUpdate](docs/sdks/configuration/README.md#merchantcallbacksupdate) - Update callback URLs for the merchant
-* [MerchantIdentifiersGet](docs/sdks/configuration/README.md#merchantidentifiersget) - Retrieve identifiers for the merchant
+### [Payments.Guest](docs/sdks/paymentsguest/README.md)
 
-### [Payments](docs/sdks/payments/README.md)
+* [Initialize](docs/sdks/paymentsguest/README.md#initialize) - Initialize a Bolt payment for guest shoppers
+* [PerformAction](docs/sdks/paymentsguest/README.md#performaction) - Perform an irreversible action (e.g. finalize) on a pending guest payment
+* [Update](docs/sdks/paymentsguest/README.md#update) - Update an existing guest payment
 
-* [GuestPaymentsInitialize](docs/sdks/payments/README.md#guestpaymentsinitialize) - Initialize a Bolt payment for guest shoppers
-* [PaymentsInitialize](docs/sdks/payments/README.md#paymentsinitialize) - Initialize a Bolt payment for logged in shoppers
+### [Payments.LoggedIn](docs/sdks/paymentsloggedin/README.md)
+
+* [Initialize](docs/sdks/paymentsloggedin/README.md#initialize) - Initialize a Bolt payment for logged in shoppers
+* [PerformAction](docs/sdks/paymentsloggedin/README.md#performaction) - Perform an irreversible action (e.g. finalize) on a pending payment
+* [Update](docs/sdks/paymentsloggedin/README.md#update) - Update an existing payment
 
 ### [Testing](docs/sdks/testing/README.md)
 
-* [TestingAccountCreate](docs/sdks/testing/README.md#testingaccountcreate) - Create a test account
-* [TestingCreditCardGet](docs/sdks/testing/README.md#testingcreditcardget) - Retrieve a test credit card, including its token
-* [TestingShipmentTrackingCreate](docs/sdks/testing/README.md#testingshipmenttrackingcreate) - Simulate a shipment tracking update
+* [CreateAccount](docs/sdks/testing/README.md#createaccount) - Create a test account
+* [CreateShipmentTracking](docs/sdks/testing/README.md#createshipmenttracking) - Simulate a shipment tracking update
+* [GetCreditCard](docs/sdks/testing/README.md#getcreditcard) - Retrieve a test credit card, including its token
 
-### [Webhooks](docs/sdks/webhooks/README.md)
+### [Transactions](docs/sdks/transactions/README.md)
 
-* [WebhooksCreate](docs/sdks/webhooks/README.md#webhookscreate) - Create a webhook to subscribe to certain events
-* [WebhooksDelete](docs/sdks/webhooks/README.md#webhooksdelete) - Delete an existing webhook
-* [WebhooksGet](docs/sdks/webhooks/README.md#webhooksget) - Retrieve information for a specific webhook
-* [WebhooksGetAll](docs/sdks/webhooks/README.md#webhooksgetall) - Retrieve information about all existing webhooks
+* [GetDetails](docs/sdks/transactions/README.md#getdetails) - Retrieve transaction details
+* [PerformAction](docs/sdks/transactions/README.md#performaction) - Perform an irreversible action (e.g. capture, refund, void) on a transaction
+* [Update](docs/sdks/transactions/README.md#update) - Update certain transaction details
 <!-- End SDK Available Operations -->
 
 
@@ -130,6 +127,223 @@ Here's an example of one such pagination call:
 <!-- Start Go Types -->
 
 <!-- End Go Types -->
+
+
+
+<!-- Start Error Handling -->
+# Error Handling
+
+Handling errors in your SDK should largely match your expectations.  All operations return a response object or an error, they will never return both.  When specified by the OpenAPI spec document, the SDK will return the appropriate subclass.
+
+
+## Example
+
+```go
+package main
+
+import (
+	"context"
+	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
+	"log"
+)
+
+func main() {
+	s := testboltapi.New(
+		testboltapi.WithSecurity(shared.Security{
+			APIKey: "",
+			Oauth:  "",
+		}),
+	)
+
+	ctx := context.Background()
+	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
+		XPublishableKey: "string",
+		AddressListingInput: shared.AddressListingInput{
+			Company:        testboltapi.String("ACME Corporation"),
+			CountryCode:    shared.AddressListingCountryCodeUs,
+			Email:          testboltapi.String("alice@example.com"),
+			FirstName:      "Alice",
+			IsDefault:      testboltapi.Bool(true),
+			LastName:       "Baker",
+			Locality:       "San Francisco",
+			Phone:          testboltapi.String("+14155550199"),
+			PostalCode:     "94105",
+			Region:         testboltapi.String("CA"),
+			StreetAddress1: "535 Mission St, Ste 1401",
+			StreetAddress2: testboltapi.String("c/o Shipping Department"),
+		},
+	})
+	if err != nil {
+
+		var e *accountAddressCreate_4XXApplicationJSON_OneOf
+		if errors.As(err, &e) {
+			// handle error
+			log.Fatal(e.Error())
+		}
+
+	}
+}
+
+```
+<!-- End Error Handling -->
+
+
+
+<!-- Start Server Selection -->
+# Server Selection
+
+## Select Server by Index
+
+You can override the default server globally using the `WithServerIndex` option when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
+
+| # | Server | Variables |
+| - | ------ | --------- |
+| 0 | `https://{environment}.bolt.com/v3` | `environment` (default is `api-sandbox`) |
+
+
+Some of the server options above contain variables. If you want to set the values of those variables, the following options are provided for doing so:
+ * `WithEnvironment ServerEnvironment`
+
+For example:
+
+
+```go
+package main
+
+import (
+	"context"
+	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
+	"log"
+)
+
+func main() {
+	s := testboltapi.New(
+		testboltapi.WithSecurity(shared.Security{
+			APIKey: "",
+			Oauth:  "",
+		}),
+		testboltapi.WithServerIndex(0),
+	)
+
+	ctx := context.Background()
+	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
+		XPublishableKey: "string",
+		AddressListingInput: shared.AddressListingInput{
+			Company:        testboltapi.String("ACME Corporation"),
+			CountryCode:    shared.AddressListingCountryCodeUs,
+			Email:          testboltapi.String("alice@example.com"),
+			FirstName:      "Alice",
+			IsDefault:      testboltapi.Bool(true),
+			LastName:       "Baker",
+			Locality:       "San Francisco",
+			Phone:          testboltapi.String("+14155550199"),
+			PostalCode:     "94105",
+			Region:         testboltapi.String("CA"),
+			StreetAddress1: "535 Mission St, Ste 1401",
+			StreetAddress2: testboltapi.String("c/o Shipping Department"),
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if res.AddressListing != nil {
+		// handle response
+	}
+}
+
+```
+
+
+## Override Server URL Per-Client
+
+The default server can also be overridden globally using the `WithServerURL` option when initializing the SDK client instance. For example:
+
+
+```go
+package main
+
+import (
+	"context"
+	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
+	"log"
+)
+
+func main() {
+	s := testboltapi.New(
+		testboltapi.WithSecurity(shared.Security{
+			APIKey: "",
+			Oauth:  "",
+		}),
+		testboltapi.WithServerURL("https://{environment}.bolt.com/v3"),
+	)
+
+	ctx := context.Background()
+	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
+		XPublishableKey: "string",
+		AddressListingInput: shared.AddressListingInput{
+			Company:        testboltapi.String("ACME Corporation"),
+			CountryCode:    shared.AddressListingCountryCodeUs,
+			Email:          testboltapi.String("alice@example.com"),
+			FirstName:      "Alice",
+			IsDefault:      testboltapi.Bool(true),
+			LastName:       "Baker",
+			Locality:       "San Francisco",
+			Phone:          testboltapi.String("+14155550199"),
+			PostalCode:     "94105",
+			Region:         testboltapi.String("CA"),
+			StreetAddress1: "535 Mission St, Ste 1401",
+			StreetAddress2: testboltapi.String("c/o Shipping Department"),
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if res.AddressListing != nil {
+		// handle response
+	}
+}
+
+```
+<!-- End Server Selection -->
+
+
+
+<!-- Start Custom HTTP Client -->
+# Custom HTTP Client
+
+The Go SDK makes API calls that wrap an internal HTTP client. The requirements for the HTTP client are very simple. It must match this interface:
+
+```go
+type HTTPClient interface {
+	Do(req *http.Request) (*http.Response, error)
+}
+```
+
+The built-in `net/http` client satisfies this interface and a default client based on the built-in is provided by default. To replace this default with a client of your own, you can implement this interface yourself or provide your own client configured as desired. Here's a simple example, which adds a client with a 30 second timeout.
+
+```go
+import (
+	"net/http"
+	"time"
+	"github.com/myorg/your-go-sdk"
+)
+
+var (
+	httpClient = &http.Client{Timeout: 30 * time.Second}
+	sdkClient  = sdk.New(sdk.WithClient(httpClient))
+)
+```
+
+This can be a convenient way to configure timeouts, cookies, proxies, custom headers, and other low-level configuration.
+<!-- End Custom HTTP Client -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 

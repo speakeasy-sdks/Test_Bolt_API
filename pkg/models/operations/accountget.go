@@ -7,25 +7,6 @@ import (
 	"net/http"
 )
 
-type AccountGetSecurity struct {
-	APIKey string `security:"scheme,type=apiKey,subtype=header,name=X-API-Key"`
-	Oauth  string `security:"scheme,type=oauth2,name=Authorization"`
-}
-
-func (o *AccountGetSecurity) GetAPIKey() string {
-	if o == nil {
-		return ""
-	}
-	return o.APIKey
-}
-
-func (o *AccountGetSecurity) GetOauth() string {
-	if o == nil {
-		return ""
-	}
-	return o.Oauth
-}
-
 type AccountGetRequest struct {
 	// The publicly viewable identifier used to identify a merchant division.
 	XPublishableKey string `header:"style=simple,explode=false,name=X-Publishable-Key"`

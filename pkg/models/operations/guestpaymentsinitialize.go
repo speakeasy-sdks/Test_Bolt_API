@@ -7,10 +7,21 @@ import (
 	"net/http"
 )
 
+type GuestPaymentsInitializeSecurity struct {
+	APIKey string `security:"scheme,type=apiKey,subtype=header,name=X-API-Key"`
+}
+
+func (o *GuestPaymentsInitializeSecurity) GetAPIKey() string {
+	if o == nil {
+		return ""
+	}
+	return o.APIKey
+}
+
 type GuestPaymentsInitializeRequest struct {
 	// The publicly viewable identifier used to identify a merchant division.
-	XPublishableKey                     string                                     `header:"style=simple,explode=false,name=X-Publishable-Key"`
-	GuestPaymentMethodInitializeRequest shared.GuestPaymentMethodInitializeRequest `request:"mediaType=application/json"`
+	XPublishableKey               string                               `header:"style=simple,explode=false,name=X-Publishable-Key"`
+	GuestPaymentInitializeRequest shared.GuestPaymentInitializeRequest `request:"mediaType=application/json"`
 }
 
 func (o *GuestPaymentsInitializeRequest) GetXPublishableKey() string {
@@ -20,11 +31,11 @@ func (o *GuestPaymentsInitializeRequest) GetXPublishableKey() string {
 	return o.XPublishableKey
 }
 
-func (o *GuestPaymentsInitializeRequest) GetGuestPaymentMethodInitializeRequest() shared.GuestPaymentMethodInitializeRequest {
+func (o *GuestPaymentsInitializeRequest) GetGuestPaymentInitializeRequest() shared.GuestPaymentInitializeRequest {
 	if o == nil {
-		return shared.GuestPaymentMethodInitializeRequest{}
+		return shared.GuestPaymentInitializeRequest{}
 	}
-	return o.GuestPaymentMethodInitializeRequest
+	return o.GuestPaymentInitializeRequest
 }
 
 type GuestPaymentsInitializeResponse struct {
@@ -34,8 +45,8 @@ type GuestPaymentsInitializeResponse struct {
 	StatusCode int
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
-	// Payment token retrieved
-	PaymentMethodInitializeResponse *shared.PaymentMethodInitializeResponse
+	// The payment was successfully initialized, and was either immediately finalized or is pending
+	PaymentResponse *shared.PaymentResponse
 }
 
 func (o *GuestPaymentsInitializeResponse) GetContentType() string {
@@ -59,9 +70,9 @@ func (o *GuestPaymentsInitializeResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GuestPaymentsInitializeResponse) GetPaymentMethodInitializeResponse() *shared.PaymentMethodInitializeResponse {
+func (o *GuestPaymentsInitializeResponse) GetPaymentResponse() *shared.PaymentResponse {
 	if o == nil {
 		return nil
 	}
-	return o.PaymentMethodInitializeResponse
+	return o.PaymentResponse
 }

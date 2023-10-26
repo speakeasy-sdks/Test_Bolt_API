@@ -5,8 +5,6 @@ package shared
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/utils"
-	"time"
 )
 
 type AccountTestCreationDataEmailState string
@@ -70,29 +68,10 @@ func (e *AccountTestCreationDataPhoneState) UnmarshalJSON(data []byte) error {
 }
 
 type AccountTestCreationDataInput struct {
-	DeactivateAt time.Time                         `json:"deactivate_at"`
-	EmailState   AccountTestCreationDataEmailState `json:"email_state"`
-	HasAddress   *bool                             `json:"has_address,omitempty"`
-	IsMigrated   *bool                             `json:"is_migrated,omitempty"`
-	PhoneState   AccountTestCreationDataPhoneState `json:"phone_state"`
-}
-
-func (a AccountTestCreationDataInput) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
-}
-
-func (a *AccountTestCreationDataInput) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, false); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *AccountTestCreationDataInput) GetDeactivateAt() time.Time {
-	if o == nil {
-		return time.Time{}
-	}
-	return o.DeactivateAt
+	EmailState AccountTestCreationDataEmailState `json:"email_state"`
+	HasAddress *bool                             `json:"has_address,omitempty"`
+	IsMigrated *bool                             `json:"is_migrated,omitempty"`
+	PhoneState AccountTestCreationDataPhoneState `json:"phone_state"`
 }
 
 func (o *AccountTestCreationDataInput) GetEmailState() AccountTestCreationDataEmailState {
@@ -124,31 +103,12 @@ func (o *AccountTestCreationDataInput) GetPhoneState() AccountTestCreationDataPh
 }
 
 type AccountTestCreationDataOutput struct {
-	DeactivateAt time.Time                         `json:"deactivate_at"`
-	Email        string                            `json:"email"`
-	EmailState   AccountTestCreationDataEmailState `json:"email_state"`
-	OauthCode    string                            `json:"oauth_code"`
-	OtpCode      string                            `json:"otp_code"`
-	Phone        string                            `json:"phone"`
-	PhoneState   AccountTestCreationDataPhoneState `json:"phone_state"`
-}
-
-func (a AccountTestCreationDataOutput) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
-}
-
-func (a *AccountTestCreationDataOutput) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, false); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *AccountTestCreationDataOutput) GetDeactivateAt() time.Time {
-	if o == nil {
-		return time.Time{}
-	}
-	return o.DeactivateAt
+	Email      string                            `json:"email"`
+	EmailState AccountTestCreationDataEmailState `json:"email_state"`
+	OauthCode  string                            `json:"oauth_code"`
+	OtpCode    string                            `json:"otp_code"`
+	Phone      string                            `json:"phone"`
+	PhoneState AccountTestCreationDataPhoneState `json:"phone_state"`
 }
 
 func (o *AccountTestCreationDataOutput) GetEmail() string {

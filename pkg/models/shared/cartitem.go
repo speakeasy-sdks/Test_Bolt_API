@@ -13,9 +13,9 @@ type CartItem struct {
 	Quantity int64 `json:"quantity"`
 	// This value is used by Bolt as an external reference to a given item.
 	Reference string `json:"reference"`
-	// The total amount, in cents, of the item including its taxes if applicable.
-	TotalAmount int64 `json:"total_amount"`
-	// The price of one unit of the item; for example, the price of one pack of socks.
+	// A monetary amount, i.e. a base unit amount and a supported currency.
+	TotalAmount Amount `json:"total_amount"`
+	// The item's unit price, i.e. the cost of a single item exclusive of tax and discounts.
 	UnitPrice int64 `json:"unit_price"`
 }
 
@@ -54,9 +54,9 @@ func (o *CartItem) GetReference() string {
 	return o.Reference
 }
 
-func (o *CartItem) GetTotalAmount() int64 {
+func (o *CartItem) GetTotalAmount() Amount {
 	if o == nil {
-		return 0
+		return Amount{}
 	}
 	return o.TotalAmount
 }

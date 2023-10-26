@@ -4,6 +4,7 @@ package shared
 
 type Security struct {
 	APIKey string `security:"scheme,type=apiKey,subtype=header,name=X-API-Key"`
+	Oauth  string `security:"scheme,type=oauth2,name=Authorization"`
 }
 
 func (o *Security) GetAPIKey() string {
@@ -11,4 +12,11 @@ func (o *Security) GetAPIKey() string {
 		return ""
 	}
 	return o.APIKey
+}
+
+func (o *Security) GetOauth() string {
+	if o == nil {
+		return ""
+	}
+	return o.Oauth
 }

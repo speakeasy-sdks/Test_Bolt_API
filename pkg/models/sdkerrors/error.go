@@ -4,11 +4,43 @@ package sdkerrors
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// ErrorTag - The type of error returned
+type ErrorTag string
+
+const (
+	ErrorTagMissingInputParameter ErrorTag = "missing_input_parameter"
+	ErrorTagInvalidInputParameter ErrorTag = "invalid_input_parameter"
+	ErrorTagNotFound              ErrorTag = "not_found"
+)
+
+func (e ErrorTag) ToPointer() *ErrorTag {
+	return &e
+}
+
+func (e *ErrorTag) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "missing_input_parameter":
+		fallthrough
+	case "invalid_input_parameter":
+		fallthrough
+	case "not_found":
+		*e = ErrorTag(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ErrorTag: %v", v)
+	}
+}
 
 type Error struct {
 	// The type of error returned
-	DotTag string `json:".tag"`
+	DotTag ErrorTag `json:".tag"`
 	// A human-readable error message, which might include information specific to
 	// the request that was made.
 	//

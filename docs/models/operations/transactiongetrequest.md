@@ -1,0 +1,9 @@
+# TransactionGetRequest
+
+
+## Fields
+
+| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            | Example                                                                |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `XPublishableKey`                                                      | *string*                                                               | :heavy_check_mark:                                                     | The publicly viewable identifier used to identify a merchant division. |                                                                        |
+| `ID`                                                                   | *string*                                                               | :heavy_check_mark:                                                     | The transaction reference                                              | OBYG-X1PX-FN55                                                         |

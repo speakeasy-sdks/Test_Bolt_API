@@ -7,29 +7,10 @@ import (
 	"net/http"
 )
 
-type AccountAddressCreateSecurity struct {
-	APIKey string `security:"scheme,type=apiKey,subtype=header,name=X-API-Key"`
-	Oauth  string `security:"scheme,type=oauth2,name=Authorization"`
-}
-
-func (o *AccountAddressCreateSecurity) GetAPIKey() string {
-	if o == nil {
-		return ""
-	}
-	return o.APIKey
-}
-
-func (o *AccountAddressCreateSecurity) GetOauth() string {
-	if o == nil {
-		return ""
-	}
-	return o.Oauth
-}
-
 type AccountAddressCreateRequest struct {
 	// The publicly viewable identifier used to identify a merchant division.
-	XPublishableKey string                `header:"style=simple,explode=false,name=X-Publishable-Key"`
-	AddressListing  shared.AddressListing `request:"mediaType=application/json"`
+	XPublishableKey     string                     `header:"style=simple,explode=false,name=X-Publishable-Key"`
+	AddressListingInput shared.AddressListingInput `request:"mediaType=application/json"`
 }
 
 func (o *AccountAddressCreateRequest) GetXPublishableKey() string {
@@ -39,11 +20,11 @@ func (o *AccountAddressCreateRequest) GetXPublishableKey() string {
 	return o.XPublishableKey
 }
 
-func (o *AccountAddressCreateRequest) GetAddressListing() shared.AddressListing {
+func (o *AccountAddressCreateRequest) GetAddressListingInput() shared.AddressListingInput {
 	if o == nil {
-		return shared.AddressListing{}
+		return shared.AddressListingInput{}
 	}
-	return o.AddressListing
+	return o.AddressListingInput
 }
 
 type AccountAddressCreateResponse struct {

@@ -3,33 +3,33 @@
 package shared
 
 type Profile struct {
-	// An email address.
-	Email *string `json:"email,omitempty"`
-	// The given name of the person associated with this record.
-	FirstName *string `json:"first_name,omitempty"`
-	// The last name of the person associated with this record.
-	LastName *string `json:"last_name,omitempty"`
-	// A phone number following E164 standards, in its globalized format, i.e. prepended with a plus sign.
+	// The email address asscoiated with this profile.
+	Email string `json:"email"`
+	// The given name of the person associated with this profile.
+	FirstName string `json:"first_name"`
+	// The last name of the person associated with this profile.
+	LastName string `json:"last_name"`
+	// The phone number associated with this profile.
 	Phone *string `json:"phone,omitempty"`
 }
 
-func (o *Profile) GetEmail() *string {
+func (o *Profile) GetEmail() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.Email
 }
 
-func (o *Profile) GetFirstName() *string {
+func (o *Profile) GetFirstName() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.FirstName
 }
 
-func (o *Profile) GetLastName() *string {
+func (o *Profile) GetLastName() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.LastName
 }

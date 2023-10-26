@@ -1,6 +1,6 @@
 # CreditCardNetwork
 
-The credit card network.
+The credit card's network.
 
 
 ## Values
