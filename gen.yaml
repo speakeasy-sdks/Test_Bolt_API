@@ -1,16 +1,16 @@
 configVersion: 1.0.0
 management:
-  docChecksum: f257fd6eb6f561d83126d42092cd2506
+  docChecksum: d42747a5bd3aa0553492d9e771307e46
   docVersion: 3.0.1
-  speakeasyVersion: 1.108.1
-  generationVersion: 2.172.4
+  speakeasyVersion: 1.109.0
+  generationVersion: 2.173.0
 generation:
   comments:
     disableComments: false
     omitDescriptionIfSummaryPresent: false
   baseServerURL: ""
   flattenGlobalSecurity: true
-  repoURL: https://github.com/speakeasy-sdks/XwangTestTypeScript.git
+  repoURL: https://github.com/speakeasy-sdks/Test_Bolt_API.git
   sdkClassName: TestBolt
   singleTagPerOp: false
   tagNamespacingDisabled: false
@@ -25,7 +25,7 @@ features:
     nameOverrides: 2.81.1
     unions: 2.84.0
 go:
-  version: 0.7.1
+  version: 0.7.2
   clientServerStatusCodesAsErrors: true
   flattenGlobalSecurity: true
   installationURL: https://github.com/speakeasy-sdks/Test_Bolt_API

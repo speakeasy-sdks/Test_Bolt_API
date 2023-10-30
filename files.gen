@@ -38,7 +38,6 @@ pkg/models/operations/paymentsinitialize.go
 pkg/models/operations/paymentsaction.go
 pkg/models/operations/paymentsupdate.go
 pkg/models/operations/testingaccountcreate.go
-pkg/models/operations/testingshipmenttrackingcreate.go
 pkg/models/operations/testingcreditcardget.go
 pkg/models/operations/transactionget.go
 pkg/models/operations/transactionaction.go
@@ -69,7 +68,6 @@ pkg/models/shared/paymentupdaterequest.go
 pkg/models/shared/paymentinitializerequest.go
 pkg/models/shared/paymentmethodreference.go
 pkg/models/shared/accounttestcreationdata.go
-pkg/models/shared/shipmenttrackingupdate.go
 pkg/models/shared/creditcard.go
 pkg/models/shared/transactionactionrequest.go
 pkg/models/shared/transactionactioncapture.go
@@ -114,8 +112,6 @@ docs/models/operations/paymentsupdateresponse.md
 docs/models/operations/testingaccountcreatesecurity.md
 docs/models/operations/testingaccountcreaterequest.md
 docs/models/operations/testingaccountcreateresponse.md
-docs/models/operations/testingshipmenttrackingcreatesecurity.md
-docs/models/operations/testingshipmenttrackingcreateresponse.md
 docs/models/operations/testingcreditcardgetsecurity.md
 docs/models/operations/testingcreditcardgetresponse.md
 docs/models/operations/transactiongetsecurity.md
@@ -181,10 +177,6 @@ docs/models/shared/accounttestcreationdataemailstate.md
 docs/models/shared/accounttestcreationdataphonestate.md
 docs/models/shared/accounttestcreationdatainput.md
 docs/models/shared/accounttestcreationdataoutput.md
-docs/models/shared/shipmenttrackingupdatestatus.md
-docs/models/shared/shipmenttrackingupdatetrackingdetailsstatus.md
-docs/models/shared/shipmenttrackingupdatetrackingdetails.md
-docs/models/shared/shipmenttrackingupdate.md
 docs/models/shared/creditcardnetwork.md
 docs/models/shared/creditcardoutput.md
 docs/models/shared/transactionactionrequestaction.md

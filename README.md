@@ -94,7 +94,6 @@ func main() {
 ### [Testing](docs/sdks/testing/README.md)
 
 * [CreateAccount](docs/sdks/testing/README.md#createaccount) - Create a test account
-* [CreateShipmentTracking](docs/sdks/testing/README.md#createshipmenttracking) - Simulate a shipment tracking update
 * [GetCreditCard](docs/sdks/testing/README.md#getcreditcard) - Retrieve a test credit card, including its token
 
 ### [Transactions](docs/sdks/transactions/README.md)
