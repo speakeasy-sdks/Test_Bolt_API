@@ -659,28 +659,30 @@ paths:
           $ref: '#/components/responses/response-4xx'
         default:
           $ref: '#/components/responses/response-default'
-  /testing/shipments:
+  /oauth/token:
     post:
-      summary: Simulate a shipment tracking update
-      operationId: testingShipmentTrackingCreate
-      x-speakeasy-name-override: CreateShipmentTracking
-      description: |
-        Simulate a shipment tracking update, such as those that Bolt would ingest from
-        third-party shipping providers that would allow updating tracking and delivery
-        information to shipments associated with orders.
+      summary: Get OAuth token
+      operationId: OAuthGetToken
+      description: Endpoint for receiving access, ID, and refresh tokens from Bolt's OAuth server.
       tags:
-        - Testing
-      security:
-        - api-key: []
+        - OAuth
       requestBody:
         required: true
         content:
-          application/json:
+          application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/shipment-tracking-update'
+              $ref: '#/components/schemas/get-access-token-request'
+            encoding:
+              scope:
+                style: spaceDelimited
+                explode: false
       responses:
         '200':
-          description: The shipment update was ingested successfully
+          description: Access token is successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/get-access-token-response'
         4XX:
           $ref: '#/components/responses/response-4xx'
         default:
@@ -1739,75 +1741,85 @@ components:
           type: string
           readOnly: true
           example: 7GSjMRSHs6Ak7C_zvVW6P2IhZOHxMK7HZKW1fMX85ms
-    shipment-tracking-update:
+    base-oauth-token-request:
       type: object
       required:
-        - tracking_number
-        - tracking_details
-        - status
+        - client_id
+        - client_secret
+        - code
+        - grant_type
+        - scope
       properties:
-        tracking_number:
+        client_id:
           type: string
-          description: The carrier's tracking number for the shipment. Must be prefixed with `MockBolt`.
-          example: MockBolt-143292
-        tracking_details:
-          type: array
-          description: A list of tracking updates that contain the shipment's status, location, and any unique messages.
-          items:
-            type: object
-            properties:
-              event_date:
-                type: string
-                description: The tracking detail's timestamp.
-                example: 2014-08-21:T14:24:00Z
-              status:
-                type: string
-                enum:
-                  - unknown
-                  - pre_transit
-                  - in_transit
-                  - out_for_delivery
-                  - delivered
-                  - available_for_pickup
-                  - return_to_sender
-                  - failure
-                  - cancelled
-                  - error
-                example: pre_transit
-              message:
-                type: string
-                description: An arbitrary, human-readable message associated with this set of tracking details.
-                example: Billing information received
-              locality:
-                type: string
-                description: The locality associated this this set of tracking details, if any.
-                example: San Francisco
-              region:
-                type: string
-                description: The region associated this this set of tracking details, if any.
-                example: CA
-              postal_code:
-                type: string
-                description: The postal associated this this set of tracking details, if any.
-                example: 94105
-              country_code:
-                type: string
-                description: The country associated this this set of tracking details, if any.
-                example: US
-        status:
+          description: Merchant publishable key which can be found in the merchant dashboard
+        client_secret:
           type: string
+          description: Your Bolt API Key.
+        grant_type:
+          description: |
+            The type of OAuth 2.0 grant being utilized.
+
+            The value will always be `authorization_code` when exchanging an authorization code for an access token.
           enum:
-            - in_transit
-            - cancelled
-            - failure
-            - delivered
-          description: The shipment's status.
-          example: in_transit
-        delivery_date:
+            - authorization_code
           type: string
-          format: date-time
-          description: The shipment's actual or estimated delivery date.
-          example: 2014-08-23:T06:00:00Z
+        scope:
+          description: |
+            The scope issued to the merchant when receiving an authorization code.
+            Options include `bolt.account.manage`, `bolt.account.view`, `openid`.
+            You can find more information on these options in our
+            [OAuth scope documentation](https://help.bolt.com/developers/references/bolt-oauth/#scopes).
+          type: array
+          items:
+            type: string
+            enum:
+              - bolt.account.manage
+              - bolt.account.view
+              - openid
+        state:
+          description: A randomly generated string issued to the merchant when receiving an authorization code used to prevent CSRF attacks
+          type: string
+    get-access-token-request:
+      type: object
+      allOf:
+        - type: object
+          properties:
+            code:
+              description: Fetched value using OTP value from the Authorization Modal.
+              type: string
+        - $ref: '#/components/schemas/base-oauth-token-request'
+    base-oauth-token-response:
+      type: object
+      properties:
+        access_token:
+          description: An access token you can use to make requests on behalf of a Bolt Account.
+          type: string
+        expires_in:
+          description: Access token’s expiration in seconds.
+          type: integer
+        refresh_token:
+          description: A refresh token you can use to issue a brand new access token without obtaining a new authorization code.
+          type: string
+        refresh_token_scope:
+          description: The scope granted to the refresh token. Currently this will always be bolt.account.view.
+          type: string
+        scope:
+          description: |
+            The scope granted to access token, depending on the scope granted to the authorization code as well as the scope parameter.
+            Options include `bolt.account.manage`, `bolt.account.view`, `openid`.'
+          type: string
+        token_type:
+          description: The token_type will always be bearer.
+          type: string
+    get-access-token-response:
+      allOf:
+        - type: object
+          properties:
+            id_token:
+              description: A JWT token issued when the request includes the scope open_id.
+              type: string
+        - $ref: '#/components/schemas/base-oauth-token-response'
   examples:
     address-all-fields:
       summary: A sample address where all fields, including optional fields, are set
