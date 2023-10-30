@@ -9,7 +9,8 @@ generation:
     disableComments: false
     omitDescriptionIfSummaryPresent: false
   baseServerURL: ""
-  repoURL: https://github.com/speakeasy-sdks/Test_Bolt_API.git
+  flattenGlobalSecurity: true
+  repoURL: https://github.com/speakeasy-sdks/XwangTestTypeScript.git
   sdkClassName: TestBolt
   singleTagPerOp: false
   tagNamespacingDisabled: false
