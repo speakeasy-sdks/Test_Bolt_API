@@ -221,16 +221,16 @@ func CreatePaymentResponsePaymentResponsePaymentResponsePending(paymentResponseP
 
 func (u *PaymentResponse) UnmarshalJSON(data []byte) error {
 
-	paymentResponsePaymentResponseFinalized := new(PaymentResponsePaymentResponseFinalized)
+	paymentResponsePaymentResponseFinalized := PaymentResponsePaymentResponseFinalized{}
 	if err := utils.UnmarshalJSON(data, &paymentResponsePaymentResponseFinalized, "", true, true); err == nil {
-		u.PaymentResponsePaymentResponseFinalized = paymentResponsePaymentResponseFinalized
+		u.PaymentResponsePaymentResponseFinalized = &paymentResponsePaymentResponseFinalized
 		u.Type = PaymentResponseTypePaymentResponsePaymentResponseFinalized
 		return nil
 	}
 
-	paymentResponsePaymentResponsePending := new(PaymentResponsePaymentResponsePending)
+	paymentResponsePaymentResponsePending := PaymentResponsePaymentResponsePending{}
 	if err := utils.UnmarshalJSON(data, &paymentResponsePaymentResponsePending, "", true, true); err == nil {
-		u.PaymentResponsePaymentResponsePending = paymentResponsePaymentResponsePending
+		u.PaymentResponsePaymentResponsePending = &paymentResponsePaymentResponsePending
 		u.Type = PaymentResponseTypePaymentResponsePaymentResponsePending
 		return nil
 	}

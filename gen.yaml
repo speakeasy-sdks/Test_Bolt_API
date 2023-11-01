@@ -2,7 +2,7 @@ configVersion: 1.0.0
 management:
   docChecksum: d42747a5bd3aa0553492d9e771307e46
   docVersion: 3.0.1
-  speakeasyVersion: 1.109.0
+  speakeasyVersion: 1.109.2
   generationVersion: 2.173.0
 generation:
   comments:
@@ -23,9 +23,9 @@ features:
     inputOutputModels: 2.81.1
     methodSecurity: 2.82.1
     nameOverrides: 2.81.1
-    unions: 2.84.0
+    unions: 2.84.1
 go:
-  version: 0.7.2
+  version: 0.7.3
   clientServerStatusCodesAsErrors: true
   flattenGlobalSecurity: true
   installationURL: https://github.com/speakeasy-sdks/Test_Bolt_API
