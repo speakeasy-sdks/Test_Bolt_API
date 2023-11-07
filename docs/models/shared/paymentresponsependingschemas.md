@@ -1,0 +1,12 @@
+# PaymentResponsePendingSchemas
+
+
+## Fields
+
+| Field                                                         | Type                                                          | Required                                                      | Description                                                   | Example                                                       |
+| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
+| `Action`                                                      | [*shared.SchemasAction](../../models/shared/schemasaction.md) | :heavy_minus_sign:                                            | N/A                                                           | redirect                                                      |
+| `ID`                                                          | **string*                                                     | :heavy_minus_sign:                                            | N/A                                                           | iKv7t5bgt1gg                                                  |
+| `Method`                                                      | [*shared.Method](../../models/shared/method.md)               | :heavy_minus_sign:                                            | N/A                                                           | GET                                                           |
+| `Status`                                                      | [*shared.SchemasStatus](../../models/shared/schemasstatus.md) | :heavy_minus_sign:                                            | N/A                                                           | awaiting_user_confirmation                                    |
+| `URL`                                                         | **string*                                                     | :heavy_minus_sign:                                            | N/A                                                           | www.example.com/payments/finalize                             |

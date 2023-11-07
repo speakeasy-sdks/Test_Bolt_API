@@ -3,30 +3,30 @@
 package shared
 
 type CartShipment struct {
-	Address *AddressReferenceInput `json:"address,omitempty"`
+	Address *AddressReference `json:"address,omitempty"`
 	// The name of the carrier selected.
 	Carrier *string `json:"carrier,omitempty"`
 	// A monetary amount, i.e. a base unit amount and a supported currency.
 	Cost *Amount `json:"cost,omitempty"`
 }
 
-func (o *CartShipment) GetAddress() *AddressReferenceInput {
+func (o *CartShipment) GetAddress() *AddressReference {
 	if o == nil {
 		return nil
 	}
 	return o.Address
 }
 
-func (o *CartShipment) GetAddressExplicit() *AddressReferenceAddressReferenceExplicitInput {
+func (o *CartShipment) GetAddressExplicit() *SchemasInput {
 	if v := o.GetAddress(); v != nil {
-		return v.AddressReferenceAddressReferenceExplicitInput
+		return v.SchemasInput
 	}
 	return nil
 }
 
-func (o *CartShipment) GetAddressID() *AddressReferenceAddressReferenceID {
+func (o *CartShipment) GetAddressID() *Schemas {
 	if v := o.GetAddress(); v != nil {
-		return v.AddressReferenceAddressReferenceID
+		return v.Schemas
 	}
 	return nil
 }

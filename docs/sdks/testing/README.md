@@ -1,5 +1,5 @@
 # Testing
-(*Testing*)
+(*.Testing*)
 
 ## Overview
 
@@ -34,16 +34,18 @@ func main() {
     s := testboltapi.New()
 
 
-    operationSecurity := ""
+    operationSecurity := operations.TestingAccountCreateSecurity{
+            APIKey: "",
+        }
 
     ctx := context.Background()
     res, err := s.Testing.CreateAccount(ctx, operations.TestingAccountCreateRequest{
         XPublishableKey: "string",
-        AccountTestCreationDataInput: shared.AccountTestCreationDataInput{
-            EmailState: shared.AccountTestCreationDataEmailStateUnverified,
+        AccountTestCreationData: shared.AccountTestCreationData{
+            EmailState: shared.EmailStateUnverified,
             HasAddress: testboltapi.Bool(true),
             IsMigrated: testboltapi.Bool(true),
-            PhoneState: shared.AccountTestCreationDataPhoneStateVerified,
+            PhoneState: shared.PhoneStateVerified,
         },
     }, operationSecurity)
     if err != nil {
@@ -92,7 +94,9 @@ func main() {
     s := testboltapi.New()
 
 
-    operationSecurity := ""
+    operationSecurity := operations.TestingCreditCardGetSecurity{
+            APIKey: "",
+        }
 
     ctx := context.Background()
     res, err := s.Testing.GetCreditCard(ctx, operationSecurity)

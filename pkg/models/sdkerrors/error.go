@@ -7,20 +7,20 @@ import (
 	"fmt"
 )
 
-// ErrorTag - The type of error returned
-type ErrorTag string
+// DotTag - The type of error returned
+type DotTag string
 
 const (
-	ErrorTagMissingInputParameter ErrorTag = "missing_input_parameter"
-	ErrorTagInvalidInputParameter ErrorTag = "invalid_input_parameter"
-	ErrorTagNotFound              ErrorTag = "not_found"
+	DotTagMissingInputParameter DotTag = "missing_input_parameter"
+	DotTagInvalidInputParameter DotTag = "invalid_input_parameter"
+	DotTagNotFound              DotTag = "not_found"
 )
 
-func (e ErrorTag) ToPointer() *ErrorTag {
+func (e DotTag) ToPointer() *DotTag {
 	return &e
 }
 
-func (e *ErrorTag) UnmarshalJSON(data []byte) error {
+func (e *DotTag) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -31,16 +31,16 @@ func (e *ErrorTag) UnmarshalJSON(data []byte) error {
 	case "invalid_input_parameter":
 		fallthrough
 	case "not_found":
-		*e = ErrorTag(v)
+		*e = DotTag(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for ErrorTag: %v", v)
+		return fmt.Errorf("invalid value for DotTag: %v", v)
 	}
 }
 
 type Error struct {
 	// The type of error returned
-	DotTag ErrorTag `json:".tag"`
+	DotTag DotTag `json:".tag"`
 	// A human-readable error message, which might include information specific to
 	// the request that was made.
 	//

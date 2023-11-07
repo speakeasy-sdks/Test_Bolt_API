@@ -1,5 +1,5 @@
 # Transactions
-(*Transactions*)
+(*.Transactions*)
 
 ## Overview
 
@@ -34,7 +34,9 @@ func main() {
     s := testboltapi.New()
 
 
-    operationSecurity := ""
+    operationSecurity := operations.TransactionGetSecurity{
+            APIKey: "",
+        }
 
     ctx := context.Background()
     res, err := s.Transactions.GetDetails(ctx, operations.TransactionGetRequest{
@@ -86,18 +88,20 @@ func main() {
     s := testboltapi.New()
 
 
-    operationSecurity := ""
+    operationSecurity := operations.TransactionActionSecurity{
+            APIKey: "",
+        }
 
     ctx := context.Background()
     res, err := s.Transactions.PerformAction(ctx, operations.TransactionActionRequest{
         XPublishableKey: "string",
         ID: "OBYG-X1PX-FN55",
         TransactionActionRequest: shared.TransactionActionRequest{
-            Action: shared.CreateTransactionActionRequestActionTransactionActionCapture(
+            Action: shared.CreateActionTransactionActionCapture(
                     shared.TransactionActionCapture{
                         DotTag: shared.TransactionActionCaptureTagCapture,
                         Amount: shared.Amount{
-                            Currency: shared.AmountCurrencyUsd,
+                            Currency: shared.CurrencyUsd,
                             Units: 900,
                         },
                     },
@@ -149,15 +153,17 @@ func main() {
     s := testboltapi.New()
 
 
-    operationSecurity := ""
+    operationSecurity := operations.TransactionUpdateSecurity{
+            APIKey: "",
+        }
 
     ctx := context.Background()
     res, err := s.Transactions.Update(ctx, operations.TransactionUpdateRequest{
         XPublishableKey: "string",
         ID: "OBYG-X1PX-FN55",
         TransactionUpdateRequest: shared.TransactionUpdateRequest{
-            Order: &shared.TransactionUpdateRequestOrder{
-                Cart: &shared.TransactionUpdateRequestOrderCart{
+            Order: &shared.Order{
+                Cart: &shared.TransactionUpdateRequestCart{
                     DisplayID: testboltapi.String("215614191"),
                 },
             },

@@ -77,9 +77,9 @@ func (e *PaymentMethodCreditCardNetwork) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PaymentMethodCreditCardInput struct {
+type PaymentMethodCreditCard struct {
 	DotTag         PaymentMethodCreditCardTag `json:".tag"`
-	BillingAddress AddressReferenceInput      `json:"billing_address"`
+	BillingAddress AddressReference           `json:"billing_address"`
 	// The Bank Identification Number (BIN). This is typically the first 4 to 6 digits of the account number.
 	Bin string `json:"bin"`
 	// The expiration date, in YYYY-MM format.
@@ -92,57 +92,57 @@ type PaymentMethodCreditCardInput struct {
 	Token string `json:"token"`
 }
 
-func (o *PaymentMethodCreditCardInput) GetDotTag() PaymentMethodCreditCardTag {
+func (o *PaymentMethodCreditCard) GetDotTag() PaymentMethodCreditCardTag {
 	if o == nil {
 		return PaymentMethodCreditCardTag("")
 	}
 	return o.DotTag
 }
 
-func (o *PaymentMethodCreditCardInput) GetBillingAddress() AddressReferenceInput {
+func (o *PaymentMethodCreditCard) GetBillingAddress() AddressReference {
 	if o == nil {
-		return AddressReferenceInput{}
+		return AddressReference{}
 	}
 	return o.BillingAddress
 }
 
-func (o *PaymentMethodCreditCardInput) GetBillingAddressExplicit() *AddressReferenceAddressReferenceExplicitInput {
-	return o.GetBillingAddress().AddressReferenceAddressReferenceExplicitInput
+func (o *PaymentMethodCreditCard) GetBillingAddressExplicit() *SchemasInput {
+	return o.GetBillingAddress().SchemasInput
 }
 
-func (o *PaymentMethodCreditCardInput) GetBillingAddressID() *AddressReferenceAddressReferenceID {
-	return o.GetBillingAddress().AddressReferenceAddressReferenceID
+func (o *PaymentMethodCreditCard) GetBillingAddressID() *Schemas {
+	return o.GetBillingAddress().Schemas
 }
 
-func (o *PaymentMethodCreditCardInput) GetBin() string {
+func (o *PaymentMethodCreditCard) GetBin() string {
 	if o == nil {
 		return ""
 	}
 	return o.Bin
 }
 
-func (o *PaymentMethodCreditCardInput) GetExpiration() string {
+func (o *PaymentMethodCreditCard) GetExpiration() string {
 	if o == nil {
 		return ""
 	}
 	return o.Expiration
 }
 
-func (o *PaymentMethodCreditCardInput) GetLast4() string {
+func (o *PaymentMethodCreditCard) GetLast4() string {
 	if o == nil {
 		return ""
 	}
 	return o.Last4
 }
 
-func (o *PaymentMethodCreditCardInput) GetNetwork() PaymentMethodCreditCardNetwork {
+func (o *PaymentMethodCreditCard) GetNetwork() PaymentMethodCreditCardNetwork {
 	if o == nil {
 		return PaymentMethodCreditCardNetwork("")
 	}
 	return o.Network
 }
 
-func (o *PaymentMethodCreditCardInput) GetToken() string {
+func (o *PaymentMethodCreditCard) GetToken() string {
 	if o == nil {
 		return ""
 	}

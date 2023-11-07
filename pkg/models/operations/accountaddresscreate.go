@@ -9,8 +9,8 @@ import (
 
 type AccountAddressCreateRequest struct {
 	// The publicly viewable identifier used to identify a merchant division.
-	XPublishableKey     string                     `header:"style=simple,explode=false,name=X-Publishable-Key"`
-	AddressListingInput shared.AddressListingInput `request:"mediaType=application/json"`
+	XPublishableKey string                     `header:"style=simple,explode=false,name=X-Publishable-Key"`
+	AddressListing  shared.AddressListingInput `request:"mediaType=application/json"`
 }
 
 func (o *AccountAddressCreateRequest) GetXPublishableKey() string {
@@ -20,11 +20,11 @@ func (o *AccountAddressCreateRequest) GetXPublishableKey() string {
 	return o.XPublishableKey
 }
 
-func (o *AccountAddressCreateRequest) GetAddressListingInput() shared.AddressListingInput {
+func (o *AccountAddressCreateRequest) GetAddressListing() shared.AddressListingInput {
 	if o == nil {
 		return shared.AddressListingInput{}
 	}
-	return o.AddressListingInput
+	return o.AddressListing
 }
 
 type AccountAddressCreateResponse struct {

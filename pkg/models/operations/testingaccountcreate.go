@@ -20,8 +20,8 @@ func (o *TestingAccountCreateSecurity) GetAPIKey() string {
 
 type TestingAccountCreateRequest struct {
 	// The publicly viewable identifier used to identify a merchant division.
-	XPublishableKey              string                              `header:"style=simple,explode=false,name=X-Publishable-Key"`
-	AccountTestCreationDataInput shared.AccountTestCreationDataInput `request:"mediaType=application/json"`
+	XPublishableKey         string                         `header:"style=simple,explode=false,name=X-Publishable-Key"`
+	AccountTestCreationData shared.AccountTestCreationData `request:"mediaType=application/json"`
 }
 
 func (o *TestingAccountCreateRequest) GetXPublishableKey() string {
@@ -31,11 +31,11 @@ func (o *TestingAccountCreateRequest) GetXPublishableKey() string {
 	return o.XPublishableKey
 }
 
-func (o *TestingAccountCreateRequest) GetAccountTestCreationDataInput() shared.AccountTestCreationDataInput {
+func (o *TestingAccountCreateRequest) GetAccountTestCreationData() shared.AccountTestCreationData {
 	if o == nil {
-		return shared.AccountTestCreationDataInput{}
+		return shared.AccountTestCreationData{}
 	}
-	return o.AccountTestCreationDataInput
+	return o.AccountTestCreationData
 }
 
 type TestingAccountCreateResponse struct {

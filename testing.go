@@ -15,25 +15,25 @@ import (
 	"strings"
 )
 
-// testing - Endpoints that allow you to generate and retrieve test data to verify certain
+// Testing - Endpoints that allow you to generate and retrieve test data to verify certain
 // flows in non-production environments.
-type testing struct {
+type Testing struct {
 	sdkConfiguration sdkConfiguration
 }
 
-func newTesting(sdkConfig sdkConfiguration) *testing {
-	return &testing{
+func newTesting(sdkConfig sdkConfiguration) *Testing {
+	return &Testing{
 		sdkConfiguration: sdkConfig,
 	}
 }
 
 // CreateAccount - Create a test account
 // Create a Bolt shopper account for testing purposes.
-func (s *testing) CreateAccount(ctx context.Context, request operations.TestingAccountCreateRequest, security operations.TestingAccountCreateSecurity) (*operations.TestingAccountCreateResponse, error) {
+func (s *Testing) CreateAccount(ctx context.Context, request operations.TestingAccountCreateRequest, security operations.TestingAccountCreateSecurity) (*operations.TestingAccountCreateResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/testing/accounts"
 
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "AccountTestCreationDataInput", "json", `request:"mediaType=application/json"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "AccountTestCreationData", "json", `request:"mediaType=application/json"`)
 	if err != nil {
 		return nil, fmt.Errorf("error serializing request body: %w", err)
 	}
@@ -111,7 +111,7 @@ func (s *testing) CreateAccount(ctx context.Context, request operations.TestingA
 // GetCreditCard - Retrieve a test credit card, including its token
 // Retrieve test credit card information. This includes its token, which is
 // generated against the `4111 1111 1111 1004` test card.
-func (s *testing) GetCreditCard(ctx context.Context, security operations.TestingCreditCardGetSecurity) (*operations.TestingCreditCardGetResponse, error) {
+func (s *Testing) GetCreditCard(ctx context.Context, security operations.TestingCreditCardGetSecurity) (*operations.TestingCreditCardGetResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/testing/credit-cards"
 
@@ -150,7 +150,7 @@ func (s *testing) GetCreditCard(ctx context.Context, security operations.Testing
 	case httpRes.StatusCode == 200:
 		switch {
 		case utils.MatchContentType(contentType, `application/json`):
-			var out shared.CreditCardOutput
+			var out shared.CreditCard
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}

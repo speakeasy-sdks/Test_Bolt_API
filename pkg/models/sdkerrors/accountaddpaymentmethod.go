@@ -7,15 +7,15 @@ import (
 	"net/http"
 )
 
-// AccountAddPaymentMethod4XXApplicationJSON - The payment method is invalid and cannot be added, or some other error has occurred
-type AccountAddPaymentMethod4XXApplicationJSON struct {
+// AccountAddPaymentMethodResponseBody - The payment method is invalid and cannot be added, or some other error has occurred
+type AccountAddPaymentMethodResponseBody struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response `json:"-"`
 }
 
-var _ error = &AccountAddPaymentMethod4XXApplicationJSON{}
+var _ error = &AccountAddPaymentMethodResponseBody{}
 
-func (e *AccountAddPaymentMethod4XXApplicationJSON) Error() string {
+func (e *AccountAddPaymentMethodResponseBody) Error() string {
 	data, _ := json.Marshal(e)
 	return string(data)
 }

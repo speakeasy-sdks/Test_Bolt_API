@@ -1,5 +1,5 @@
 # Account
-(*Account*)
+(*.Account*)
 
 ## Overview
 
@@ -45,9 +45,9 @@ func main() {
     ctx := context.Background()
     res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
         XPublishableKey: "string",
-        AddressListingInput: shared.AddressListingInput{
+        AddressListing: shared.AddressListingInput{
             Company: testboltapi.String("ACME Corporation"),
-            CountryCode: shared.AddressListingCountryCodeUs,
+            CountryCode: shared.CountryCodeUs,
             Email: testboltapi.String("alice@example.com"),
             FirstName: "Alice",
             IsDefault: testboltapi.Bool(true),
@@ -115,12 +115,12 @@ func main() {
     ctx := context.Background()
     res, err := s.Account.AddPaymentMethod(ctx, operations.AccountAddPaymentMethodRequest{
         XPublishableKey: "string",
-        PaymentMethodInput: shared.CreatePaymentMethodInputPaymentMethodCreditCardInput(
-                shared.PaymentMethodCreditCardInput{
+        PaymentMethod: shared.CreatePaymentMethodPaymentMethodCreditCard(
+                shared.PaymentMethodCreditCard{
                     DotTag: shared.PaymentMethodCreditCardTagCreditCard,
-                    BillingAddress: shared.CreateAddressReferenceInputAddressReferenceAddressReferenceID(
-                            shared.AddressReferenceAddressReferenceID{
-                                DotTag: shared.AddressReferenceAddressReferenceIDTagID,
+                    BillingAddress: shared.CreateAddressReferenceSchemas(
+                            shared.Schemas{
+                                DotTag: shared.SchemasAddressReferenceIDTagID,
                                 ID: "D4g3h5tBuVYK9",
                             },
                     ),
@@ -294,7 +294,7 @@ func main() {
     res, err := s.Account.Detect(ctx, operations.AccountExistsRequest{
         XPublishableKey: "string",
         Identifier: shared.Identifier{
-            IdentifierType: shared.IdentifierIdentifierTypeEmail,
+            IdentifierType: shared.IdentifierTypeEmail,
             IdentifierValue: "alice@example.com",
         },
     })
@@ -404,9 +404,9 @@ func main() {
     ctx := context.Background()
     res, err := s.Account.UpdateAddress(ctx, operations.AccountAddressEditRequest{
         XPublishableKey: "string",
-        AddressListingInput: shared.AddressListingInput{
+        AddressListing: shared.AddressListingInput{
             Company: testboltapi.String("ACME Corporation"),
-            CountryCode: shared.AddressListingCountryCodeUs,
+            CountryCode: shared.CountryCodeUs,
             Email: testboltapi.String("alice@example.com"),
             FirstName: "Alice",
             IsDefault: testboltapi.Bool(true),
