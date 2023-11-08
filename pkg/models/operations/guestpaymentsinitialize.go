@@ -46,7 +46,7 @@ type GuestPaymentsInitializeResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// The payment was successfully initialized, and was either immediately finalized or is pending
-	PaymentResponse *shared.PaymentResponse
+	PaymentResponse interface{}
 }
 
 func (o *GuestPaymentsInitializeResponse) GetContentType() string {
@@ -70,7 +70,7 @@ func (o *GuestPaymentsInitializeResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GuestPaymentsInitializeResponse) GetPaymentResponse() *shared.PaymentResponse {
+func (o *GuestPaymentsInitializeResponse) GetPaymentResponse() interface{} {
 	if o == nil {
 		return nil
 	}

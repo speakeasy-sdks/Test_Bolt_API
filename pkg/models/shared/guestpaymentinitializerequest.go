@@ -4,7 +4,7 @@ package shared
 
 type GuestPaymentInitializeRequest struct {
 	Cart          Cart                `json:"cart"`
-	PaymentMethod PaymentMethodInput  `json:"payment_method"`
+	PaymentMethod PaymentMethod       `json:"payment_method"`
 	Profile       ProfileCreationData `json:"profile"`
 }
 
@@ -15,15 +15,15 @@ func (o *GuestPaymentInitializeRequest) GetCart() Cart {
 	return o.Cart
 }
 
-func (o *GuestPaymentInitializeRequest) GetPaymentMethod() PaymentMethodInput {
+func (o *GuestPaymentInitializeRequest) GetPaymentMethod() PaymentMethod {
 	if o == nil {
-		return PaymentMethodInput{}
+		return PaymentMethod{}
 	}
 	return o.PaymentMethod
 }
 
-func (o *GuestPaymentInitializeRequest) GetPaymentMethodCreditCard() *PaymentMethodCreditCardInput {
-	return o.GetPaymentMethod().PaymentMethodCreditCardInput
+func (o *GuestPaymentInitializeRequest) GetPaymentMethodCreditCard() *PaymentMethodCreditCard {
+	return o.GetPaymentMethod().PaymentMethodCreditCard
 }
 
 func (o *GuestPaymentInitializeRequest) GetPaymentMethodPaypal() *PaymentMethodPaypal {

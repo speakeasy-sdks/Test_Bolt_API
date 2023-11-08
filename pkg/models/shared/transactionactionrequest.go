@@ -9,56 +9,56 @@ import (
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/utils"
 )
 
-type TransactionActionRequestActionType string
+type ActionType string
 
 const (
-	TransactionActionRequestActionTypeCapture TransactionActionRequestActionType = "capture"
-	TransactionActionRequestActionTypeRefund  TransactionActionRequestActionType = "refund"
-	TransactionActionRequestActionTypeVoid    TransactionActionRequestActionType = "void"
+	ActionTypeCapture ActionType = "capture"
+	ActionTypeRefund  ActionType = "refund"
+	ActionTypeVoid    ActionType = "void"
 )
 
-type TransactionActionRequestAction struct {
+type Action struct {
 	TransactionActionCapture *TransactionActionCapture
 	TransactionActionRefund  *TransactionActionRefund
 	TransactionActionVoid    *TransactionActionVoid
 
-	Type TransactionActionRequestActionType
+	Type ActionType
 }
 
-func CreateTransactionActionRequestActionCapture(capture TransactionActionCapture) TransactionActionRequestAction {
-	typ := TransactionActionRequestActionTypeCapture
+func CreateActionCapture(capture TransactionActionCapture) Action {
+	typ := ActionTypeCapture
 	typStr := TransactionActionCaptureTag(typ)
 	capture.DotTag = typStr
 
-	return TransactionActionRequestAction{
+	return Action{
 		TransactionActionCapture: &capture,
 		Type:                     typ,
 	}
 }
 
-func CreateTransactionActionRequestActionRefund(refund TransactionActionRefund) TransactionActionRequestAction {
-	typ := TransactionActionRequestActionTypeRefund
+func CreateActionRefund(refund TransactionActionRefund) Action {
+	typ := ActionTypeRefund
 	typStr := TransactionActionRefundTag(typ)
 	refund.DotTag = typStr
 
-	return TransactionActionRequestAction{
+	return Action{
 		TransactionActionRefund: &refund,
 		Type:                    typ,
 	}
 }
 
-func CreateTransactionActionRequestActionVoid(void TransactionActionVoid) TransactionActionRequestAction {
-	typ := TransactionActionRequestActionTypeVoid
+func CreateActionVoid(void TransactionActionVoid) Action {
+	typ := ActionTypeVoid
 	typStr := TransactionActionVoidTag(typ)
 	void.DotTag = typStr
 
-	return TransactionActionRequestAction{
+	return Action{
 		TransactionActionVoid: &void,
 		Type:                  typ,
 	}
 }
 
-func (u *TransactionActionRequestAction) UnmarshalJSON(data []byte) error {
+func (u *Action) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
 		DotTag string
@@ -77,7 +77,7 @@ func (u *TransactionActionRequestAction) UnmarshalJSON(data []byte) error {
 		}
 
 		u.TransactionActionCapture = transactionActionCapture
-		u.Type = TransactionActionRequestActionTypeCapture
+		u.Type = ActionTypeCapture
 		return nil
 	case "refund":
 		transactionActionRefund := new(TransactionActionRefund)
@@ -86,7 +86,7 @@ func (u *TransactionActionRequestAction) UnmarshalJSON(data []byte) error {
 		}
 
 		u.TransactionActionRefund = transactionActionRefund
-		u.Type = TransactionActionRequestActionTypeRefund
+		u.Type = ActionTypeRefund
 		return nil
 	case "void":
 		transactionActionVoid := new(TransactionActionVoid)
@@ -95,14 +95,14 @@ func (u *TransactionActionRequestAction) UnmarshalJSON(data []byte) error {
 		}
 
 		u.TransactionActionVoid = transactionActionVoid
-		u.Type = TransactionActionRequestActionTypeVoid
+		u.Type = ActionTypeVoid
 		return nil
 	}
 
 	return errors.New("could not unmarshal into supported union types")
 }
 
-func (u TransactionActionRequestAction) MarshalJSON() ([]byte, error) {
+func (u Action) MarshalJSON() ([]byte, error) {
 	if u.TransactionActionCapture != nil {
 		return utils.MarshalJSON(u.TransactionActionCapture, "", true)
 	}
@@ -119,12 +119,12 @@ func (u TransactionActionRequestAction) MarshalJSON() ([]byte, error) {
 }
 
 type TransactionActionRequest struct {
-	Action TransactionActionRequestAction `json:"action"`
+	Action Action `json:"action"`
 }
 
-func (o *TransactionActionRequest) GetAction() TransactionActionRequestAction {
+func (o *TransactionActionRequest) GetAction() Action {
 	if o == nil {
-		return TransactionActionRequestAction{}
+		return Action{}
 	}
 	return o.Action
 }

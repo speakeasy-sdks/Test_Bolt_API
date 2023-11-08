@@ -9,8 +9,8 @@ import (
 
 type AccountAddPaymentMethodRequest struct {
 	// The publicly viewable identifier used to identify a merchant division.
-	XPublishableKey    string                    `header:"style=simple,explode=false,name=X-Publishable-Key"`
-	PaymentMethodInput shared.PaymentMethodInput `request:"mediaType=application/json"`
+	XPublishableKey string               `header:"style=simple,explode=false,name=X-Publishable-Key"`
+	PaymentMethod   shared.PaymentMethod `request:"mediaType=application/json"`
 }
 
 func (o *AccountAddPaymentMethodRequest) GetXPublishableKey() string {
@@ -20,19 +20,19 @@ func (o *AccountAddPaymentMethodRequest) GetXPublishableKey() string {
 	return o.XPublishableKey
 }
 
-func (o *AccountAddPaymentMethodRequest) GetPaymentMethodInput() shared.PaymentMethodInput {
+func (o *AccountAddPaymentMethodRequest) GetPaymentMethod() shared.PaymentMethod {
 	if o == nil {
-		return shared.PaymentMethodInput{}
+		return shared.PaymentMethod{}
 	}
-	return o.PaymentMethodInput
+	return o.PaymentMethod
 }
 
-func (o *AccountAddPaymentMethodRequest) GetPaymentMethodInputCreditCard() *shared.PaymentMethodCreditCardInput {
-	return o.GetPaymentMethodInput().PaymentMethodCreditCardInput
+func (o *AccountAddPaymentMethodRequest) GetPaymentMethodCreditCard() *shared.PaymentMethodCreditCard {
+	return o.GetPaymentMethod().PaymentMethodCreditCard
 }
 
-func (o *AccountAddPaymentMethodRequest) GetPaymentMethodInputPaypal() *shared.PaymentMethodPaypal {
-	return o.GetPaymentMethodInput().PaymentMethodPaypal
+func (o *AccountAddPaymentMethodRequest) GetPaymentMethodPaypal() *shared.PaymentMethodPaypal {
+	return o.GetPaymentMethod().PaymentMethodPaypal
 }
 
 type AccountAddPaymentMethodResponse struct {

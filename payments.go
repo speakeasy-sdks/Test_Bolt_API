@@ -2,17 +2,17 @@
 
 package testboltapi
 
-type payments struct {
-	Guest    *paymentsGuest
-	LoggedIn *paymentsLoggedIn
+type Payments struct {
+	Guest    *Guest
+	LoggedIn *LoggedIn
 
 	sdkConfiguration sdkConfiguration
 }
 
-func newPayments(sdkConfig sdkConfiguration) *payments {
-	return &payments{
+func newPayments(sdkConfig sdkConfiguration) *Payments {
+	return &Payments{
 		sdkConfiguration: sdkConfig,
-		Guest:            newPaymentsGuest(sdkConfig),
-		LoggedIn:         newPaymentsLoggedIn(sdkConfig),
+		Guest:            newGuest(sdkConfig),
+		LoggedIn:         newLoggedIn(sdkConfig),
 	}
 }

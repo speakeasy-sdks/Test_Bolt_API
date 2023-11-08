@@ -23,9 +23,9 @@ func main() {
 	ctx := context.Background()
 	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
 		XPublishableKey: "string",
-		AddressListingInput: shared.AddressListingInput{
+		AddressListing: shared.AddressListingInput{
 			Company:        testboltapi.String("ACME Corporation"),
-			CountryCode:    shared.AddressListingCountryCodeUs,
+			CountryCode:    shared.CountryCodeUs,
 			Email:          testboltapi.String("alice@example.com"),
 			FirstName:      "Alice",
 			IsDefault:      testboltapi.Bool(true),
