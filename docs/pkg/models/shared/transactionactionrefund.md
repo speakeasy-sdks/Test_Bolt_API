@@ -1,0 +1,9 @@
+# TransactionActionRefund
+
+
+## Fields
+
+| Field                                                                                         | Type                                                                                          | Required                                                                                      | Description                                                                                   | Example                                                                                       |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `DotTag`                                                                                      | [shared.TransactionActionRefundTag](../../../pkg/models/shared/transactionactionrefundtag.md) | :heavy_check_mark:                                                                            | N/A                                                                                           | refund                                                                                        |
+| `Amount`                                                                                      | [shared.Amount](../../../pkg/models/shared/amount.md)                                         | :heavy_check_mark:                                                                            | A monetary amount, i.e. a base unit amount and a supported currency.                          |                                                                                               |

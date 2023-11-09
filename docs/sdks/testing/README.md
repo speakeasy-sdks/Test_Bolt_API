@@ -34,16 +34,18 @@ func main() {
     s := testboltapi.New()
 
 
-    operationSecurity := ""
+    operationSecurity := operations.TestingAccountCreateSecurity{
+            APIKey: "",
+        }
 
     ctx := context.Background()
     res, err := s.Testing.CreateAccount(ctx, operations.TestingAccountCreateRequest{
         XPublishableKey: "string",
-        AccountTestCreationDataInput: shared.AccountTestCreationDataInput{
-            EmailState: shared.AccountTestCreationDataEmailStateUnverified,
+        AccountTestCreationData: shared.AccountTestCreationData{
+            EmailState: shared.EmailStateUnverified,
             HasAddress: testboltapi.Bool(true),
             IsMigrated: testboltapi.Bool(true),
-            PhoneState: shared.AccountTestCreationDataPhoneStateVerified,
+            PhoneState: shared.PhoneStateVerified,
         },
     }, operationSecurity)
     if err != nil {
@@ -58,17 +60,20 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        |
-| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                              | [context.Context](https://pkg.go.dev/context#Context)                                              | :heavy_check_mark:                                                                                 | The context to use for the request.                                                                |
-| `request`                                                                                          | [operations.TestingAccountCreateRequest](../../models/operations/testingaccountcreaterequest.md)   | :heavy_check_mark:                                                                                 | The request object to use for the request.                                                         |
-| `security`                                                                                         | [operations.TestingAccountCreateSecurity](../../models/operations/testingaccountcreatesecurity.md) | :heavy_check_mark:                                                                                 | The security requirements to use for the request.                                                  |
+| Parameter                                                                                              | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                                  | :heavy_check_mark:                                                                                     | The context to use for the request.                                                                    |
+| `request`                                                                                              | [operations.TestingAccountCreateRequest](../../pkg/models/operations/testingaccountcreaterequest.md)   | :heavy_check_mark:                                                                                     | The request object to use for the request.                                                             |
+| `security`                                                                                             | [operations.TestingAccountCreateSecurity](../../pkg/models/operations/testingaccountcreatesecurity.md) | :heavy_check_mark:                                                                                     | The security requirements to use for the request.                                                      |
 
 
 ### Response
 
-**[*operations.TestingAccountCreateResponse](../../models/operations/testingaccountcreateresponse.md), error**
-
+**[*operations.TestingAccountCreateResponse](../../pkg/models/operations/testingaccountcreateresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.Error    | 4XX                | application/json   |
+| sdkerrors.SDKError | 400-600            | */*                |
 
 ## GetCreditCard
 
@@ -92,7 +97,9 @@ func main() {
     s := testboltapi.New()
 
 
-    operationSecurity := ""
+    operationSecurity := operations.TestingCreditCardGetSecurity{
+            APIKey: "",
+        }
 
     ctx := context.Background()
     res, err := s.Testing.GetCreditCard(ctx, operationSecurity)
@@ -108,13 +115,16 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        |
-| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                              | [context.Context](https://pkg.go.dev/context#Context)                                              | :heavy_check_mark:                                                                                 | The context to use for the request.                                                                |
-| `security`                                                                                         | [operations.TestingCreditCardGetSecurity](../../models/operations/testingcreditcardgetsecurity.md) | :heavy_check_mark:                                                                                 | The security requirements to use for the request.                                                  |
+| Parameter                                                                                              | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                                  | :heavy_check_mark:                                                                                     | The context to use for the request.                                                                    |
+| `security`                                                                                             | [operations.TestingCreditCardGetSecurity](../../pkg/models/operations/testingcreditcardgetsecurity.md) | :heavy_check_mark:                                                                                     | The security requirements to use for the request.                                                      |
 
 
 ### Response
 
-**[*operations.TestingCreditCardGetResponse](../../models/operations/testingcreditcardgetresponse.md), error**
-
+**[*operations.TestingCreditCardGetResponse](../../pkg/models/operations/testingcreditcardgetresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.Error    | 4XX                | application/json   |
+| sdkerrors.SDKError | 400-600            | */*                |

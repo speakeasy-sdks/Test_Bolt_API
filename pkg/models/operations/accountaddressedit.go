@@ -9,8 +9,8 @@ import (
 
 type AccountAddressEditRequest struct {
 	// The publicly viewable identifier used to identify a merchant division.
-	XPublishableKey     string                     `header:"style=simple,explode=false,name=X-Publishable-Key"`
-	AddressListingInput shared.AddressListingInput `request:"mediaType=application/json"`
+	XPublishableKey string                     `header:"style=simple,explode=false,name=X-Publishable-Key"`
+	AddressListing  shared.AddressListingInput `request:"mediaType=application/json"`
 	// The ID of the address to edit
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
@@ -22,11 +22,11 @@ func (o *AccountAddressEditRequest) GetXPublishableKey() string {
 	return o.XPublishableKey
 }
 
-func (o *AccountAddressEditRequest) GetAddressListingInput() shared.AddressListingInput {
+func (o *AccountAddressEditRequest) GetAddressListing() shared.AddressListingInput {
 	if o == nil {
 		return shared.AddressListingInput{}
 	}
-	return o.AddressListingInput
+	return o.AddressListing
 }
 
 func (o *AccountAddressEditRequest) GetID() string {

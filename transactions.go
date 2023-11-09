@@ -14,22 +14,22 @@ import (
 	"net/http"
 )
 
-// transactions - Transaction endpoints allow you to manage transactions. For example, you can capture
+// Transactions - Transaction endpoints allow you to manage transactions. For example, you can capture
 // funds, void transactions, or issue refunds. You can also update certain fields for existing
 // transactions.
-type transactions struct {
+type Transactions struct {
 	sdkConfiguration sdkConfiguration
 }
 
-func newTransactions(sdkConfig sdkConfiguration) *transactions {
-	return &transactions{
+func newTransactions(sdkConfig sdkConfiguration) *Transactions {
+	return &Transactions{
 		sdkConfiguration: sdkConfig,
 	}
 }
 
 // GetDetails - Retrieve transaction details
 // Retrieve information for a specific transaction
-func (s *transactions) GetDetails(ctx context.Context, request operations.TransactionGetRequest, security operations.TransactionGetSecurity) (*operations.TransactionGetResponse, error) {
+func (s *Transactions) GetDetails(ctx context.Context, request operations.TransactionGetRequest, security operations.TransactionGetSecurity) (*operations.TransactionGetResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url, err := utils.GenerateURL(ctx, baseURL, "/transactions/{id}", request, nil)
 	if err != nil {
@@ -103,7 +103,7 @@ func (s *transactions) GetDetails(ctx context.Context, request operations.Transa
 
 // PerformAction - Perform an irreversible action (e.g. capture, refund, void) on a transaction
 // Perform an irreversible action (e.g. capture, refund, void) on a transaction
-func (s *transactions) PerformAction(ctx context.Context, request operations.TransactionActionRequest, security operations.TransactionActionSecurity) (*operations.TransactionActionResponse, error) {
+func (s *Transactions) PerformAction(ctx context.Context, request operations.TransactionActionRequest, security operations.TransactionActionSecurity) (*operations.TransactionActionResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url, err := utils.GenerateURL(ctx, baseURL, "/transactions/{id}", request, nil)
 	if err != nil {
@@ -187,7 +187,7 @@ func (s *transactions) PerformAction(ctx context.Context, request operations.Tra
 
 // Update certain transaction details
 // Update certain transaction details, such as the user-facing ID of its associate order
-func (s *transactions) Update(ctx context.Context, request operations.TransactionUpdateRequest, security operations.TransactionUpdateSecurity) (*operations.TransactionUpdateResponse, error) {
+func (s *Transactions) Update(ctx context.Context, request operations.TransactionUpdateRequest, security operations.TransactionUpdateSecurity) (*operations.TransactionUpdateResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url, err := utils.GenerateURL(ctx, baseURL, "/transactions/{id}", request, nil)
 	if err != nil {

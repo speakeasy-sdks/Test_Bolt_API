@@ -7,22 +7,22 @@ import (
 	"fmt"
 )
 
-// AmountCurrency - A supported currency.
-type AmountCurrency string
+// Currency - A supported currency.
+type Currency string
 
 const (
-	AmountCurrencyAud AmountCurrency = "AUD"
-	AmountCurrencyCad AmountCurrency = "CAD"
-	AmountCurrencyEur AmountCurrency = "EUR"
-	AmountCurrencyGbp AmountCurrency = "GBP"
-	AmountCurrencyUsd AmountCurrency = "USD"
+	CurrencyAud Currency = "AUD"
+	CurrencyCad Currency = "CAD"
+	CurrencyEur Currency = "EUR"
+	CurrencyGbp Currency = "GBP"
+	CurrencyUsd Currency = "USD"
 )
 
-func (e AmountCurrency) ToPointer() *AmountCurrency {
+func (e Currency) ToPointer() *Currency {
 	return &e
 }
 
-func (e *AmountCurrency) UnmarshalJSON(data []byte) error {
+func (e *Currency) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -37,24 +37,24 @@ func (e *AmountCurrency) UnmarshalJSON(data []byte) error {
 	case "GBP":
 		fallthrough
 	case "USD":
-		*e = AmountCurrency(v)
+		*e = Currency(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for AmountCurrency: %v", v)
+		return fmt.Errorf("invalid value for Currency: %v", v)
 	}
 }
 
 // Amount - A monetary amount, i.e. a base unit amount and a supported currency.
 type Amount struct {
 	// A supported currency.
-	Currency AmountCurrency `json:"currency"`
+	Currency Currency `json:"currency"`
 	// A monetary amount, represented in its base units (e.g. USD/EUR cents).
 	Units int64 `json:"units"`
 }
 
-func (o *Amount) GetCurrency() AmountCurrency {
+func (o *Amount) GetCurrency() Currency {
 	if o == nil {
-		return AmountCurrency("")
+		return Currency("")
 	}
 	return o.Currency
 }

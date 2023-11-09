@@ -45,9 +45,9 @@ func main() {
     ctx := context.Background()
     res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
         XPublishableKey: "string",
-        AddressListingInput: shared.AddressListingInput{
+        AddressListing: shared.AddressListingInput{
             Company: testboltapi.String("ACME Corporation"),
-            CountryCode: shared.AddressListingCountryCodeUs,
+            CountryCode: shared.CountryCodeUs,
             Email: testboltapi.String("alice@example.com"),
             FirstName: "Alice",
             IsDefault: testboltapi.Bool(true),
@@ -72,16 +72,19 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                        | Type                                                                                             | Required                                                                                         | Description                                                                                      |
-| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
-| `ctx`                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                            | :heavy_check_mark:                                                                               | The context to use for the request.                                                              |
-| `request`                                                                                        | [operations.AccountAddressCreateRequest](../../models/operations/accountaddresscreaterequest.md) | :heavy_check_mark:                                                                               | The request object to use for the request.                                                       |
+| Parameter                                                                                            | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                | [context.Context](https://pkg.go.dev/context#Context)                                                | :heavy_check_mark:                                                                                   | The context to use for the request.                                                                  |
+| `request`                                                                                            | [operations.AccountAddressCreateRequest](../../pkg/models/operations/accountaddresscreaterequest.md) | :heavy_check_mark:                                                                                   | The request object to use for the request.                                                           |
 
 
 ### Response
 
-**[*operations.AccountAddressCreateResponse](../../models/operations/accountaddresscreateresponse.md), error**
-
+**[*operations.AccountAddressCreateResponse](../../pkg/models/operations/accountaddresscreateresponse.md), error**
+| Error Object                               | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| sdkerrors.AccountAddressCreateResponseBody | 4XX                                        | application/json                           |
+| sdkerrors.SDKError                         | 400-600                                    | */*                                        |
 
 ## AddPaymentMethod
 
@@ -115,12 +118,12 @@ func main() {
     ctx := context.Background()
     res, err := s.Account.AddPaymentMethod(ctx, operations.AccountAddPaymentMethodRequest{
         XPublishableKey: "string",
-        PaymentMethodInput: shared.CreatePaymentMethodInputPaymentMethodCreditCardInput(
-                shared.PaymentMethodCreditCardInput{
+        PaymentMethod: shared.CreatePaymentMethodPaymentMethodCreditCard(
+                shared.PaymentMethodCreditCard{
                     DotTag: shared.PaymentMethodCreditCardTagCreditCard,
-                    BillingAddress: shared.CreateAddressReferenceInputAddressReferenceAddressReferenceID(
-                            shared.AddressReferenceAddressReferenceID{
-                                DotTag: shared.AddressReferenceAddressReferenceIDTagID,
+                    BillingAddress: shared.CreateAddressReferenceSchemas(
+                            shared.Schemas{
+                                DotTag: shared.SchemasAddressReferenceIDTagID,
                                 ID: "D4g3h5tBuVYK9",
                             },
                     ),
@@ -144,16 +147,19 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                              | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
-| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `ctx`                                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                                  | :heavy_check_mark:                                                                                     | The context to use for the request.                                                                    |
-| `request`                                                                                              | [operations.AccountAddPaymentMethodRequest](../../models/operations/accountaddpaymentmethodrequest.md) | :heavy_check_mark:                                                                                     | The request object to use for the request.                                                             |
+| Parameter                                                                                                  | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                      | [context.Context](https://pkg.go.dev/context#Context)                                                      | :heavy_check_mark:                                                                                         | The context to use for the request.                                                                        |
+| `request`                                                                                                  | [operations.AccountAddPaymentMethodRequest](../../pkg/models/operations/accountaddpaymentmethodrequest.md) | :heavy_check_mark:                                                                                         | The request object to use for the request.                                                                 |
 
 
 ### Response
 
-**[*operations.AccountAddPaymentMethodResponse](../../models/operations/accountaddpaymentmethodresponse.md), error**
-
+**[*operations.AccountAddPaymentMethodResponse](../../pkg/models/operations/accountaddpaymentmethodresponse.md), error**
+| Error Object                                  | Status Code                                   | Content Type                                  |
+| --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
+| sdkerrors.AccountAddPaymentMethodResponseBody | 4XX                                           | application/json                              |
+| sdkerrors.SDKError                            | 400-600                                       | */*                                           |
 
 ## DeleteAddress
 
@@ -199,16 +205,19 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                        | Type                                                                                             | Required                                                                                         | Description                                                                                      |
-| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
-| `ctx`                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                            | :heavy_check_mark:                                                                               | The context to use for the request.                                                              |
-| `request`                                                                                        | [operations.AccountAddressDeleteRequest](../../models/operations/accountaddressdeleterequest.md) | :heavy_check_mark:                                                                               | The request object to use for the request.                                                       |
+| Parameter                                                                                            | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                | [context.Context](https://pkg.go.dev/context#Context)                                                | :heavy_check_mark:                                                                                   | The context to use for the request.                                                                  |
+| `request`                                                                                            | [operations.AccountAddressDeleteRequest](../../pkg/models/operations/accountaddressdeleterequest.md) | :heavy_check_mark:                                                                                   | The request object to use for the request.                                                           |
 
 
 ### Response
 
-**[*operations.AccountAddressDeleteResponse](../../models/operations/accountaddressdeleteresponse.md), error**
-
+**[*operations.AccountAddressDeleteResponse](../../pkg/models/operations/accountaddressdeleteresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.Error    | 4XX                | application/json   |
+| sdkerrors.SDKError | 400-600            | */*                |
 
 ## DeletePaymentMethod
 
@@ -254,16 +263,19 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                                    | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `ctx`                                                                                                        | [context.Context](https://pkg.go.dev/context#Context)                                                        | :heavy_check_mark:                                                                                           | The context to use for the request.                                                                          |
-| `request`                                                                                                    | [operations.AccountPaymentMethodDeleteRequest](../../models/operations/accountpaymentmethoddeleterequest.md) | :heavy_check_mark:                                                                                           | The request object to use for the request.                                                                   |
+| Parameter                                                                                                        | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                            | :heavy_check_mark:                                                                                               | The context to use for the request.                                                                              |
+| `request`                                                                                                        | [operations.AccountPaymentMethodDeleteRequest](../../pkg/models/operations/accountpaymentmethoddeleterequest.md) | :heavy_check_mark:                                                                                               | The request object to use for the request.                                                                       |
 
 
 ### Response
 
-**[*operations.AccountPaymentMethodDeleteResponse](../../models/operations/accountpaymentmethoddeleteresponse.md), error**
-
+**[*operations.AccountPaymentMethodDeleteResponse](../../pkg/models/operations/accountpaymentmethoddeleteresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.Error    | 4XX                | application/json   |
+| sdkerrors.SDKError | 400-600            | */*                |
 
 ## Detect
 
@@ -294,7 +306,7 @@ func main() {
     res, err := s.Account.Detect(ctx, operations.AccountExistsRequest{
         XPublishableKey: "string",
         Identifier: shared.Identifier{
-            IdentifierType: shared.IdentifierIdentifierTypeEmail,
+            IdentifierType: shared.IdentifierTypeEmail,
             IdentifierValue: "alice@example.com",
         },
     })
@@ -310,16 +322,19 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                          | Type                                                                               | Required                                                                           | Description                                                                        |
-| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `ctx`                                                                              | [context.Context](https://pkg.go.dev/context#Context)                              | :heavy_check_mark:                                                                 | The context to use for the request.                                                |
-| `request`                                                                          | [operations.AccountExistsRequest](../../models/operations/accountexistsrequest.md) | :heavy_check_mark:                                                                 | The request object to use for the request.                                         |
+| Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `ctx`                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                  | :heavy_check_mark:                                                                     | The context to use for the request.                                                    |
+| `request`                                                                              | [operations.AccountExistsRequest](../../pkg/models/operations/accountexistsrequest.md) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
 
 
 ### Response
 
-**[*operations.AccountExistsResponse](../../models/operations/accountexistsresponse.md), error**
-
+**[*operations.AccountExistsResponse](../../pkg/models/operations/accountexistsresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.Error    | 4XX                | application/json   |
+| sdkerrors.SDKError | 400-600            | */*                |
 
 ## GetDetails
 
@@ -362,16 +377,19 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
-| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `ctx`                                                                        | [context.Context](https://pkg.go.dev/context#Context)                        | :heavy_check_mark:                                                           | The context to use for the request.                                          |
-| `request`                                                                    | [operations.AccountGetRequest](../../models/operations/accountgetrequest.md) | :heavy_check_mark:                                                           | The request object to use for the request.                                   |
+| Parameter                                                                        | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `ctx`                                                                            | [context.Context](https://pkg.go.dev/context#Context)                            | :heavy_check_mark:                                                               | The context to use for the request.                                              |
+| `request`                                                                        | [operations.AccountGetRequest](../../pkg/models/operations/accountgetrequest.md) | :heavy_check_mark:                                                               | The request object to use for the request.                                       |
 
 
 ### Response
 
-**[*operations.AccountGetResponse](../../models/operations/accountgetresponse.md), error**
-
+**[*operations.AccountGetResponse](../../pkg/models/operations/accountgetresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.Error    | 4XX                | application/json   |
+| sdkerrors.SDKError | 400-600            | */*                |
 
 ## UpdateAddress
 
@@ -404,9 +422,9 @@ func main() {
     ctx := context.Background()
     res, err := s.Account.UpdateAddress(ctx, operations.AccountAddressEditRequest{
         XPublishableKey: "string",
-        AddressListingInput: shared.AddressListingInput{
+        AddressListing: shared.AddressListingInput{
             Company: testboltapi.String("ACME Corporation"),
-            CountryCode: shared.AddressListingCountryCodeUs,
+            CountryCode: shared.CountryCodeUs,
             Email: testboltapi.String("alice@example.com"),
             FirstName: "Alice",
             IsDefault: testboltapi.Bool(true),
@@ -432,13 +450,16 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                    | Type                                                                                         | Required                                                                                     | Description                                                                                  |
-| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                        | [context.Context](https://pkg.go.dev/context#Context)                                        | :heavy_check_mark:                                                                           | The context to use for the request.                                                          |
-| `request`                                                                                    | [operations.AccountAddressEditRequest](../../models/operations/accountaddresseditrequest.md) | :heavy_check_mark:                                                                           | The request object to use for the request.                                                   |
+| Parameter                                                                                        | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                            | :heavy_check_mark:                                                                               | The context to use for the request.                                                              |
+| `request`                                                                                        | [operations.AccountAddressEditRequest](../../pkg/models/operations/accountaddresseditrequest.md) | :heavy_check_mark:                                                                               | The request object to use for the request.                                                       |
 
 
 ### Response
 
-**[*operations.AccountAddressEditResponse](../../models/operations/accountaddresseditresponse.md), error**
-
+**[*operations.AccountAddressEditResponse](../../pkg/models/operations/accountaddresseditresponse.md), error**
+| Error Object                             | Status Code                              | Content Type                             |
+| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| sdkerrors.AccountAddressEditResponseBody | 4XX                                      | application/json                         |
+| sdkerrors.SDKError                       | 400-600                                  | */*                                      |

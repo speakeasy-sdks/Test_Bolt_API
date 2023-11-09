@@ -26,7 +26,7 @@ type TestingCreditCardGetResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Successfully generated test credit card details
-	CreditCard *shared.CreditCardOutput
+	CreditCard *shared.CreditCard
 }
 
 func (o *TestingCreditCardGetResponse) GetContentType() string {
@@ -50,7 +50,7 @@ func (o *TestingCreditCardGetResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *TestingCreditCardGetResponse) GetCreditCard() *shared.CreditCardOutput {
+func (o *TestingCreditCardGetResponse) GetCreditCard() *shared.CreditCard {
 	if o == nil {
 		return nil
 	}

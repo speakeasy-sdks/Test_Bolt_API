@@ -1,9 +1,0 @@
-# TransactionActionCapture
-
-
-## Fields
-
-| Field                                                                             | Type                                                                              | Required                                                                          | Description                                                                       | Example                                                                           |
-| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| `DotTag`                                                                          | [TransactionActionCaptureTag](../../models/shared/transactionactioncapturetag.md) | :heavy_check_mark:                                                                | N/A                                                                               | capture                                                                           |
-| `Amount`                                                                          | [Amount](../../models/shared/amount.md)                                           | :heavy_check_mark:                                                                | A monetary amount, i.e. a base unit amount and a supported currency.              |                                                                                   |

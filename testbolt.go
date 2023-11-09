@@ -68,17 +68,17 @@ type TestBolt struct {
 	// Account endpoints allow you to view and manage shoppers' accounts. For example,
 	// you can add or remove addresses and payment information.
 	//
-	Account  *account
-	Payments *payments
+	Account  *Account
+	Payments *Payments
 	// Endpoints that allow you to generate and retrieve test data to verify certain
 	// flows in non-production environments.
 	//
-	Testing *testing
+	Testing *Testing
 	// Transaction endpoints allow you to manage transactions. For example, you can capture
 	// funds, void transactions, or issue refunds. You can also update certain fields for existing
 	// transactions.
 	//
-	Transactions *transactions
+	Transactions *Transactions
 
 	sdkConfiguration sdkConfiguration
 }
@@ -196,9 +196,9 @@ func New(opts ...SDKOption) *TestBolt {
 		sdkConfiguration: sdkConfiguration{
 			Language:          "go",
 			OpenAPIDocVersion: "3.0.1",
-			SDKVersion:        "0.7.3",
-			GenVersion:        "2.173.0",
-			UserAgent:         "speakeasy-sdk/go 0.7.3 2.173.0 3.0.1 github.com/speakeasy-sdks/Test_Bolt_API",
+			SDKVersion:        "0.8.0",
+			GenVersion:        "2.185.0",
+			UserAgent:         "speakeasy-sdk/go 0.8.0 2.185.0 3.0.1 github.com/speakeasy-sdks/Test_Bolt_API",
 			ServerDefaults: []map[string]string{
 				{
 					"environment": "api-sandbox",

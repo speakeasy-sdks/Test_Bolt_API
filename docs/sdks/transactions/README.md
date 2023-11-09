@@ -34,7 +34,9 @@ func main() {
     s := testboltapi.New()
 
 
-    operationSecurity := ""
+    operationSecurity := operations.TransactionGetSecurity{
+            APIKey: "",
+        }
 
     ctx := context.Background()
     res, err := s.Transactions.GetDetails(ctx, operations.TransactionGetRequest{
@@ -53,17 +55,20 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
-| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `ctx`                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                  | :heavy_check_mark:                                                                     | The context to use for the request.                                                    |
-| `request`                                                                              | [operations.TransactionGetRequest](../../models/operations/transactiongetrequest.md)   | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
-| `security`                                                                             | [operations.TransactionGetSecurity](../../models/operations/transactiongetsecurity.md) | :heavy_check_mark:                                                                     | The security requirements to use for the request.                                      |
+| Parameter                                                                                  | Type                                                                                       | Required                                                                                   | Description                                                                                |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                      | [context.Context](https://pkg.go.dev/context#Context)                                      | :heavy_check_mark:                                                                         | The context to use for the request.                                                        |
+| `request`                                                                                  | [operations.TransactionGetRequest](../../pkg/models/operations/transactiongetrequest.md)   | :heavy_check_mark:                                                                         | The request object to use for the request.                                                 |
+| `security`                                                                                 | [operations.TransactionGetSecurity](../../pkg/models/operations/transactiongetsecurity.md) | :heavy_check_mark:                                                                         | The security requirements to use for the request.                                          |
 
 
 ### Response
 
-**[*operations.TransactionGetResponse](../../models/operations/transactiongetresponse.md), error**
-
+**[*operations.TransactionGetResponse](../../pkg/models/operations/transactiongetresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.Error    | 4XX                | application/json   |
+| sdkerrors.SDKError | 400-600            | */*                |
 
 ## PerformAction
 
@@ -86,18 +91,20 @@ func main() {
     s := testboltapi.New()
 
 
-    operationSecurity := ""
+    operationSecurity := operations.TransactionActionSecurity{
+            APIKey: "",
+        }
 
     ctx := context.Background()
     res, err := s.Transactions.PerformAction(ctx, operations.TransactionActionRequest{
         XPublishableKey: "string",
         ID: "OBYG-X1PX-FN55",
         TransactionActionRequest: shared.TransactionActionRequest{
-            Action: shared.CreateTransactionActionRequestActionTransactionActionCapture(
+            Action: shared.CreateActionTransactionActionCapture(
                     shared.TransactionActionCapture{
                         DotTag: shared.TransactionActionCaptureTagCapture,
                         Amount: shared.Amount{
-                            Currency: shared.AmountCurrencyUsd,
+                            Currency: shared.CurrencyUsd,
                             Units: 900,
                         },
                     },
@@ -116,17 +123,20 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                    | Type                                                                                         | Required                                                                                     | Description                                                                                  |
-| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                        | [context.Context](https://pkg.go.dev/context#Context)                                        | :heavy_check_mark:                                                                           | The context to use for the request.                                                          |
-| `request`                                                                                    | [operations.TransactionActionRequest](../../models/operations/transactionactionrequest.md)   | :heavy_check_mark:                                                                           | The request object to use for the request.                                                   |
-| `security`                                                                                   | [operations.TransactionActionSecurity](../../models/operations/transactionactionsecurity.md) | :heavy_check_mark:                                                                           | The security requirements to use for the request.                                            |
+| Parameter                                                                                        | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                            | :heavy_check_mark:                                                                               | The context to use for the request.                                                              |
+| `request`                                                                                        | [operations.TransactionActionRequest](../../pkg/models/operations/transactionactionrequest.md)   | :heavy_check_mark:                                                                               | The request object to use for the request.                                                       |
+| `security`                                                                                       | [operations.TransactionActionSecurity](../../pkg/models/operations/transactionactionsecurity.md) | :heavy_check_mark:                                                                               | The security requirements to use for the request.                                                |
 
 
 ### Response
 
-**[*operations.TransactionActionResponse](../../models/operations/transactionactionresponse.md), error**
-
+**[*operations.TransactionActionResponse](../../pkg/models/operations/transactionactionresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.Error    | 4XX                | application/json   |
+| sdkerrors.SDKError | 400-600            | */*                |
 
 ## Update
 
@@ -149,15 +159,17 @@ func main() {
     s := testboltapi.New()
 
 
-    operationSecurity := ""
+    operationSecurity := operations.TransactionUpdateSecurity{
+            APIKey: "",
+        }
 
     ctx := context.Background()
     res, err := s.Transactions.Update(ctx, operations.TransactionUpdateRequest{
         XPublishableKey: "string",
         ID: "OBYG-X1PX-FN55",
         TransactionUpdateRequest: shared.TransactionUpdateRequest{
-            Order: &shared.TransactionUpdateRequestOrder{
-                Cart: &shared.TransactionUpdateRequestOrderCart{
+            Order: &shared.Order{
+                Cart: &shared.TransactionUpdateRequestCart{
                     DisplayID: testboltapi.String("215614191"),
                 },
             },
@@ -175,14 +187,17 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                    | Type                                                                                         | Required                                                                                     | Description                                                                                  |
-| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                        | [context.Context](https://pkg.go.dev/context#Context)                                        | :heavy_check_mark:                                                                           | The context to use for the request.                                                          |
-| `request`                                                                                    | [operations.TransactionUpdateRequest](../../models/operations/transactionupdaterequest.md)   | :heavy_check_mark:                                                                           | The request object to use for the request.                                                   |
-| `security`                                                                                   | [operations.TransactionUpdateSecurity](../../models/operations/transactionupdatesecurity.md) | :heavy_check_mark:                                                                           | The security requirements to use for the request.                                            |
+| Parameter                                                                                        | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                            | :heavy_check_mark:                                                                               | The context to use for the request.                                                              |
+| `request`                                                                                        | [operations.TransactionUpdateRequest](../../pkg/models/operations/transactionupdaterequest.md)   | :heavy_check_mark:                                                                               | The request object to use for the request.                                                       |
+| `security`                                                                                       | [operations.TransactionUpdateSecurity](../../pkg/models/operations/transactionupdatesecurity.md) | :heavy_check_mark:                                                                               | The security requirements to use for the request.                                                |
 
 
 ### Response
 
-**[*operations.TransactionUpdateResponse](../../models/operations/transactionupdateresponse.md), error**
-
+**[*operations.TransactionUpdateResponse](../../pkg/models/operations/transactionupdateresponse.md), error**
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.Error    | 4XX                | application/json   |
+| sdkerrors.SDKError | 400-600            | */*                |

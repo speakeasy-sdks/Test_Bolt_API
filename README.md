@@ -37,9 +37,9 @@ func main() {
 	ctx := context.Background()
 	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
 		XPublishableKey: "string",
-		AddressListingInput: shared.AddressListingInput{
+		AddressListing: shared.AddressListingInput{
 			Company:        testboltapi.String("ACME Corporation"),
-			CountryCode:    shared.AddressListingCountryCodeUs,
+			CountryCode:    shared.CountryCodeUs,
 			Email:          testboltapi.String("alice@example.com"),
 			FirstName:      "Alice",
 			IsDefault:      testboltapi.Bool(true),
@@ -79,17 +79,17 @@ func main() {
 * [UpdateAddress](docs/sdks/account/README.md#updateaddress) - Edit an existing address
 
 
-### [Payments.Guest](docs/sdks/paymentsguest/README.md)
+### [Payments.Guest](docs/sdks/guest/README.md)
 
-* [Initialize](docs/sdks/paymentsguest/README.md#initialize) - Initialize a Bolt payment for guest shoppers
-* [PerformAction](docs/sdks/paymentsguest/README.md#performaction) - Perform an irreversible action (e.g. finalize) on a pending guest payment
-* [Update](docs/sdks/paymentsguest/README.md#update) - Update an existing guest payment
+* [Initialize](docs/sdks/guest/README.md#initialize) - Initialize a Bolt payment for guest shoppers
+* [PerformAction](docs/sdks/guest/README.md#performaction) - Perform an irreversible action (e.g. finalize) on a pending guest payment
+* [Update](docs/sdks/guest/README.md#update) - Update an existing guest payment
 
-### [Payments.LoggedIn](docs/sdks/paymentsloggedin/README.md)
+### [Payments.LoggedIn](docs/sdks/loggedin/README.md)
 
-* [Initialize](docs/sdks/paymentsloggedin/README.md#initialize) - Initialize a Bolt payment for logged in shoppers
-* [PerformAction](docs/sdks/paymentsloggedin/README.md#performaction) - Perform an irreversible action (e.g. finalize) on a pending payment
-* [Update](docs/sdks/paymentsloggedin/README.md#update) - Update an existing payment
+* [Initialize](docs/sdks/loggedin/README.md#initialize) - Initialize a Bolt payment for logged in shoppers
+* [PerformAction](docs/sdks/loggedin/README.md#performaction) - Perform an irreversible action (e.g. finalize) on a pending payment
+* [Update](docs/sdks/loggedin/README.md#update) - Update an existing payment
 
 ### [Testing](docs/sdks/testing/README.md)
 
@@ -132,7 +132,12 @@ Here's an example of one such pagination call:
 <!-- Start Error Handling -->
 # Error Handling
 
-Handling errors in your SDK should largely match your expectations.  All operations return a response object or an error, they will never return both.  When specified by the OpenAPI spec document, the SDK will return the appropriate subclass.
+Handling errors in this SDK should largely match your expectations.  All operations return a response object or an error, they will never return both.  When specified by the OpenAPI spec document, the SDK will return the appropriate subclass.
+
+| Error Object                               | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| sdkerrors.AccountAddressCreateResponseBody | 4XX                                        | application/json                           |
+| sdkerrors.SDKError                         | 400-600                                    | */*                                        |
 
 
 ## Example
@@ -159,9 +164,9 @@ func main() {
 	ctx := context.Background()
 	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
 		XPublishableKey: "string",
-		AddressListingInput: shared.AddressListingInput{
+		AddressListing: shared.AddressListingInput{
 			Company:        testboltapi.String("ACME Corporation"),
-			CountryCode:    shared.AddressListingCountryCodeUs,
+			CountryCode:    shared.CountryCodeUs,
 			Email:          testboltapi.String("alice@example.com"),
 			FirstName:      "Alice",
 			IsDefault:      testboltapi.Bool(true),
@@ -176,12 +181,17 @@ func main() {
 	})
 	if err != nil {
 
-		var e *accountAddressCreate_4XXApplicationJSON_OneOf
+		var e *sdkerrors.AccountAddressCreateResponseBody
 		if errors.As(err, &e) {
 			// handle error
 			log.Fatal(e.Error())
 		}
 
+		var e *sdkerrors.SDKError
+		if errors.As(err, &e) {
+			// handle error
+			log.Fatal(e.Error())
+		}
 	}
 }
 
@@ -203,10 +213,9 @@ You can override the default server globally using the `WithServerIndex` option 
 
 
 Some of the server options above contain variables. If you want to set the values of those variables, the following options are provided for doing so:
- * `WithEnvironment ServerEnvironment`
+ * `WithEnvironment testboltapi.ServerEnvironment`
 
 For example:
-
 
 ```go
 package main
@@ -221,19 +230,19 @@ import (
 
 func main() {
 	s := testboltapi.New(
+		testboltapi.WithServerIndex(0),
 		testboltapi.WithSecurity(shared.Security{
 			APIKey: "",
 			Oauth:  "",
 		}),
-		testboltapi.WithServerIndex(0),
 	)
 
 	ctx := context.Background()
 	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
 		XPublishableKey: "string",
-		AddressListingInput: shared.AddressListingInput{
+		AddressListing: shared.AddressListingInput{
 			Company:        testboltapi.String("ACME Corporation"),
-			CountryCode:    shared.AddressListingCountryCodeUs,
+			CountryCode:    shared.CountryCodeUs,
 			Email:          testboltapi.String("alice@example.com"),
 			FirstName:      "Alice",
 			IsDefault:      testboltapi.Bool(true),
@@ -262,7 +271,6 @@ func main() {
 
 The default server can also be overridden globally using the `WithServerURL` option when initializing the SDK client instance. For example:
 
-
 ```go
 package main
 
@@ -276,19 +284,19 @@ import (
 
 func main() {
 	s := testboltapi.New(
+		testboltapi.WithServerURL("https://{environment}.bolt.com/v3"),
 		testboltapi.WithSecurity(shared.Security{
 			APIKey: "",
 			Oauth:  "",
 		}),
-		testboltapi.WithServerURL("https://{environment}.bolt.com/v3"),
 	)
 
 	ctx := context.Background()
 	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
 		XPublishableKey: "string",
-		AddressListingInput: shared.AddressListingInput{
+		AddressListing: shared.AddressListingInput{
 			Company:        testboltapi.String("ACME Corporation"),
-			CountryCode:    shared.AddressListingCountryCodeUs,
+			CountryCode:    shared.CountryCodeUs,
 			Email:          testboltapi.String("alice@example.com"),
 			FirstName:      "Alice",
 			IsDefault:      testboltapi.Bool(true),
@@ -343,6 +351,206 @@ var (
 
 This can be a convenient way to configure timeouts, cookies, proxies, custom headers, and other low-level configuration.
 <!-- End Custom HTTP Client -->
+
+
+
+<!-- Start Authentication -->
+
+# Authentication
+
+## Per-Client Security Schemes
+
+This SDK supports the following security schemes globally:
+
+| Name         | Type         | Scheme       |
+| ------------ | ------------ | ------------ |
+| `APIKey`     | apiKey       | API key      |
+| `Oauth`      | oauth2       | OAuth2 token |
+
+You can set the security parameters through the `WithSecurity` option when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
+
+```go
+package main
+
+import (
+	"context"
+	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
+	"log"
+)
+
+func main() {
+	s := testboltapi.New(
+		testboltapi.WithSecurity(shared.Security{
+			APIKey: "",
+			Oauth:  "",
+		}),
+	)
+
+	ctx := context.Background()
+	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
+		XPublishableKey: "string",
+		AddressListing: shared.AddressListingInput{
+			Company:        testboltapi.String("ACME Corporation"),
+			CountryCode:    shared.CountryCodeUs,
+			Email:          testboltapi.String("alice@example.com"),
+			FirstName:      "Alice",
+			IsDefault:      testboltapi.Bool(true),
+			LastName:       "Baker",
+			Locality:       "San Francisco",
+			Phone:          testboltapi.String("+14155550199"),
+			PostalCode:     "94105",
+			Region:         testboltapi.String("CA"),
+			StreetAddress1: "535 Mission St, Ste 1401",
+			StreetAddress2: testboltapi.String("c/o Shipping Department"),
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if res.AddressListing != nil {
+		// handle response
+	}
+}
+
+```
+
+## Per-Operation Security Schemes
+
+Some operations in this SDK require the security scheme to be specified at the request level. For example:
+
+```go
+package main
+
+import (
+	"context"
+	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
+	"log"
+)
+
+func main() {
+	s := testboltapi.New()
+
+	operationSecurity := operations.GuestPaymentsInitializeSecurity{
+		APIKey: "",
+	}
+
+	ctx := context.Background()
+	res, err := s.Payments.Guest.Initialize(ctx, operations.GuestPaymentsInitializeRequest{
+		XPublishableKey: "string",
+		GuestPaymentInitializeRequest: shared.GuestPaymentInitializeRequest{
+			Cart: shared.Cart{
+				Discounts: []shared.CartDiscount{
+					shared.CartDiscount{
+						Amount: shared.Amount{
+							Currency: shared.CurrencyUsd,
+							Units:    900,
+						},
+						Code:       testboltapi.String("SUMMER10DISCOUNT"),
+						DetailsURL: testboltapi.String("https://www.example.com/SUMMER-SALE"),
+					},
+				},
+				DisplayID: testboltapi.String("215614191"),
+				Items: []shared.CartItem{
+					shared.CartItem{
+						Description: testboltapi.String("Large tote with Bolt logo."),
+						ImageURL:    testboltapi.String("https://www.example.com/products/123456/images/1.png"),
+						Name:        "Bolt Swag Bag",
+						Quantity:    1,
+						Reference:   "item_100",
+						TotalAmount: shared.Amount{
+							Currency: shared.CurrencyUsd,
+							Units:    900,
+						},
+						UnitPrice: 1000,
+					},
+				},
+				OrderDescription: testboltapi.String("Order #1234567890"),
+				OrderReference:   "order_100",
+				Shipments: []shared.CartShipment{
+					shared.CartShipment{
+						Address: shared.CreateAddressReferenceSchemasInput(
+							shared.SchemasInput{
+								DotTag:         shared.SchemasTagExplicit,
+								Company:        testboltapi.String("ACME Corporation"),
+								CountryCode:    shared.SchemasCountryCodeUs,
+								Email:          testboltapi.String("alice@example.com"),
+								FirstName:      "Alice",
+								LastName:       "Baker",
+								Locality:       "San Francisco",
+								Phone:          testboltapi.String("+14155550199"),
+								PostalCode:     "94105",
+								Region:         testboltapi.String("CA"),
+								StreetAddress1: "535 Mission St, Ste 1401",
+								StreetAddress2: testboltapi.String("c/o Shipping Department"),
+							},
+						),
+						Carrier: testboltapi.String("FedEx"),
+						Cost: &shared.Amount{
+							Currency: shared.CurrencyUsd,
+							Units:    900,
+						},
+					},
+				},
+				Tax: shared.Amount{
+					Currency: shared.CurrencyUsd,
+					Units:    900,
+				},
+				Total: shared.Amount{
+					Currency: shared.CurrencyUsd,
+					Units:    900,
+				},
+			},
+			PaymentMethod: shared.CreatePaymentMethodPaymentMethodCreditCard(
+				shared.PaymentMethodCreditCard{
+					DotTag: shared.PaymentMethodCreditCardTagCreditCard,
+					BillingAddress: shared.CreateAddressReferenceSchemasInput(
+						shared.SchemasInput{
+							DotTag:         shared.SchemasTagExplicit,
+							Company:        testboltapi.String("ACME Corporation"),
+							CountryCode:    shared.SchemasCountryCodeUs,
+							Email:          testboltapi.String("alice@example.com"),
+							FirstName:      "Alice",
+							LastName:       "Baker",
+							Locality:       "San Francisco",
+							Phone:          testboltapi.String("+14155550199"),
+							PostalCode:     "94105",
+							Region:         testboltapi.String("CA"),
+							StreetAddress1: "535 Mission St, Ste 1401",
+							StreetAddress2: testboltapi.String("c/o Shipping Department"),
+						},
+					),
+					Bin:        "411111",
+					Expiration: "2029-03",
+					Last4:      "1004",
+					Network:    shared.PaymentMethodCreditCardNetworkVisa,
+					Token:      "a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0",
+				},
+			),
+			Profile: shared.ProfileCreationData{
+				CreateAccount: true,
+				Email:         "alice@example.com",
+				FirstName:     "Alice",
+				LastName:      "Baker",
+				Phone:         testboltapi.String("+14155550199"),
+			},
+		},
+	}, operationSecurity)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if res.PaymentResponse != nil {
+		// handle response
+	}
+}
+
+```
+<!-- End Authentication -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 
