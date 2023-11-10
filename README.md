@@ -15,6 +15,8 @@ go get github.com/speakeasy-sdks/Test_Bolt_API
 
 ## SDK Example Usage
 <!-- Start SDK Example Usage -->
+### Example
+
 ```go
 package main
 
@@ -130,7 +132,7 @@ Here's an example of one such pagination call:
 
 
 <!-- Start Error Handling -->
-# Error Handling
+## Error Handling
 
 Handling errors in this SDK should largely match your expectations.  All operations return a response object or an error, they will never return both.  When specified by the OpenAPI spec document, the SDK will return the appropriate subclass.
 
@@ -139,8 +141,7 @@ Handling errors in this SDK should largely match your expectations.  All operati
 | sdkerrors.AccountAddressCreateResponseBody | 4XX                                        | application/json                           |
 | sdkerrors.SDKError                         | 400-600                                    | */*                                        |
 
-
-## Example
+### Example
 
 ```go
 package main
@@ -201,9 +202,9 @@ func main() {
 
 
 <!-- Start Server Selection -->
-# Server Selection
+## Server Selection
 
-## Select Server by Index
+### Select Server by Index
 
 You can override the default server globally using the `WithServerIndex` option when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
 
@@ -211,11 +212,7 @@ You can override the default server globally using the `WithServerIndex` option 
 | - | ------ | --------- |
 | 0 | `https://{environment}.bolt.com/v3` | `environment` (default is `api-sandbox`) |
 
-
-Some of the server options above contain variables. If you want to set the values of those variables, the following options are provided for doing so:
- * `WithEnvironment testboltapi.ServerEnvironment`
-
-For example:
+#### Example
 
 ```go
 package main
@@ -266,11 +263,14 @@ func main() {
 
 ```
 
+#### Variables
 
-## Override Server URL Per-Client
+Some of the server options above contain variables. If you want to set the values of those variables, the following options are provided for doing so:
+ * `WithEnvironment testboltapi.ServerEnvironment`
+
+### Override Server URL Per-Client
 
 The default server can also be overridden globally using the `WithServerURL` option when initializing the SDK client instance. For example:
-
 ```go
 package main
 
@@ -324,7 +324,7 @@ func main() {
 
 
 <!-- Start Custom HTTP Client -->
-# Custom HTTP Client
+## Custom HTTP Client
 
 The Go SDK makes API calls that wrap an internal HTTP client. The requirements for the HTTP client are very simple. It must match this interface:
 
@@ -355,10 +355,9 @@ This can be a convenient way to configure timeouts, cookies, proxies, custom hea
 
 
 <!-- Start Authentication -->
+## Authentication
 
-# Authentication
-
-## Per-Client Security Schemes
+### Per-Client Security Schemes
 
 This SDK supports the following security schemes globally:
 
@@ -368,7 +367,6 @@ This SDK supports the following security schemes globally:
 | `Oauth`      | oauth2       | OAuth2 token |
 
 You can set the security parameters through the `WithSecurity` option when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
-
 ```go
 package main
 
@@ -417,10 +415,9 @@ func main() {
 
 ```
 
-## Per-Operation Security Schemes
+### Per-Operation Security Schemes
 
 Some operations in this SDK require the security scheme to be specified at the request level. For example:
-
 ```go
 package main
 

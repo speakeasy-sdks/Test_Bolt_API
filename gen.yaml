@@ -2,15 +2,17 @@ configVersion: 1.0.0
 management:
   docChecksum: d42747a5bd3aa0553492d9e771307e46
   docVersion: 3.0.1
-  speakeasyVersion: 1.116.0
-  generationVersion: 2.185.0
+  speakeasyVersion: 1.118.3
+  generationVersion: 2.187.7
 generation:
   comments: {}
   sdkClassName: TestBolt
   repoURL: https://github.com/speakeasy-sdks/Test_Bolt_API.git
+  usageSnippets:
+    optionalPropertyRendering: withExample
 features:
   go:
-    core: 3.1.2
+    core: 3.1.4
     globalSecurity: 2.82.2
     globalServerURLs: 2.82.0
     groups: 2.81.2
@@ -19,7 +21,7 @@ features:
     nameOverrides: 2.81.1
     unions: 2.85.0
 go:
-  version: 0.8.0
+  version: 0.8.1
   clientServerStatusCodesAsErrors: true
   flattenGlobalSecurity: true
   imports:
