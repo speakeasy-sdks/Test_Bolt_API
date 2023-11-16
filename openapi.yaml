@@ -1,39 +1,44 @@
 openapi: 3.0.0
 info:
-  version: 3.0.1
-  title: Bolt API Reference
+  contact:
+    email: api-help@bolt.com
+    name: Bolt
+    url: https://help.bolt.com/api-bolt/
   description: A comprehensive Bolt API reference for interacting with Transactions, Orders, Product Catalog, Configuration, Testing, and much more.
   termsOfService: https://www.bolt.com/end-user-terms
-  contact:
-    name: Bolt
-    email: api-help@bolt.com
-    url: https://help.bolt.com/api-bolt/
+  title: Bolt API Reference
+  version: 3.0.1
 servers:
   - url: https://{environment}.bolt.com/v3
     variables:
       environment:
+        default: api-sandbox
         enum:
           - api
           - api-sandbox
-        default: api-sandbox
 tags:
-  - name: Account
-    description: |
+  - description: |
       Account endpoints allow you to view and manage shoppers' accounts. For example,
       you can add or remove addresses and payment information.
-  - name: Payments
-    description: |
+    name: Account
+  - description: |
       Use the Payments API to tokenize and process alternative payment methods including Paypal with Bolt. This API is for the Bolt
       Accounts package.
-  - name: Transactions
-    description: |
-      Transaction endpoints allow you to manage transactions. For example, you can capture
-      funds, void transactions, or issue refunds. You can also update certain fields for existing
-      transactions.
-  - name: Testing
-    description: |
+    name: Payments
+  - description: |
+      Callback endpoints are implemented on your servers to power Bolt experiences. Different Bolt packages require
+      different callbacks to be implemented.
+    name: Callbacks
+  - description: |
       Endpoints that allow you to generate and retrieve test data to verify certain
       flows in non-production environments.
+    name: Testing
+  - description: |
+      Use this endpoint to retrieve an OAuth token. Use the token to allow your ecommerce server to make calls to the Account
+      endpoint and create a one-click checkout experience for shoppers.
+    externalDocs:
+      url: https://help.bolt.com/products/accounts/direct-api/oauth-guide/
+    name: OAuth
 paths:
   /account:
     get:
@@ -261,127 +266,30 @@ paths:
           $ref: '#/components/responses/response-4xx'
         default:
           $ref: '#/components/responses/response-default'
-  /payments:
+  /callbacks/accounts:
     post:
-      summary: Initialize a Bolt payment for logged in shoppers
-      operationId: paymentsInitialize
-      x-speakeasy-group: Payments.LoggedIn
-      x-speakeasy-name-override: Initialize
-      description: |
-        Initialize a Bolt payment token that will be used to reference this payment to
-        Bolt when it is updated or finalized for logged in shoppers.
+      x-speakeasy-ignore: true
+      summary: Callback to upsert full shopper account
+      operationId: callbackAccountUpsert
+      description: Create or update a shopper account with profile information, payment and addresses.
       tags:
-        - Payments
-      security:
-        - oauth:
-            - bolt.account.manage
-          api-key: []
+        - Callbacks
+      security: []
       parameters:
-        - $ref: '#/components/parameters/x-publishable-key'
+        - $ref: '#/components/parameters/x-bolt-hmac-sha256'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/payment-initialize-request'
-            examples:
-              reference:
-                $ref: '#/components/examples/payment-initialize-payment-method-reference'
+              $ref: '#/components/schemas/create-full-account'
       responses:
         '200':
-          description: The payment was successfully initialized, and was either immediately finalized or is pending
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/payment-response'
-              examples:
-                finalized:
-                  $ref: '#/components/examples/payment-response-finalized'
-                pending:
-                  $ref: '#/components/examples/payment-response-pending'
+          description: The account details were successfully created/updated
         4XX:
-          $ref: '#/components/responses/response-4xx'
+          description: An error has occurred, and further details are contained in the response.
         default:
-          $ref: '#/components/responses/response-default'
-  /payments/{id}:
-    patch:
-      summary: Update an existing payment
-      operationId: paymentsUpdate
-      x-speakeasy-group: Payments.LoggedIn
-      x-speakeasy-name-override: Update
-      description: |
-        Update a pending payment
-      tags:
-        - Payments
-      security:
-        - oauth:
-            - bolt.account.manage
-          api-key: []
-      parameters:
-        - $ref: '#/components/parameters/x-publishable-key'
-        - in: path
-          name: id
-          schema:
-            type: string
-            example: iKv7t5bgt1gg
-          required: true
-          description: The ID of the payment to update
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/payment-update-request'
-      responses:
-        '200':
-          description: The pending payment was successfully updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/payment-response'
-        4XX:
-          $ref: '#/components/responses/response-4xx'
-        default:
-          $ref: '#/components/responses/response-default'
-    post:
-      summary: Perform an irreversible action (e.g. finalize) on a pending payment
-      operationId: paymentsAction
-      x-speakeasy-group: Payments.LoggedIn
-      x-speakeasy-name-override: PerformAction
-      description: |
-        Perform an irreversible action on a pending payment, such as finalizing it.
-      tags:
-        - Payments
-      security:
-        - oauth:
-            - bolt.account.manage
-          api-key: []
-      parameters:
-        - $ref: '#/components/parameters/x-publishable-key'
-        - in: path
-          name: id
-          schema:
-            type: string
-            example: iKv7t5bgt1gg
-          required: true
-          description: The ID of the payment to operate on
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/payment-action-request'
-      responses:
-        '200':
-          description: The action was successfully applied to the pending payment
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/payment-response'
-        4XX:
-          $ref: '#/components/responses/response-4xx'
-        default:
-          $ref: '#/components/responses/response-default'
+          description: An error has occurred, and further details are contained in the response.
   /guest/payments:
     post:
       summary: Initialize a Bolt payment for guest shoppers
@@ -499,109 +407,152 @@ paths:
           $ref: '#/components/responses/response-4xx'
         default:
           $ref: '#/components/responses/response-default'
-  /transactions/{id}:
-    get:
-      summary: Retrieve transaction details
-      operationId: transactionGet
-      x-speakeasy-name-override: GetDetails
-      description: Retrieve information for a specific transaction
+  /oauth/token:
+    post:
+      summary: Get OAuth token
+      operationId: oauthGetToken
+      x-speakeasy-name-override: GetToken
+      description: Retrieve a new or refresh an existing OAuth token.
       tags:
-        - Transactions
+        - OAuth
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/get-access-token-request'
+      responses:
+        '200':
+          description: Access token is successfully fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/get-access-token-response'
+        4XX:
+          $ref: '#/components/responses/response-4xx'
+        default:
+          $ref: '#/components/responses/response-default'
+  /payments:
+    post:
+      summary: Initialize a Bolt payment for logged in shoppers
+      operationId: paymentsInitialize
+      x-speakeasy-group: Payments.LoggedIn
+      x-speakeasy-name-override: Initialize
+      description: |
+        Initialize a Bolt payment token that will be used to reference this payment to
+        Bolt when it is updated or finalized for logged in shoppers.
+      tags:
+        - Payments
       security:
-        - api-key: []
+        - oauth:
+            - bolt.account.manage
+          api-key: []
+      parameters:
+        - $ref: '#/components/parameters/x-publishable-key'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payment-initialize-request'
+            examples:
+              reference:
+                $ref: '#/components/examples/payment-initialize-payment-method-reference'
+              credit_card:
+                $ref: '#/components/examples/payment-initialize-payment-method-credit-card'
+              paypal:
+                $ref: '#/components/examples/payment-initialize-payment-method-paypal'
+      responses:
+        '200':
+          description: The payment was successfully initialized, and was either immediately finalized or is pending
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/payment-response'
+              examples:
+                finalized:
+                  $ref: '#/components/examples/payment-response-finalized'
+                pending:
+                  $ref: '#/components/examples/payment-response-pending'
+        4XX:
+          $ref: '#/components/responses/response-4xx'
+        default:
+          $ref: '#/components/responses/response-default'
+  /payments/{id}:
+    patch:
+      summary: Update an existing payment
+      operationId: paymentsUpdate
+      x-speakeasy-group: Payments.LoggedIn
+      x-speakeasy-name-override: Update
+      description: |
+        Update a pending payment
+      tags:
+        - Payments
+      security:
+        - oauth:
+            - bolt.account.manage
+          api-key: []
       parameters:
         - $ref: '#/components/parameters/x-publishable-key'
         - in: path
           name: id
           schema:
             type: string
-            example: OBYG-X1PX-FN55
+            example: iKv7t5bgt1gg
           required: true
-          description: The transaction reference
+          description: The ID of the payment to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payment-update-request'
       responses:
         '200':
-          description: The transaction details were successfully retrieved
+          description: The pending payment was successfully updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/transaction'
+                $ref: '#/components/schemas/payment-response'
         4XX:
           $ref: '#/components/responses/response-4xx'
         default:
           $ref: '#/components/responses/response-default'
     post:
-      summary: Perform an irreversible action (e.g. capture, refund, void) on a transaction
-      operationId: transactionAction
+      summary: Perform an irreversible action (e.g. finalize) on a pending payment
+      operationId: paymentsAction
+      x-speakeasy-group: Payments.LoggedIn
       x-speakeasy-name-override: PerformAction
-      description: Perform an irreversible action (e.g. capture, refund, void) on a transaction
+      description: |
+        Perform an irreversible action on a pending payment, such as finalizing it.
       tags:
-        - Transactions
+        - Payments
       security:
-        - api-key: []
+        - oauth:
+            - bolt.account.manage
+          api-key: []
       parameters:
         - $ref: '#/components/parameters/x-publishable-key'
         - in: path
           name: id
           schema:
             type: string
-            example: OBYG-X1PX-FN55
+            example: iKv7t5bgt1gg
           required: true
-          description: The transaction reference
+          description: The ID of the payment to operate on
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/transaction-action-request'
-            examples:
-              capture:
-                $ref: '#/components/examples/transaction-action-capture'
-              refund:
-                $ref: '#/components/examples/transaction-action-refund'
-              void:
-                $ref: '#/components/examples/transaction-action-void'
+              $ref: '#/components/schemas/payment-action-request'
       responses:
         '200':
-          description: The action was successfully applied
+          description: The action was successfully applied to the pending payment
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/transaction'
-        4XX:
-          $ref: '#/components/responses/response-4xx'
-        default:
-          $ref: '#/components/responses/response-default'
-    patch:
-      summary: Update certain transaction details
-      operationId: transactionUpdate
-      x-speakeasy-name-override: Update
-      description: Update certain transaction details, such as the user-facing ID of its associate order
-      tags:
-        - Transactions
-      security:
-        - api-key: []
-      parameters:
-        - $ref: '#/components/parameters/x-publishable-key'
-        - in: path
-          name: id
-          schema:
-            type: string
-            example: OBYG-X1PX-FN55
-          required: true
-          description: The transaction reference
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/transaction-update-request'
-      responses:
-        '200':
-          description: The transaction was successfully updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/transaction'
+                $ref: '#/components/schemas/payment-response'
         4XX:
           $ref: '#/components/responses/response-4xx'
         default:
@@ -654,35 +605,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/credit-card'
-        4XX:
-          $ref: '#/components/responses/response-4xx'
-        default:
-          $ref: '#/components/responses/response-default'
-  /oauth/token:
-    post:
-      summary: Get OAuth token
-      operationId: OAuthGetToken
-      description: Endpoint for receiving access, ID, and refresh tokens from Bolt's OAuth server.
-      tags:
-        - OAuth
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/get-access-token-request'
-            encoding:
-              scope:
-                style: spaceDelimited
-                explode: false
-      responses:
-        '200':
-          description: Access token is successfully fetched
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/get-access-token-response'
+                $ref: '#/components/schemas/test-credit-card'
         4XX:
           $ref: '#/components/responses/response-4xx'
         default:
@@ -690,19 +613,19 @@ paths:
 components:
   securitySchemes:
     api-key:
-      type: apiKey
       in: header
       name: X-API-Key
+      type: apiKey
     oauth:
       flows:
         authorizationCode:
           authorizationUrl: /v1/oauth/authorize
           refreshUrl: /v1/oauth/token
-          tokenUrl: /v1/oauth/token
           scopes:
             bolt.account.manage: This scope grants permissions to perform read/edit/delete actions on Bolt Account data
             bolt.account.view: This scope grants permissions to perform read only actions on Bolt Account data
             openid: This scope grants permissions that enable Bolt SSO by granting an id token JWT that stores account data
+          tokenUrl: /v1/oauth/token
       type: oauth2
   parameters:
     x-publishable-key:
@@ -747,6 +670,13 @@ components:
           value:
             identifier_type: email_sha256
             identifier_value: ff8d9819fc0e12bf0d24892e45987e249a28dce836a85cad60e28eaaa8c6d976
+    x-bolt-hmac-sha256:
+      description: Bolt signed HMAC for hook verification
+      in: header
+      name: X-Bolt-Hmac-Sha256
+      required: true
+      schema:
+        type: string
   responses:
     response-default:
       description: An error has occurred, and no further details are provided (e.g. 5xx errors)
@@ -1253,13 +1183,13 @@ components:
           enum:
             - paypal
           example: paypal
-        success:
+        success_url:
           type: string
           description: Redirect URL for successful PayPal transaction.
           format: uri
           writeOnly: true
           example: www.example.com/handle_paypal_success
-        cancel:
+        cancel_url:
           type: string
           description: Redirect URL for canceled PayPal transaction.
           format: uri
@@ -1378,6 +1308,26 @@ components:
             A human-readable error message, which might include information specific to
             the request that was made.
           example: The payment was declined because the CVV is not valid
+    create-full-account:
+      type: object
+      properties:
+        account_details:
+          $ref: '#/components/schemas/account'
+        customer_data_id:
+          type: string
+          description: A unique identifier for this account on the merchant platform.
+          example: 5FEB9028D
+    profile-creation-data:
+      allOf:
+        - type: object
+          required:
+            - create_account
+          properties:
+            create_account:
+              type: boolean
+              description: Whether or not an account should be created.
+              example: true
+        - $ref: '#/components/schemas/profile'
     amount:
       type: object
       description: A monetary amount, i.e. a base unit amount and a supported currency.
@@ -1509,31 +1459,19 @@ components:
           $ref: '#/components/schemas/amount'
         tax:
           $ref: '#/components/schemas/amount'
-    payment-method-reference:
+    guest-payment-initialize-request:
       type: object
       required:
-        - .tag
-        - id
-      properties:
-        .tag:
-          type: string
-          enum:
-            - id
-          example: id
-        id:
-          type: string
-          description: Payment ID of the saved Bolt Payment method.
-          example: id
-    payment-initialize-request:
-      type: object
-      required:
+        - profile
         - cart
         - payment_method
       properties:
+        profile:
+          $ref: '#/components/schemas/profile-creation-data'
         cart:
           $ref: '#/components/schemas/cart'
         payment_method:
-          $ref: '#/components/schemas/payment-method-reference'
+          $ref: '#/components/schemas/payment-method'
     transaction:
       type: object
       properties:
@@ -1542,6 +1480,9 @@ components:
           example: OBYG-X1PX-FN55
     payment-response-finalized:
       type: object
+      required:
+        - status
+        - transaction
       properties:
         status:
           type: string
@@ -1552,30 +1493,25 @@ components:
           $ref: '#/components/schemas/transaction'
     payment-response-pending:
       type: object
+      required:
+        - status
+        - action
+        - url
       properties:
         status:
           type: string
           enum:
             - awaiting_user_confirmation
-            - payment_ready
-            - update_payment_method
           example: awaiting_user_confirmation
         action:
           type: string
           enum:
             - redirect
-            - finalize
           example: redirect
         url:
           type: string
           format: uri
           example: www.example.com/payments/finalize
-        method:
-          type: string
-          enum:
-            - GET
-            - POST
-          example: GET
     payment-response:
       allOf:
         - type: object
@@ -1601,96 +1537,134 @@ components:
       properties:
         cart:
           $ref: '#/components/schemas/cart'
-    profile-creation-data:
+    base-oauth-token-request:
+      type: object
+      required:
+        - client_id
+        - client_secret
+        - grant_type
+        - scope
+      properties:
+        client_id:
+          type: string
+          description: Merchant publishable key which can be found in the merchant dashboard
+        client_secret:
+          type: string
+          description: Your Bolt API Key.
+        grant_type:
+          description: |
+            The type of OAuth 2.0 grant being utilized.
+
+            The value will always be `authorization_code` when exchanging an authorization code for an access token.
+          enum:
+            - authorization_code
+          type: string
+        scope:
+          description: |
+            The scope issued to the merchant when receiving an authorization code.
+            Options include `bolt.account.manage`, `bolt.account.view`, `openid`.
+            You can find more information on these options in our
+            [OAuth scope documentation](https://help.bolt.com/developers/references/bolt-oauth/#scopes).
+          type: array
+          items:
+            type: string
+            enum:
+              - bolt.account.manage
+              - bolt.account.view
+              - openid
+        state:
+          description: A randomly generated string issued to the merchant when receiving an authorization code used to prevent CSRF attacks
+          type: string
+    get-access-token-request:
+      type: object
       allOf:
         - type: object
           required:
-            - create_account
+            - code
           properties:
-            create_account:
-              type: boolean
-              description: Whether or not an account should be created.
-              example: true
-        - $ref: '#/components/schemas/profile'
-    guest-payment-initialize-request:
+            code:
+              description: Fetched value using OTP value from the Authorization Modal.
+              type: string
+        - $ref: '#/components/schemas/base-oauth-token-request'
+    base-oauth-token-response:
+      type: object
+      properties:
+        access_token:
+          description: An access token you can use to make requests on behalf of a Bolt Account.
+          type: string
+        expires_in:
+          description: Access token’s expiration in seconds.
+          type: integer
+        refresh_token:
+          description: A refresh token you can use to issue a brand new access token without obtaining a new authorization code.
+          type: string
+        refresh_token_scope:
+          description: The scope granted to the refresh token. Currently this will always be bolt.account.view.
+          type: array
+          items:
+            type: string
+            enum:
+              - bolt.account.manage
+              - bolt.account.view
+              - openid
+        scope:
+          description: |
+            The scope granted to access token, depending on the scope granted to the authorization code as well as the scope parameter.
+            Options include `bolt.account.manage`, `bolt.account.view`, `openid`.'
+          type: array
+          items:
+            type: string
+            enum:
+              - bolt.account.manage
+              - bolt.account.view
+              - openid
+        token_type:
+          description: The token_type will always be bearer.
+          type: string
+    get-access-token-response:
+      allOf:
+        - type: object
+          properties:
+            id_token:
+              description: A JWT token issued when the request includes the scope open_id.
+              type: string
+        - $ref: '#/components/schemas/base-oauth-token-response'
+    payment-method-reference:
       type: object
       required:
-        - profile
+        - .tag
+        - id
+      properties:
+        .tag:
+          type: string
+          enum:
+            - id
+          example: id
+        id:
+          type: string
+          description: Payment ID of the saved Bolt Payment method.
+          example: id
+    payment-method-extended:
+      oneOf:
+        - $ref: '#/components/schemas/payment-method-reference'
+        - $ref: '#/components/schemas/payment-method-credit-card'
+        - $ref: '#/components/schemas/payment-method-paypal'
+      discriminator:
+        propertyName: .tag
+        mapping:
+          id: '#/components/schemas/payment-method-reference'
+          credit_card: '#/components/schemas/payment-method-credit-card'
+          paypal: '#/components/schemas/payment-method-paypal'
+    payment-initialize-request:
+      type: object
+      required:
         - cart
         - payment_method
       properties:
-        profile:
-          $ref: '#/components/schemas/profile-creation-data'
         cart:
           $ref: '#/components/schemas/cart'
         payment_method:
-          $ref: '#/components/schemas/payment-method'
-    transaction-action-capture:
-      type: object
-      required:
-        - .tag
-        - amount
-      properties:
-        .tag:
-          type: string
-          enum:
-            - capture
-          example: capture
-        amount:
-          $ref: '#/components/schemas/amount'
-    transaction-action-refund:
-      type: object
-      required:
-        - .tag
-        - amount
-      properties:
-        .tag:
-          type: string
-          enum:
-            - refund
-          example: refund
-        amount:
-          $ref: '#/components/schemas/amount'
-    transaction-action-void:
-      type: object
-      required:
-        - .tag
-      properties:
-        .tag:
-          type: string
-          enum:
-            - void
-          example: void
-    transaction-action-request:
-      type: object
-      required:
-        - action
-      properties:
-        action:
-          oneOf:
-            - $ref: '#/components/schemas/transaction-action-capture'
-            - $ref: '#/components/schemas/transaction-action-refund'
-            - $ref: '#/components/schemas/transaction-action-void'
-          discriminator:
-            propertyName: .tag
-            mapping:
-              capture: '#/components/schemas/transaction-action-capture'
-              refund: '#/components/schemas/transaction-action-refund'
-              void: '#/components/schemas/transaction-action-void'
-    transaction-update-request:
-      type: object
-      properties:
-        order:
-          type: object
-          properties:
-            cart:
-              type: object
-              properties:
-                display_id:
-                  type: string
-                  description: A shopper-facing identifier corresponding to the order reference associated with this transaction.
-                  maxLength: 128
-                  example: '215614191'
+          $ref: '#/components/schemas/payment-method-extended'
     account-test-creation-data:
       type: object
       required:
@@ -1741,85 +1715,47 @@ components:
           type: string
           readOnly: true
           example: 7GSjMRSHs6Ak7C_zvVW6P2IhZOHxMK7HZKW1fMX85ms
-    base-oauth-token-request:
-      type: object
+    test-credit-card:
       required:
-        - client_id
-        - client_secret
-        - code
-        - grant_type
-        - scope
+        - network
+        - bin
+        - last4
+        - expiration
+        - token
+      type: object
       properties:
-        client_id:
+        network:
           type: string
-          description: Merchant publishable key which can be found in the merchant dashboard
-        client_secret:
-          type: string
-          description: Your Bolt API Key.
-        grant_type:
-          description: |
-            The type of OAuth 2.0 grant being utilized.
-
-            The value will always be `authorization_code` when exchanging an authorization code for an access token.
+          description: The credit card's network.
           enum:
-            - authorization_code
+            - visa
+            - mastercard
+            - amex
+            - discover
+            - jcb
+            - unionpay
+            - alliancedata
+            - citiplcc
+          example: visa
+        bin:
           type: string
-        scope:
-          description: |
-            The scope issued to the merchant when receiving an authorization code.
-            Options include `bolt.account.manage`, `bolt.account.view`, `openid`.
-            You can find more information on these options in our
-            [OAuth scope documentation](https://help.bolt.com/developers/references/bolt-oauth/#scopes).
-          type: array
-          items:
-            type: string
-            enum:
-              - bolt.account.manage
-              - bolt.account.view
-              - openid
-        state:
-          description: A randomly generated string issued to the merchant when receiving an authorization code used to prevent CSRF attacks
+          description: The Bank Identification Number (BIN). This is typically the first 4 to 6 digits of the account number.
+          format: ^\d+$
+          example: '411111'
+        last4:
           type: string
-    get-access-token-request:
-      type: object
-      allOf:
-        - type: object
-          properties:
-            code:
-              description: Fetched value using OTP value from the Authorization Modal.
-              type: string
-        - $ref: '#/components/schemas/base-oauth-token-request'
-    base-oauth-token-response:
-      type: object
-      properties:
-        access_token:
-          description: An access token you can use to make requests on behalf of a Bolt Account.
+          description: The account number's last four digits.
+          format: ^\d{4}$
+          example: '1004'
+        expiration:
           type: string
-        expires_in:
-          description: Access token’s expiration in seconds.
-          type: integer
-        refresh_token:
-          description: A refresh token you can use to issue a brand new access token without obtaining a new authorization code.
+          format: date-time
+          description: The token's expiration date. Tokens used past their expiration will be rejected.
+          example: 2023-10-31:T06:00:00Z
+        token:
           type: string
-        refresh_token_scope:
-          description: The scope granted to the refresh token. Currently this will always be bolt.account.view.
-          type: string
-        scope:
-          description: |
-            The scope granted to access token, depending on the scope granted to the authorization code as well as the scope parameter.
-            Options include `bolt.account.manage`, `bolt.account.view`, `openid`.'
-          type: string
-        token_type:
-          description: The token_type will always be bearer.
-          type: string
-    get-access-token-response:
-      allOf:
-        - type: object
-          properties:
-            id_token:
-              description: A JWT token issued when the request includes the scope open_id.
-              type: string
-        - $ref: '#/components/schemas/base-oauth-token-response'
+          description: The Bolt token associated with the credit card.
+          example: a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0
   examples:
     address-all-fields:
       summary: A sample address where all fields, including optional fields, are set
@@ -1879,61 +1815,6 @@ components:
           postal_code: '94105'
           region: CA
           country_code: US
-    payment-initialize-payment-method-reference:
-      summary: Payment using an existing payment method saved on the account
-      value:
-        cart:
-          total:
-            units: 10000
-            currency: USD
-          tax:
-            units: 100
-            currency: USD
-          order_reference: order_100
-          order_description: 'Order #1234567890'
-          display_id: '215614191'
-          items:
-            - name: Bolt Swag Bag
-              reference: item_100
-              description: Large tote with Bolt logo.
-              total_amount:
-                units: 9000
-                currency: USD
-              unit_price: 1000
-              quantity: 9
-              image_url: https://www.example.com/products/123456/images/1.png
-          shipments:
-            - cost:
-                units: 10000
-                currency: USD
-              carrier: FedEx
-              address:
-                .tag: id
-                id: D4g3h5tBuVYK9
-          discounts:
-            - amount:
-                units: 10000
-                currency: USD
-              code: SUMMER10DISCOUNT
-              details_url: https://www.example.com/SUMMER-SALE
-        payment_method:
-          .tag: id
-          id: X5h6j8uLpVGK
-    payment-response-finalized:
-      summary: The payment is final and a transaction record has been created
-      value:
-        id: iKv7t5bgt1gg
-        status: success
-        transaction:
-          reference: OBYG-X1PX-FN55
-    payment-response-pending:
-      summary: The payment is pending and further action is required
-      value:
-        id: iKv7t5bgt1gg
-        status: awaiting_user_confirmation
-        action: redirect
-        url: https://www.paypal.com/checkout/redirect
-        method: GET
     payment-initialize-payment-method-credit-card:
       summary: Payment using a credit card
       value:
@@ -1945,7 +1826,7 @@ components:
           phone: '+14155550199'
         cart:
           total:
-            units: 10000
+            units: 9000
             currency: USD
           tax:
             units: 100
@@ -2011,7 +1892,7 @@ components:
           phone: '+14155550199'
         cart:
           total:
-            units: 10000
+            units: 9000
             currency: USD
           tax:
             units: 100
@@ -2051,26 +1932,59 @@ components:
               details_url: https://www.example.com/SUMMER-SALE
         payment_method:
           .tag: paypal
-          success: www.example.com/handle_paypal_success
-          cancel: www.example.com/handle_paypal_cancel
-    transaction-action-capture:
-      summary: Capture a specific amount for an authorized, but not yet fully captured, transaction
+          success_url: www.example.com/handle_paypal_success
+          cancel_url: www.example.com/handle_paypal_cancel
+    payment-response-finalized:
+      summary: The payment is final and a transaction record has been created
       value:
-        action:
-          .tag: capture
-          amount:
+        id: iKv7t5bgt1gg
+        status: success
+        transaction:
+          reference: OBYG-X1PX-FN55
+    payment-response-pending:
+      summary: The payment is pending and further action is required
+      value:
+        id: iKv7t5bgt1gg
+        status: awaiting_user_confirmation
+        action: redirect
+        url: https://www.paypal.com/checkout/redirect
+    payment-initialize-payment-method-reference:
+      summary: Payment using an existing payment method saved on the account
+      value:
+        cart:
+          total:
+            units: 9000
             currency: USD
-            units: 199
-    transaction-action-refund:
-      summary: Refund a specific amount
-      value:
-        action:
-          .tag: refund
-          amount:
+          tax:
+            units: 100
             currency: USD
-            units: 900
-    transaction-action-void:
-      summary: Void an authorized, but not yet captured, transaction
-      value:
-        action:
-          .tag: void
+          order_reference: order_100
+          order_description: 'Order #1234567890'
+          display_id: '215614191'
+          items:
+            - name: Bolt Swag Bag
+              reference: item_100
+              description: Large tote with Bolt logo.
+              total_amount:
+                units: 9000
+                currency: USD
+              unit_price: 1000
+              quantity: 9
+              image_url: https://www.example.com/products/123456/images/1.png
+          shipments:
+            - cost:
+                units: 10000
+                currency: USD
+              carrier: FedEx
+              address:
+                .tag: id
+                id: D4g3h5tBuVYK9
+          discounts:
+            - amount:
+                units: 10000
+                currency: USD
+              code: SUMMER10DISCOUNT
+              details_url: https://www.example.com/SUMMER-SALE
+        payment_method:
+          .tag: id
+          id: X5h6j8uLpVGK
