@@ -31,25 +31,25 @@ func (e *PaymentMethodCreditCardTag) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// PaymentMethodCreditCardNetwork - The credit card's network.
-type PaymentMethodCreditCardNetwork string
+// Network - The credit card's network.
+type Network string
 
 const (
-	PaymentMethodCreditCardNetworkVisa         PaymentMethodCreditCardNetwork = "visa"
-	PaymentMethodCreditCardNetworkMastercard   PaymentMethodCreditCardNetwork = "mastercard"
-	PaymentMethodCreditCardNetworkAmex         PaymentMethodCreditCardNetwork = "amex"
-	PaymentMethodCreditCardNetworkDiscover     PaymentMethodCreditCardNetwork = "discover"
-	PaymentMethodCreditCardNetworkJcb          PaymentMethodCreditCardNetwork = "jcb"
-	PaymentMethodCreditCardNetworkUnionpay     PaymentMethodCreditCardNetwork = "unionpay"
-	PaymentMethodCreditCardNetworkAlliancedata PaymentMethodCreditCardNetwork = "alliancedata"
-	PaymentMethodCreditCardNetworkCitiplcc     PaymentMethodCreditCardNetwork = "citiplcc"
+	NetworkVisa         Network = "visa"
+	NetworkMastercard   Network = "mastercard"
+	NetworkAmex         Network = "amex"
+	NetworkDiscover     Network = "discover"
+	NetworkJcb          Network = "jcb"
+	NetworkUnionpay     Network = "unionpay"
+	NetworkAlliancedata Network = "alliancedata"
+	NetworkCitiplcc     Network = "citiplcc"
 )
 
-func (e PaymentMethodCreditCardNetwork) ToPointer() *PaymentMethodCreditCardNetwork {
+func (e Network) ToPointer() *Network {
 	return &e
 }
 
-func (e *PaymentMethodCreditCardNetwork) UnmarshalJSON(data []byte) error {
+func (e *Network) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -70,10 +70,10 @@ func (e *PaymentMethodCreditCardNetwork) UnmarshalJSON(data []byte) error {
 	case "alliancedata":
 		fallthrough
 	case "citiplcc":
-		*e = PaymentMethodCreditCardNetwork(v)
+		*e = Network(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for PaymentMethodCreditCardNetwork: %v", v)
+		return fmt.Errorf("invalid value for Network: %v", v)
 	}
 }
 
@@ -87,7 +87,7 @@ type PaymentMethodCreditCardOutput struct {
 	// The account number's last four digits.
 	Last4 string `json:"last4"`
 	// The credit card's network.
-	Network PaymentMethodCreditCardNetwork `json:"network"`
+	Network Network `json:"network"`
 }
 
 func (o *PaymentMethodCreditCardOutput) GetDotTag() PaymentMethodCreditCardTag {
@@ -125,9 +125,9 @@ func (o *PaymentMethodCreditCardOutput) GetLast4() string {
 	return o.Last4
 }
 
-func (o *PaymentMethodCreditCardOutput) GetNetwork() PaymentMethodCreditCardNetwork {
+func (o *PaymentMethodCreditCardOutput) GetNetwork() Network {
 	if o == nil {
-		return PaymentMethodCreditCardNetwork("")
+		return Network("")
 	}
 	return o.Network
 }
@@ -142,7 +142,7 @@ type PaymentMethodCreditCard struct {
 	// The account number's last four digits.
 	Last4 string `json:"last4"`
 	// The credit card's network.
-	Network PaymentMethodCreditCardNetwork `json:"network"`
+	Network Network `json:"network"`
 	// The Bolt token associated with the credit card.
 	Token string `json:"token"`
 }
@@ -190,9 +190,9 @@ func (o *PaymentMethodCreditCard) GetLast4() string {
 	return o.Last4
 }
 
-func (o *PaymentMethodCreditCard) GetNetwork() PaymentMethodCreditCardNetwork {
+func (o *PaymentMethodCreditCard) GetNetwork() Network {
 	if o == nil {
-		return PaymentMethodCreditCardNetwork("")
+		return Network("")
 	}
 	return o.Network
 }

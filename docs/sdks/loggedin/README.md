@@ -100,10 +100,12 @@ func main() {
                     Units: 900,
                 },
             },
-            PaymentMethod: shared.PaymentMethodReference{
-                DotTag: shared.PaymentMethodReferenceTagID,
-                ID: "id",
-            },
+            PaymentMethod: shared.CreatePaymentMethodExtendedPaymentMethodReference(
+                    shared.PaymentMethodReference{
+                        DotTag: shared.PaymentMethodReferenceTagID,
+                        ID: "id",
+                    },
+            ),
         },
     })
     if err != nil {

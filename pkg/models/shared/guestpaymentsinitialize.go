@@ -7,57 +7,27 @@ import (
 	"fmt"
 )
 
-type SchemasAction string
+type Action string
 
 const (
-	SchemasActionRedirect SchemasAction = "redirect"
-	SchemasActionFinalize SchemasAction = "finalize"
+	ActionRedirect Action = "redirect"
 )
 
-func (e SchemasAction) ToPointer() *SchemasAction {
+func (e Action) ToPointer() *Action {
 	return &e
 }
 
-func (e *SchemasAction) UnmarshalJSON(data []byte) error {
+func (e *Action) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "redirect":
-		fallthrough
-	case "finalize":
-		*e = SchemasAction(v)
+		*e = Action(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for SchemasAction: %v", v)
-	}
-}
-
-type Method string
-
-const (
-	MethodGet  Method = "GET"
-	MethodPost Method = "POST"
-)
-
-func (e Method) ToPointer() *Method {
-	return &e
-}
-
-func (e *Method) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "GET":
-		fallthrough
-	case "POST":
-		*e = Method(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for Method: %v", v)
+		return fmt.Errorf("invalid value for Action: %v", v)
 	}
 }
 
@@ -65,8 +35,6 @@ type SchemasStatus string
 
 const (
 	SchemasStatusAwaitingUserConfirmation SchemasStatus = "awaiting_user_confirmation"
-	SchemasStatusPaymentReady             SchemasStatus = "payment_ready"
-	SchemasStatusUpdatePaymentMethod      SchemasStatus = "update_payment_method"
 )
 
 func (e SchemasStatus) ToPointer() *SchemasStatus {
@@ -80,10 +48,6 @@ func (e *SchemasStatus) UnmarshalJSON(data []byte) error {
 	}
 	switch v {
 	case "awaiting_user_confirmation":
-		fallthrough
-	case "payment_ready":
-		fallthrough
-	case "update_payment_method":
 		*e = SchemasStatus(v)
 		return nil
 	default:
@@ -92,16 +56,15 @@ func (e *SchemasStatus) UnmarshalJSON(data []byte) error {
 }
 
 type PaymentResponsePendingSchemas struct {
-	Action *SchemasAction `json:"action,omitempty"`
-	ID     *string        `json:"id,omitempty"`
-	Method *Method        `json:"method,omitempty"`
-	Status *SchemasStatus `json:"status,omitempty"`
-	URL    *string        `json:"url,omitempty"`
+	Action Action        `json:"action"`
+	ID     *string       `json:"id,omitempty"`
+	Status SchemasStatus `json:"status"`
+	URL    string        `json:"url"`
 }
 
-func (o *PaymentResponsePendingSchemas) GetAction() *SchemasAction {
+func (o *PaymentResponsePendingSchemas) GetAction() Action {
 	if o == nil {
-		return nil
+		return Action("")
 	}
 	return o.Action
 }
@@ -113,23 +76,16 @@ func (o *PaymentResponsePendingSchemas) GetID() *string {
 	return o.ID
 }
 
-func (o *PaymentResponsePendingSchemas) GetMethod() *Method {
+func (o *PaymentResponsePendingSchemas) GetStatus() SchemasStatus {
 	if o == nil {
-		return nil
-	}
-	return o.Method
-}
-
-func (o *PaymentResponsePendingSchemas) GetStatus() *SchemasStatus {
-	if o == nil {
-		return nil
+		return SchemasStatus("")
 	}
 	return o.Status
 }
 
-func (o *PaymentResponsePendingSchemas) GetURL() *string {
+func (o *PaymentResponsePendingSchemas) GetURL() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.URL
 }
@@ -159,9 +115,9 @@ func (e *Status) UnmarshalJSON(data []byte) error {
 }
 
 type PaymentResponseFinalizedSchemas struct {
-	ID          *string      `json:"id,omitempty"`
-	Status      *Status      `json:"status,omitempty"`
-	Transaction *Transaction `json:"transaction,omitempty"`
+	ID          *string     `json:"id,omitempty"`
+	Status      Status      `json:"status"`
+	Transaction Transaction `json:"transaction"`
 }
 
 func (o *PaymentResponseFinalizedSchemas) GetID() *string {
@@ -171,16 +127,16 @@ func (o *PaymentResponseFinalizedSchemas) GetID() *string {
 	return o.ID
 }
 
-func (o *PaymentResponseFinalizedSchemas) GetStatus() *Status {
+func (o *PaymentResponseFinalizedSchemas) GetStatus() Status {
 	if o == nil {
-		return nil
+		return Status("")
 	}
 	return o.Status
 }
 
-func (o *PaymentResponseFinalizedSchemas) GetTransaction() *Transaction {
+func (o *PaymentResponseFinalizedSchemas) GetTransaction() Transaction {
 	if o == nil {
-		return nil
+		return Transaction{}
 	}
 	return o.Transaction
 }

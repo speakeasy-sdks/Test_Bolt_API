@@ -107,7 +107,7 @@ func main() {
         log.Fatal(err)
     }
 
-    if res.CreditCard != nil {
+    if res.TestCreditCard != nil {
         // handle response
     }
 }

@@ -122,7 +122,7 @@ func main() {
                         Bin: "411111",
                         Expiration: "2029-03",
                         Last4: "1004",
-                        Network: shared.PaymentMethodCreditCardNetworkVisa,
+                        Network: shared.NetworkVisa,
                         Token: "a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0",
                     },
             ),

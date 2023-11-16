@@ -70,15 +70,16 @@ type TestBolt struct {
 	//
 	Account  *Account
 	Payments *Payments
+	// Use this endpoint to retrieve an OAuth token. Use the token to allow your ecommerce server to make calls to the Account
+	// endpoint and create a one-click checkout experience for shoppers.
+	//
+	//
+	// https://help.bolt.com/products/accounts/direct-api/oauth-guide/
+	OAuth *OAuth
 	// Endpoints that allow you to generate and retrieve test data to verify certain
 	// flows in non-production environments.
 	//
 	Testing *Testing
-	// Transaction endpoints allow you to manage transactions. For example, you can capture
-	// funds, void transactions, or issue refunds. You can also update certain fields for existing
-	// transactions.
-	//
-	Transactions *Transactions
 
 	sdkConfiguration sdkConfiguration
 }
@@ -196,9 +197,9 @@ func New(opts ...SDKOption) *TestBolt {
 		sdkConfiguration: sdkConfiguration{
 			Language:          "go",
 			OpenAPIDocVersion: "3.0.1",
-			SDKVersion:        "0.8.2",
+			SDKVersion:        "0.8.3",
 			GenVersion:        "2.192.1",
-			UserAgent:         "speakeasy-sdk/go 0.8.2 2.192.1 3.0.1 github.com/speakeasy-sdks/Test_Bolt_API",
+			UserAgent:         "speakeasy-sdk/go 0.8.3 2.192.1 3.0.1 github.com/speakeasy-sdks/Test_Bolt_API",
 			ServerDefaults: []map[string]string{
 				{
 					"environment": "api-sandbox",
@@ -226,9 +227,9 @@ func New(opts ...SDKOption) *TestBolt {
 
 	sdk.Payments = newPayments(sdk.sdkConfiguration)
 
-	sdk.Testing = newTesting(sdk.sdkConfiguration)
+	sdk.OAuth = newOAuth(sdk.sdkConfiguration)
 
-	sdk.Transactions = newTransactions(sdk.sdkConfiguration)
+	sdk.Testing = newTesting(sdk.sdkConfiguration)
 
 	return sdk
 }

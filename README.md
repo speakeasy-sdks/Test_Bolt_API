@@ -93,16 +93,14 @@ func main() {
 * [PerformAction](docs/sdks/loggedin/README.md#performaction) - Perform an irreversible action (e.g. finalize) on a pending payment
 * [Update](docs/sdks/loggedin/README.md#update) - Update an existing payment
 
+### [OAuth](docs/sdks/oauth/README.md)
+
+* [GetToken](docs/sdks/oauth/README.md#gettoken) - Get OAuth token
+
 ### [Testing](docs/sdks/testing/README.md)
 
 * [CreateAccount](docs/sdks/testing/README.md#createaccount) - Create a test account
 * [GetCreditCard](docs/sdks/testing/README.md#getcreditcard) - Retrieve a test credit card, including its token
-
-### [Transactions](docs/sdks/transactions/README.md)
-
-* [GetDetails](docs/sdks/transactions/README.md#getdetails) - Retrieve transaction details
-* [PerformAction](docs/sdks/transactions/README.md#performaction) - Perform an irreversible action (e.g. capture, refund, void) on a transaction
-* [Update](docs/sdks/transactions/README.md#update) - Update certain transaction details
 <!-- End SDK Available Operations -->
 
 
@@ -526,7 +524,7 @@ func main() {
 					Bin:        "411111",
 					Expiration: "2029-03",
 					Last4:      "1004",
-					Network:    shared.PaymentMethodCreditCardNetworkVisa,
+					Network:    shared.NetworkVisa,
 					Token:      "a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0",
 				},
 			),

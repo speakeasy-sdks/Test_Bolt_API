@@ -3,8 +3,8 @@
 package shared
 
 type PaymentInitializeRequest struct {
-	Cart          Cart                   `json:"cart"`
-	PaymentMethod PaymentMethodReference `json:"payment_method"`
+	Cart          Cart                  `json:"cart"`
+	PaymentMethod PaymentMethodExtended `json:"payment_method"`
 }
 
 func (o *PaymentInitializeRequest) GetCart() Cart {
@@ -14,9 +14,21 @@ func (o *PaymentInitializeRequest) GetCart() Cart {
 	return o.Cart
 }
 
-func (o *PaymentInitializeRequest) GetPaymentMethod() PaymentMethodReference {
+func (o *PaymentInitializeRequest) GetPaymentMethod() PaymentMethodExtended {
 	if o == nil {
-		return PaymentMethodReference{}
+		return PaymentMethodExtended{}
 	}
 	return o.PaymentMethod
+}
+
+func (o *PaymentInitializeRequest) GetPaymentMethodCreditCard() *PaymentMethodCreditCard {
+	return o.GetPaymentMethod().PaymentMethodCreditCard
+}
+
+func (o *PaymentInitializeRequest) GetPaymentMethodID() *PaymentMethodReference {
+	return o.GetPaymentMethod().PaymentMethodReference
+}
+
+func (o *PaymentInitializeRequest) GetPaymentMethodPaypal() *PaymentMethodPaypal {
+	return o.GetPaymentMethod().PaymentMethodPaypal
 }
