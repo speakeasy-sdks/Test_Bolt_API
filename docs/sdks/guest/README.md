@@ -19,11 +19,11 @@ Bolt when it is updated or finalized for guest shoppers.
 package main
 
 import(
-	"context"
-	"log"
 	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+	"context"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
+	"log"
 )
 
 func main() {
@@ -173,11 +173,11 @@ Perform an irreversible action on a pending guest payment, such as finalizing it
 package main
 
 import(
-	"context"
-	"log"
 	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+	"context"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
+	"log"
 )
 
 func main() {
@@ -234,11 +234,11 @@ Update a pending guest payment
 package main
 
 import(
-	"context"
-	"log"
 	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+	"context"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
+	"log"
 )
 
 func main() {

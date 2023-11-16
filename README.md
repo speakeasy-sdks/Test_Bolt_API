@@ -148,8 +148,10 @@ package main
 
 import (
 	"context"
+	"errors"
 	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/sdkerrors"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
 	"log"
 )

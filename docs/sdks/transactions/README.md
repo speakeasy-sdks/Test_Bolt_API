@@ -24,10 +24,10 @@ Retrieve information for a specific transaction
 package main
 
 import(
-	"context"
-	"log"
 	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+	"context"
+	"log"
 )
 
 func main() {
@@ -80,11 +80,11 @@ Perform an irreversible action (e.g. capture, refund, void) on a transaction
 package main
 
 import(
-	"context"
-	"log"
 	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+	"context"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
+	"log"
 )
 
 func main() {
@@ -148,11 +148,11 @@ Update certain transaction details, such as the user-facing ID of its associate 
 package main
 
 import(
-	"context"
-	"log"
 	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+	"context"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
+	"log"
 )
 
 func main() {

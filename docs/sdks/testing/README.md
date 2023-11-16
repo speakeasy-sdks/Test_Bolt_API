@@ -23,11 +23,11 @@ Create a Bolt shopper account for testing purposes.
 package main
 
 import(
-	"context"
-	"log"
 	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+	"context"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
+	"log"
 )
 
 func main() {
@@ -87,10 +87,10 @@ generated against the `4111 1111 1111 1004` test card.
 package main
 
 import(
-	"context"
-	"log"
 	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
+	"context"
+	"log"
 )
 
 func main() {
