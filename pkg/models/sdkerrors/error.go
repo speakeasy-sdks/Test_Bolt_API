@@ -38,6 +38,7 @@ func (e *DotTag) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// Error - An error has occurred, and further details are contained in the response
 type Error struct {
 	// The type of error returned
 	DotTag DotTag `json:".tag"`
