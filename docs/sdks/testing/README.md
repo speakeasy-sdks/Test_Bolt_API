@@ -35,7 +35,7 @@ func main() {
 
 
     operationSecurity := operations.TestingAccountCreateSecurity{
-            APIKey: "",
+            APIKey: "<YOUR_API_KEY_HERE>",
         }
 
     ctx := context.Background()
@@ -98,7 +98,7 @@ func main() {
 
 
     operationSecurity := operations.TestingCreditCardGetSecurity{
-            APIKey: "",
+            APIKey: "<YOUR_API_KEY_HERE>",
         }
 
     ctx := context.Background()

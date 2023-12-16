@@ -31,8 +31,7 @@ import(
 func main() {
     s := testboltapi.New(
         testboltapi.WithSecurity(shared.Security{
-            APIKey: "",
-            Oauth: "",
+            APIKey: testboltapi.String("<YOUR_API_KEY_HERE>"),
         }),
     )
 

@@ -31,7 +31,7 @@ func main() {
 
 
     operationSecurity := operations.GuestPaymentsInitializeSecurity{
-            APIKey: "",
+            APIKey: "<YOUR_API_KEY_HERE>",
         }
 
     ctx := context.Background()
@@ -185,7 +185,7 @@ func main() {
 
 
     operationSecurity := operations.GuestPaymentsActionSecurity{
-            APIKey: "",
+            APIKey: "<YOUR_API_KEY_HERE>",
         }
 
     ctx := context.Background()
@@ -246,7 +246,7 @@ func main() {
 
 
     operationSecurity := operations.GuestPaymentsUpdateSecurity{
-            APIKey: "",
+            APIKey: "<YOUR_API_KEY_HERE>",
         }
 
     ctx := context.Background()

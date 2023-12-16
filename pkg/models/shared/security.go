@@ -3,20 +3,20 @@
 package shared
 
 type Security struct {
-	APIKey string `security:"scheme,type=apiKey,subtype=header,name=X-API-Key"`
-	Oauth  string `security:"scheme,type=oauth2,name=Authorization"`
+	APIKey *string `security:"scheme,type=apiKey,subtype=header,name=X-API-Key"`
+	Oauth  *string `security:"scheme,type=oauth2,name=Authorization"`
 }
 
-func (o *Security) GetAPIKey() string {
+func (o *Security) GetAPIKey() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.APIKey
 }
 
-func (o *Security) GetOauth() string {
+func (o *Security) GetOauth() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.Oauth
 }

@@ -4,7 +4,9 @@ package shared
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/utils"
 )
 
 type Action string
@@ -139,4 +141,67 @@ func (o *PaymentResponseFinalizedSchemas) GetTransaction() Transaction {
 		return Transaction{}
 	}
 	return o.Transaction
+}
+
+type PaymentResponseType string
+
+const (
+	PaymentResponseTypePaymentResponseFinalizedSchemas PaymentResponseType = "payment-response-finalized_Schemas"
+	PaymentResponseTypePaymentResponsePendingSchemas   PaymentResponseType = "payment-response-pending_Schemas"
+)
+
+type PaymentResponse struct {
+	PaymentResponseFinalizedSchemas *PaymentResponseFinalizedSchemas
+	PaymentResponsePendingSchemas   *PaymentResponsePendingSchemas
+
+	Type PaymentResponseType
+}
+
+func CreatePaymentResponsePaymentResponseFinalizedSchemas(paymentResponseFinalizedSchemas PaymentResponseFinalizedSchemas) PaymentResponse {
+	typ := PaymentResponseTypePaymentResponseFinalizedSchemas
+
+	return PaymentResponse{
+		PaymentResponseFinalizedSchemas: &paymentResponseFinalizedSchemas,
+		Type:                            typ,
+	}
+}
+
+func CreatePaymentResponsePaymentResponsePendingSchemas(paymentResponsePendingSchemas PaymentResponsePendingSchemas) PaymentResponse {
+	typ := PaymentResponseTypePaymentResponsePendingSchemas
+
+	return PaymentResponse{
+		PaymentResponsePendingSchemas: &paymentResponsePendingSchemas,
+		Type:                          typ,
+	}
+}
+
+func (u *PaymentResponse) UnmarshalJSON(data []byte) error {
+
+	paymentResponseFinalizedSchemas := PaymentResponseFinalizedSchemas{}
+	if err := utils.UnmarshalJSON(data, &paymentResponseFinalizedSchemas, "", true, true); err == nil {
+		u.PaymentResponseFinalizedSchemas = &paymentResponseFinalizedSchemas
+		u.Type = PaymentResponseTypePaymentResponseFinalizedSchemas
+		return nil
+	}
+
+	paymentResponsePendingSchemas := PaymentResponsePendingSchemas{}
+	if err := utils.UnmarshalJSON(data, &paymentResponsePendingSchemas, "", true, true); err == nil {
+		u.PaymentResponsePendingSchemas = &paymentResponsePendingSchemas
+		u.Type = PaymentResponseTypePaymentResponsePendingSchemas
+		return nil
+	}
+
+	return errors.New("could not unmarshal into supported union types")
+}
+
+func (u PaymentResponse) MarshalJSON() ([]byte, error) {
+	if u.PaymentResponseFinalizedSchemas != nil {
+		return utils.MarshalJSON(u.PaymentResponseFinalizedSchemas, "", true)
+	}
+
+	if u.PaymentResponsePendingSchemas != nil {
+		return utils.MarshalJSON(u.PaymentResponsePendingSchemas, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type: all fields are null")
 }

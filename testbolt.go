@@ -169,7 +169,6 @@ func withSecurity(security interface{}) func(context.Context) (interface{}, erro
 }
 
 // WithSecurity configures the SDK to use the provided security details
-
 func WithSecurity(security shared.Security) SDKOption {
 	return func(sdk *TestBolt) {
 		sdk.sdkConfiguration.Security = withSecurity(security)
@@ -197,9 +196,9 @@ func New(opts ...SDKOption) *TestBolt {
 		sdkConfiguration: sdkConfiguration{
 			Language:          "go",
 			OpenAPIDocVersion: "3.0.1",
-			SDKVersion:        "0.12.0",
-			GenVersion:        "2.194.1",
-			UserAgent:         "speakeasy-sdk/go 0.12.0 2.194.1 3.0.1 github.com/speakeasy-sdks/Test_Bolt_API",
+			SDKVersion:        "0.13.0",
+			GenVersion:        "2.214.10",
+			UserAgent:         "speakeasy-sdk/go 0.13.0 2.214.10 3.0.1 github.com/speakeasy-sdks/Test_Bolt_API",
 			ServerDefaults: []map[string]string{
 				{
 					"environment": "api-sandbox",

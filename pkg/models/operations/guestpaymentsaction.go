@@ -55,7 +55,7 @@ type GuestPaymentsActionResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// The action was successfully applied to the pending guest payment
-	PaymentResponse interface{}
+	PaymentResponse *shared.PaymentResponse
 }
 
 func (o *GuestPaymentsActionResponse) GetContentType() string {
@@ -79,7 +79,7 @@ func (o *GuestPaymentsActionResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GuestPaymentsActionResponse) GetPaymentResponse() interface{} {
+func (o *GuestPaymentsActionResponse) GetPaymentResponse() *shared.PaymentResponse {
 	if o == nil {
 		return nil
 	}

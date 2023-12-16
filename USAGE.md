@@ -1,4 +1,4 @@
-<!-- Start SDK Example Usage -->
+<!-- Start SDK Example Usage [usage] -->
 ```go
 package main
 
@@ -13,8 +13,7 @@ import (
 func main() {
 	s := testboltapi.New(
 		testboltapi.WithSecurity(shared.Security{
-			APIKey: "",
-			Oauth:  "",
+			APIKey: testboltapi.String("<YOUR_API_KEY_HERE>"),
 		}),
 	)
 
@@ -46,4 +45,4 @@ func main() {
 }
 
 ```
-<!-- End SDK Example Usage -->
+<!-- End SDK Example Usage [usage] -->

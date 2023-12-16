@@ -776,7 +776,7 @@ func (e *CountryCode) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// AddressListing - A physical address.
+// AddressListing - An address saved on an account, i.e. a physical address plus any additional account-specific metadata.
 type AddressListing struct {
 	// The company associated with this address.
 	Company *string `json:"company,omitempty"`
@@ -897,7 +897,7 @@ func (o *AddressListing) GetStreetAddress2() *string {
 	return o.StreetAddress2
 }
 
-// AddressListingInput - A physical address.
+// AddressListingInput - An address saved on an account, i.e. a physical address plus any additional account-specific metadata.
 type AddressListingInput struct {
 	// The company associated with this address.
 	Company *string `json:"company,omitempty"`

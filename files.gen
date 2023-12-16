@@ -51,6 +51,7 @@ pkg/utils/utils.go
 /pkg/models/shared/identifier.go
 /pkg/models/shared/account.go
 /pkg/models/shared/profile.go
+/pkg/models/shared/paymentresponse.go
 /pkg/models/shared/transaction.go
 /pkg/models/shared/guestpaymentinitializerequest.go
 /pkg/models/shared/profilecreationdata.go
@@ -64,7 +65,6 @@ pkg/utils/utils.go
 /pkg/models/shared/paymentinitializerequest.go
 /pkg/models/shared/paymentmethodextended.go
 /pkg/models/shared/paymentmethodreference.go
-/pkg/models/shared/guestpaymentsinitialize.go
 /pkg/models/shared/getaccesstokenresponse.go
 /pkg/models/shared/getaccesstokenrequest.go
 /pkg/models/shared/accounttestcreationdataoutput.go
@@ -74,7 +74,6 @@ pkg/utils/utils.go
 /pkg/models/sdkerrors/error.go
 /pkg/models/sdkerrors/accountaddpaymentmethod.go
 /pkg/models/sdkerrors/accountaddressedit.go
-USAGE.md
 docs/pkg/models/operations/accountaddresscreaterequest.md
 docs/pkg/models/operations/accountaddresscreateresponse.md
 docs/pkg/models/operations/accountaddpaymentmethodrequest.md
@@ -141,6 +140,7 @@ docs/pkg/models/shared/schemasstatus.md
 docs/pkg/models/shared/paymentresponsependingschemas.md
 docs/pkg/models/shared/status.md
 docs/pkg/models/shared/paymentresponsefinalizedschemas.md
+docs/pkg/models/shared/paymentresponse.md
 docs/pkg/models/shared/transaction.md
 docs/pkg/models/shared/guestpaymentinitializerequest.md
 docs/pkg/models/shared/profilecreationdata.md
@@ -182,4 +182,5 @@ docs/sdks/guest/README.md
 docs/sdks/loggedin/README.md
 docs/sdks/oauth/README.md
 docs/sdks/testing/README.md
+USAGE.md
 .gitattributes
