@@ -83,7 +83,7 @@ func main() {
 | Error Object                               | Status Code                                | Content Type                               |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | sdkerrors.AccountAddressCreateResponseBody | 4XX                                        | application/json                           |
-| sdkerrors.SDKError                         | 400-600                                    | */*                                        |
+| sdkerrors.SDKError                         | 4xx-5xx                                    | */*                                        |
 
 ## AddPaymentMethod
 
@@ -157,7 +157,7 @@ func main() {
 | Error Object                                  | Status Code                                   | Content Type                                  |
 | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
 | sdkerrors.AccountAddPaymentMethodResponseBody | 4XX                                           | application/json                              |
-| sdkerrors.SDKError                            | 400-600                                       | */*                                           |
+| sdkerrors.SDKError                            | 4xx-5xx                                       | */*                                           |
 
 ## DeleteAddress
 
@@ -215,7 +215,7 @@ func main() {
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.Error    | 4XX                | application/json   |
-| sdkerrors.SDKError | 400-600            | */*                |
+| sdkerrors.SDKError | 4xx-5xx            | */*                |
 
 ## DeletePaymentMethod
 
@@ -273,7 +273,7 @@ func main() {
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.Error    | 4XX                | application/json   |
-| sdkerrors.SDKError | 400-600            | */*                |
+| sdkerrors.SDKError | 4xx-5xx            | */*                |
 
 ## Detect
 
@@ -332,7 +332,7 @@ func main() {
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.Error    | 4XX                | application/json   |
-| sdkerrors.SDKError | 400-600            | */*                |
+| sdkerrors.SDKError | 4xx-5xx            | */*                |
 
 ## GetDetails
 
@@ -386,7 +386,7 @@ func main() {
 | Error Object       | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
 | sdkerrors.Error    | 4XX                | application/json   |
-| sdkerrors.SDKError | 400-600            | */*                |
+| sdkerrors.SDKError | 4xx-5xx            | */*                |
 
 ## UpdateAddress
 
@@ -458,4 +458,4 @@ func main() {
 | Error Object                             | Status Code                              | Content Type                             |
 | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | sdkerrors.AccountAddressEditResponseBody | 4XX                                      | application/json                         |
-| sdkerrors.SDKError                       | 400-600                                  | */*                                      |
+| sdkerrors.SDKError                       | 4xx-5xx                                  | */*                                      |
