@@ -977,6 +977,7 @@ type AddressReference struct {
 
 func CreateAddressReferenceExplicit(explicit SchemasInput) AddressReference {
 	typ := AddressReferenceTypeExplicit
+
 	typStr := SchemasTag(typ)
 	explicit.DotTag = typStr
 
@@ -988,6 +989,7 @@ func CreateAddressReferenceExplicit(explicit SchemasInput) AddressReference {
 
 func CreateAddressReferenceID(id Schemas) AddressReference {
 	typ := AddressReferenceTypeID
+
 	typStr := SchemasAddressReferenceIDTag(typ)
 	id.DotTag = typStr
 

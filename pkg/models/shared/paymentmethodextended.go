@@ -27,6 +27,7 @@ type PaymentMethodExtended struct {
 
 func CreatePaymentMethodExtendedCreditCard(creditCard PaymentMethodCreditCard) PaymentMethodExtended {
 	typ := PaymentMethodExtendedTypeCreditCard
+
 	typStr := PaymentMethodCreditCardTag(typ)
 	creditCard.DotTag = typStr
 
@@ -38,6 +39,7 @@ func CreatePaymentMethodExtendedCreditCard(creditCard PaymentMethodCreditCard) P
 
 func CreatePaymentMethodExtendedID(id PaymentMethodReference) PaymentMethodExtended {
 	typ := PaymentMethodExtendedTypeID
+
 	typStr := PaymentMethodReferenceTag(typ)
 	id.DotTag = typStr
 
@@ -49,6 +51,7 @@ func CreatePaymentMethodExtendedID(id PaymentMethodReference) PaymentMethodExten
 
 func CreatePaymentMethodExtendedPaypal(paypal PaymentMethodPaypal) PaymentMethodExtended {
 	typ := PaymentMethodExtendedTypePaypal
+
 	typStr := PaymentMethodPaypalTag(typ)
 	paypal.DotTag = typStr
 

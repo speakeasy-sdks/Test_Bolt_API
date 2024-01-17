@@ -25,6 +25,7 @@ type PaymentMethodOutput struct {
 
 func CreatePaymentMethodOutputCreditCard(creditCard PaymentMethodCreditCardOutput) PaymentMethodOutput {
 	typ := PaymentMethodOutputTypeCreditCard
+
 	typStr := PaymentMethodCreditCardTag(typ)
 	creditCard.DotTag = typStr
 
@@ -36,6 +37,7 @@ func CreatePaymentMethodOutputCreditCard(creditCard PaymentMethodCreditCardOutpu
 
 func CreatePaymentMethodOutputPaypal(paypal PaymentMethodPaypalOutput) PaymentMethodOutput {
 	typ := PaymentMethodOutputTypePaypal
+
 	typStr := PaymentMethodPaypalTag(typ)
 	paypal.DotTag = typStr
 
