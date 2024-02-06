@@ -4,17 +4,17 @@ management:
   docChecksum: 4ffd4942026558444f933f9c092631c9
   docVersion: 3.0.1
   speakeasyVersion: internal
-  generationVersion: 2.237.2
-  releaseVersion: 0.13.2
-  configChecksum: b5c4b19507b6bcf666997af3b0a324ed
+  generationVersion: 2.250.2
+  releaseVersion: 0.14.0
+  configChecksum: 307257fb39eed791c16cd392c6e36bcc
   repoURL: https://github.com/speakeasy-sdks/Test_Bolt_API.git
   repoSubDirectory: .
   installationURL: https://github.com/speakeasy-sdks/Test_Bolt_API
   published: true
 features:
   go:
-    core: 3.3.1
-    globalSecurity: 2.82.4
+    core: 3.3.2
+    globalSecurity: 2.82.6
     globalServerURLs: 2.82.1
     groups: 2.81.2
     ignores: 2.81.1
