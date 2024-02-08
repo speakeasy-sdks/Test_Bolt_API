@@ -50,7 +50,7 @@ func CreatePaymentMethodOutputPaypal(paypal PaymentMethodPaypalOutput) PaymentMe
 func (u *PaymentMethodOutput) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
-		DotTag string
+		DotTag string `json:".tag"`
 	}
 
 	dis := new(discriminator)
