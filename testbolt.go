@@ -197,8 +197,8 @@ func New(opts ...SDKOption) *TestBolt {
 			Language:          "go",
 			OpenAPIDocVersion: "3.0.1",
 			SDKVersion:        "0.15.0",
-			GenVersion:        "2.250.16",
-			UserAgent:         "speakeasy-sdk/go 0.15.0 2.250.16 3.0.1 github.com/speakeasy-sdks/Test_Bolt_API",
+			GenVersion:        "2.253.0",
+			UserAgent:         "speakeasy-sdk/go 0.15.0 2.253.0 3.0.1 github.com/speakeasy-sdks/Test_Bolt_API",
 			ServerDefaults: []map[string]string{
 				{
 					"environment": "api-sandbox",

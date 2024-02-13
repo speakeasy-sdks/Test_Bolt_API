@@ -38,36 +38,22 @@ func main() {
         XPublishableKey: "string",
         PaymentInitializeRequest: shared.PaymentInitializeRequest{
             Cart: shared.Cart{
-                Discounts: []shared.CartDiscount{
-                    shared.CartDiscount{
-                        Amount: shared.Amount{
-                            Currency: shared.CurrencyUsd,
-                            Units: 900,
-                        },
-                        Code: testboltapi.String("SUMMER10DISCOUNT"),
-                        DetailsURL: testboltapi.String("https://www.example.com/SUMMER-SALE"),
-                    },
-                },
                 DisplayID: testboltapi.String("215614191"),
-                Items: []shared.CartItem{
-                    shared.CartItem{
-                        Description: testboltapi.String("Large tote with Bolt logo."),
-                        ImageURL: testboltapi.String("https://www.example.com/products/123456/images/1.png"),
-                        Name: "Bolt Swag Bag",
-                        Quantity: 1,
-                        Reference: "item_100",
-                        TotalAmount: shared.Amount{
-                            Currency: shared.CurrencyUsd,
-                            Units: 900,
-                        },
-                        UnitPrice: 1000,
-                    },
-                },
                 OrderDescription: testboltapi.String("Order #1234567890"),
                 OrderReference: "order_100",
-                Shipments: []shared.CartShipment{
-                    shared.CartShipment{
-                        Address: shared.CreateAddressReferenceSchemasInput(
+                Tax: shared.Amount{
+                    Currency: shared.CurrencyUsd,
+                    Units: 900,
+                },
+                Total: shared.Amount{
+                    Currency: shared.CurrencyUsd,
+                    Units: 900,
+                },
+            },
+            PaymentMethod: shared.CreatePaymentMethodExtendedPaymentMethodCreditCard(
+                    shared.PaymentMethodCreditCard{
+                        DotTag: shared.PaymentMethodCreditCardTagCreditCard,
+                        BillingAddress: shared.CreateAddressReferenceSchemasInput(
                                 shared.SchemasInput{
                                     DotTag: shared.SchemasTagExplicit,
                                     Company: testboltapi.String("ACME Corporation"),
@@ -83,26 +69,11 @@ func main() {
                                     StreetAddress2: testboltapi.String("c/o Shipping Department"),
                                 },
                         ),
-                        Carrier: testboltapi.String("FedEx"),
-                        Cost: &shared.Amount{
-                            Currency: shared.CurrencyUsd,
-                            Units: 900,
-                        },
-                    },
-                },
-                Tax: shared.Amount{
-                    Currency: shared.CurrencyUsd,
-                    Units: 900,
-                },
-                Total: shared.Amount{
-                    Currency: shared.CurrencyUsd,
-                    Units: 900,
-                },
-            },
-            PaymentMethod: shared.CreatePaymentMethodExtendedPaymentMethodReference(
-                    shared.PaymentMethodReference{
-                        DotTag: shared.PaymentMethodReferenceTagID,
-                        ID: "id",
+                        Bin: "411111",
+                        Expiration: "2029-03",
+                        Last4: "1004",
+                        Network: shared.NetworkVisa,
+                        Token: "a1B2c3D4e5F6G7H8i9J0k1L2m3N4o5P6Q7r8S9t0",
                     },
             ),
         },
@@ -221,60 +192,7 @@ func main() {
     res, err := s.Payments.LoggedIn.Update(ctx, operations.PaymentsUpdateRequest{
         XPublishableKey: "string",
         ID: "iKv7t5bgt1gg",
-        PaymentUpdateRequest: shared.PaymentUpdateRequest{
-            Cart: &shared.Cart{
-                Discounts: []shared.CartDiscount{
-                    shared.CartDiscount{
-                        Amount: shared.Amount{
-                            Currency: shared.CurrencyUsd,
-                            Units: 900,
-                        },
-                        Code: testboltapi.String("SUMMER10DISCOUNT"),
-                        DetailsURL: testboltapi.String("https://www.example.com/SUMMER-SALE"),
-                    },
-                },
-                DisplayID: testboltapi.String("215614191"),
-                Items: []shared.CartItem{
-                    shared.CartItem{
-                        Description: testboltapi.String("Large tote with Bolt logo."),
-                        ImageURL: testboltapi.String("https://www.example.com/products/123456/images/1.png"),
-                        Name: "Bolt Swag Bag",
-                        Quantity: 1,
-                        Reference: "item_100",
-                        TotalAmount: shared.Amount{
-                            Currency: shared.CurrencyUsd,
-                            Units: 900,
-                        },
-                        UnitPrice: 1000,
-                    },
-                },
-                OrderDescription: testboltapi.String("Order #1234567890"),
-                OrderReference: "order_100",
-                Shipments: []shared.CartShipment{
-                    shared.CartShipment{
-                        Address: shared.CreateAddressReferenceSchemas(
-                                shared.Schemas{
-                                    DotTag: shared.SchemasAddressReferenceIDTagID,
-                                    ID: "D4g3h5tBuVYK9",
-                                },
-                        ),
-                        Carrier: testboltapi.String("FedEx"),
-                        Cost: &shared.Amount{
-                            Currency: shared.CurrencyUsd,
-                            Units: 900,
-                        },
-                    },
-                },
-                Tax: shared.Amount{
-                    Currency: shared.CurrencyUsd,
-                    Units: 900,
-                },
-                Total: shared.Amount{
-                    Currency: shared.CurrencyUsd,
-                    Units: 900,
-                },
-            },
-        },
+        PaymentUpdateRequest: shared.PaymentUpdateRequest{},
     })
     if err != nil {
         log.Fatal(err)

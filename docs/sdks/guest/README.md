@@ -39,58 +39,9 @@ func main() {
         XPublishableKey: "string",
         GuestPaymentInitializeRequest: shared.GuestPaymentInitializeRequest{
             Cart: shared.Cart{
-                Discounts: []shared.CartDiscount{
-                    shared.CartDiscount{
-                        Amount: shared.Amount{
-                            Currency: shared.CurrencyUsd,
-                            Units: 900,
-                        },
-                        Code: testboltapi.String("SUMMER10DISCOUNT"),
-                        DetailsURL: testboltapi.String("https://www.example.com/SUMMER-SALE"),
-                    },
-                },
                 DisplayID: testboltapi.String("215614191"),
-                Items: []shared.CartItem{
-                    shared.CartItem{
-                        Description: testboltapi.String("Large tote with Bolt logo."),
-                        ImageURL: testboltapi.String("https://www.example.com/products/123456/images/1.png"),
-                        Name: "Bolt Swag Bag",
-                        Quantity: 1,
-                        Reference: "item_100",
-                        TotalAmount: shared.Amount{
-                            Currency: shared.CurrencyUsd,
-                            Units: 900,
-                        },
-                        UnitPrice: 1000,
-                    },
-                },
                 OrderDescription: testboltapi.String("Order #1234567890"),
                 OrderReference: "order_100",
-                Shipments: []shared.CartShipment{
-                    shared.CartShipment{
-                        Address: shared.CreateAddressReferenceSchemasInput(
-                                shared.SchemasInput{
-                                    DotTag: shared.SchemasTagExplicit,
-                                    Company: testboltapi.String("ACME Corporation"),
-                                    CountryCode: shared.SchemasCountryCodeUs,
-                                    Email: testboltapi.String("alice@example.com"),
-                                    FirstName: "Alice",
-                                    LastName: "Baker",
-                                    Locality: "San Francisco",
-                                    Phone: testboltapi.String("+14155550199"),
-                                    PostalCode: "94105",
-                                    Region: testboltapi.String("CA"),
-                                    StreetAddress1: "535 Mission St, Ste 1401",
-                                    StreetAddress2: testboltapi.String("c/o Shipping Department"),
-                                },
-                        ),
-                        Carrier: testboltapi.String("FedEx"),
-                        Cost: &shared.Amount{
-                            Currency: shared.CurrencyUsd,
-                            Units: 900,
-                        },
-                    },
-                },
                 Tax: shared.Amount{
                     Currency: shared.CurrencyUsd,
                     Units: 900,
@@ -253,60 +204,7 @@ func main() {
     res, err := s.Payments.Guest.Update(ctx, operations.GuestPaymentsUpdateRequest{
         XPublishableKey: "string",
         ID: "iKv7t5bgt1gg",
-        PaymentUpdateRequest: shared.PaymentUpdateRequest{
-            Cart: &shared.Cart{
-                Discounts: []shared.CartDiscount{
-                    shared.CartDiscount{
-                        Amount: shared.Amount{
-                            Currency: shared.CurrencyUsd,
-                            Units: 900,
-                        },
-                        Code: testboltapi.String("SUMMER10DISCOUNT"),
-                        DetailsURL: testboltapi.String("https://www.example.com/SUMMER-SALE"),
-                    },
-                },
-                DisplayID: testboltapi.String("215614191"),
-                Items: []shared.CartItem{
-                    shared.CartItem{
-                        Description: testboltapi.String("Large tote with Bolt logo."),
-                        ImageURL: testboltapi.String("https://www.example.com/products/123456/images/1.png"),
-                        Name: "Bolt Swag Bag",
-                        Quantity: 1,
-                        Reference: "item_100",
-                        TotalAmount: shared.Amount{
-                            Currency: shared.CurrencyUsd,
-                            Units: 900,
-                        },
-                        UnitPrice: 1000,
-                    },
-                },
-                OrderDescription: testboltapi.String("Order #1234567890"),
-                OrderReference: "order_100",
-                Shipments: []shared.CartShipment{
-                    shared.CartShipment{
-                        Address: shared.CreateAddressReferenceSchemas(
-                                shared.Schemas{
-                                    DotTag: shared.SchemasAddressReferenceIDTagID,
-                                    ID: "D4g3h5tBuVYK9",
-                                },
-                        ),
-                        Carrier: testboltapi.String("FedEx"),
-                        Cost: &shared.Amount{
-                            Currency: shared.CurrencyUsd,
-                            Units: 900,
-                        },
-                    },
-                },
-                Tax: shared.Amount{
-                    Currency: shared.CurrencyUsd,
-                    Units: 900,
-                },
-                Total: shared.Amount{
-                    Currency: shared.CurrencyUsd,
-                    Units: 900,
-                },
-            },
-        },
+        PaymentUpdateRequest: shared.PaymentUpdateRequest{},
     }, operationSecurity)
     if err != nil {
         log.Fatal(err)
