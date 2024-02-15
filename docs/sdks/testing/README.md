@@ -40,7 +40,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Testing.CreateAccount(ctx, operations.TestingAccountCreateRequest{
-        XPublishableKey: "string",
+        XPublishableKey: "<value>",
         AccountTestCreationData: shared.AccountTestCreationData{
             EmailState: shared.EmailStateUnverified,
             HasAddress: testboltapi.Bool(true),

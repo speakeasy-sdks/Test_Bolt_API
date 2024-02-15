@@ -38,7 +38,7 @@ func main() {
 
 	ctx := context.Background()
 	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
-		XPublishableKey: "string",
+		XPublishableKey: "<value>",
 		AddressListing: shared.AddressListingInput{
 			Company:        testboltapi.String("ACME Corporation"),
 			CountryCode:    shared.CountryCodeUs,
@@ -150,7 +150,7 @@ func main() {
 
 	ctx := context.Background()
 	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
-		XPublishableKey: "string",
+		XPublishableKey: "<value>",
 		AddressListing: shared.AddressListingInput{
 			Company:        testboltapi.String("ACME Corporation"),
 			CountryCode:    shared.CountryCodeUs,
@@ -221,7 +221,7 @@ func main() {
 
 	ctx := context.Background()
 	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
-		XPublishableKey: "string",
+		XPublishableKey: "<value>",
 		AddressListing: shared.AddressListingInput{
 			Company:        testboltapi.String("ACME Corporation"),
 			CountryCode:    shared.CountryCodeUs,
@@ -277,7 +277,7 @@ func main() {
 
 	ctx := context.Background()
 	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
-		XPublishableKey: "string",
+		XPublishableKey: "<value>",
 		AddressListing: shared.AddressListingInput{
 			Company:        testboltapi.String("ACME Corporation"),
 			CountryCode:    shared.CountryCodeUs,
@@ -371,7 +371,7 @@ func main() {
 
 	ctx := context.Background()
 	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
-		XPublishableKey: "string",
+		XPublishableKey: "<value>",
 		AddressListing: shared.AddressListingInput{
 			Company:        testboltapi.String("ACME Corporation"),
 			CountryCode:    shared.CountryCodeUs,
@@ -421,7 +421,7 @@ func main() {
 
 	ctx := context.Background()
 	res, err := s.Payments.Guest.Initialize(ctx, operations.GuestPaymentsInitializeRequest{
-		XPublishableKey: "string",
+		XPublishableKey: "<value>",
 		GuestPaymentInitializeRequest: shared.GuestPaymentInitializeRequest{
 			Cart: shared.Cart{
 				DisplayID:        testboltapi.String("215614191"),

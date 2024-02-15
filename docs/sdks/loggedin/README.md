@@ -35,7 +35,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Payments.LoggedIn.Initialize(ctx, operations.PaymentsInitializeRequest{
-        XPublishableKey: "string",
+        XPublishableKey: "<value>",
         PaymentInitializeRequest: shared.PaymentInitializeRequest{
             Cart: shared.Cart{
                 DisplayID: testboltapi.String("215614191"),
@@ -131,7 +131,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Payments.LoggedIn.PerformAction(ctx, operations.PaymentsActionRequest{
-        XPublishableKey: "string",
+        XPublishableKey: "<value>",
         ID: "iKv7t5bgt1gg",
         PaymentActionRequest: shared.PaymentActionRequest{
             DotTag: shared.PaymentActionRequestTagFinalize,
@@ -190,7 +190,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Payments.LoggedIn.Update(ctx, operations.PaymentsUpdateRequest{
-        XPublishableKey: "string",
+        XPublishableKey: "<value>",
         ID: "iKv7t5bgt1gg",
         PaymentUpdateRequest: shared.PaymentUpdateRequest{},
     })

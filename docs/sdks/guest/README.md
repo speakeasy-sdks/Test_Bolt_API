@@ -36,7 +36,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Payments.Guest.Initialize(ctx, operations.GuestPaymentsInitializeRequest{
-        XPublishableKey: "string",
+        XPublishableKey: "<value>",
         GuestPaymentInitializeRequest: shared.GuestPaymentInitializeRequest{
             Cart: shared.Cart{
                 DisplayID: testboltapi.String("215614191"),
@@ -141,7 +141,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Payments.Guest.PerformAction(ctx, operations.GuestPaymentsActionRequest{
-        XPublishableKey: "string",
+        XPublishableKey: "<value>",
         ID: "iKv7t5bgt1gg",
         PaymentActionRequest: shared.PaymentActionRequest{
             DotTag: shared.PaymentActionRequestTagFinalize,
@@ -202,7 +202,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Payments.Guest.Update(ctx, operations.GuestPaymentsUpdateRequest{
-        XPublishableKey: "string",
+        XPublishableKey: "<value>",
         ID: "iKv7t5bgt1gg",
         PaymentUpdateRequest: shared.PaymentUpdateRequest{},
     }, operationSecurity)

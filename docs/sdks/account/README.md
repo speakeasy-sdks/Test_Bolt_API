@@ -43,7 +43,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
-        XPublishableKey: "string",
+        XPublishableKey: "<value>",
         AddressListing: shared.AddressListingInput{
             Company: testboltapi.String("ACME Corporation"),
             CountryCode: shared.CountryCodeUs,
@@ -115,7 +115,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Account.AddPaymentMethod(ctx, operations.AccountAddPaymentMethodRequest{
-        XPublishableKey: "string",
+        XPublishableKey: "<value>",
         PaymentMethod: shared.CreatePaymentMethodPaymentMethodCreditCard(
                 shared.PaymentMethodCreditCard{
                     DotTag: shared.PaymentMethodCreditCardTagCreditCard,
@@ -188,7 +188,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Account.DeleteAddress(ctx, operations.AccountAddressDeleteRequest{
-        XPublishableKey: "string",
+        XPublishableKey: "<value>",
         ID: "D4g3h5tBuVYK9",
     })
     if err != nil {
@@ -246,7 +246,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Account.DeletePaymentMethod(ctx, operations.AccountPaymentMethodDeleteRequest{
-        XPublishableKey: "string",
+        XPublishableKey: "<value>",
         ID: "D4g3h5tBuVYK9",
     })
     if err != nil {
@@ -302,7 +302,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Account.Detect(ctx, operations.AccountExistsRequest{
-        XPublishableKey: "string",
+        XPublishableKey: "<value>",
         Identifier: shared.Identifier{
             IdentifierType: shared.IdentifierTypeEmail,
             IdentifierValue: "alice@example.com",
@@ -360,7 +360,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Account.GetDetails(ctx, operations.AccountGetRequest{
-        XPublishableKey: "string",
+        XPublishableKey: "<value>",
     })
     if err != nil {
         log.Fatal(err)
@@ -417,7 +417,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Account.UpdateAddress(ctx, operations.AccountAddressEditRequest{
-        XPublishableKey: "string",
+        XPublishableKey: "<value>",
         AddressListing: shared.AddressListingInput{
             Company: testboltapi.String("ACME Corporation"),
             CountryCode: shared.CountryCodeUs,

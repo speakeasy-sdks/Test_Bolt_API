@@ -19,7 +19,7 @@ func main() {
 
 	ctx := context.Background()
 	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
-		XPublishableKey: "string",
+		XPublishableKey: "<value>",
 		AddressListing: shared.AddressListingInput{
 			Company:        testboltapi.String("ACME Corporation"),
 			CountryCode:    shared.CountryCodeUs,
