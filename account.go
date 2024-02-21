@@ -54,12 +54,12 @@ func (s *Account) AddAddress(ctx context.Context, request operations.AccountAddr
 
 	utils.PopulateHeaders(ctx, req, request)
 
-	client := s.sdkConfiguration.SecurityClient
-
 	req, err = s.sdkConfiguration.Hooks.BeforeRequest(hooks.BeforeRequestContext{hookCtx}, req)
 	if err != nil {
 		return nil, err
 	}
+
+	client := s.sdkConfiguration.SecurityClient
 
 	httpRes, err := client.Do(req)
 	if err != nil || httpRes == nil {
@@ -82,7 +82,6 @@ func (s *Account) AddAddress(ctx context.Context, request operations.AccountAddr
 			return nil, err
 		}
 	}
-
 	contentType := httpRes.Header.Get("Content-Type")
 
 	res := &operations.AccountAddressCreateResponse{
@@ -161,12 +160,12 @@ func (s *Account) AddPaymentMethod(ctx context.Context, request operations.Accou
 
 	utils.PopulateHeaders(ctx, req, request)
 
-	client := s.sdkConfiguration.SecurityClient
-
 	req, err = s.sdkConfiguration.Hooks.BeforeRequest(hooks.BeforeRequestContext{hookCtx}, req)
 	if err != nil {
 		return nil, err
 	}
+
+	client := s.sdkConfiguration.SecurityClient
 
 	httpRes, err := client.Do(req)
 	if err != nil || httpRes == nil {
@@ -189,7 +188,6 @@ func (s *Account) AddPaymentMethod(ctx context.Context, request operations.Accou
 			return nil, err
 		}
 	}
-
 	contentType := httpRes.Header.Get("Content-Type")
 
 	res := &operations.AccountAddPaymentMethodResponse{
@@ -260,12 +258,12 @@ func (s *Account) DeleteAddress(ctx context.Context, request operations.AccountA
 
 	utils.PopulateHeaders(ctx, req, request)
 
-	client := s.sdkConfiguration.SecurityClient
-
 	req, err = s.sdkConfiguration.Hooks.BeforeRequest(hooks.BeforeRequestContext{hookCtx}, req)
 	if err != nil {
 		return nil, err
 	}
+
+	client := s.sdkConfiguration.SecurityClient
 
 	httpRes, err := client.Do(req)
 	if err != nil || httpRes == nil {
@@ -288,7 +286,6 @@ func (s *Account) DeleteAddress(ctx context.Context, request operations.AccountA
 			return nil, err
 		}
 	}
-
 	contentType := httpRes.Header.Get("Content-Type")
 
 	res := &operations.AccountAddressDeleteResponse{
@@ -347,12 +344,12 @@ func (s *Account) DeletePaymentMethod(ctx context.Context, request operations.Ac
 
 	utils.PopulateHeaders(ctx, req, request)
 
-	client := s.sdkConfiguration.SecurityClient
-
 	req, err = s.sdkConfiguration.Hooks.BeforeRequest(hooks.BeforeRequestContext{hookCtx}, req)
 	if err != nil {
 		return nil, err
 	}
+
+	client := s.sdkConfiguration.SecurityClient
 
 	httpRes, err := client.Do(req)
 	if err != nil || httpRes == nil {
@@ -375,7 +372,6 @@ func (s *Account) DeletePaymentMethod(ctx context.Context, request operations.Ac
 			return nil, err
 		}
 	}
-
 	contentType := httpRes.Header.Get("Content-Type")
 
 	res := &operations.AccountPaymentMethodDeleteResponse{
@@ -437,12 +433,12 @@ func (s *Account) Detect(ctx context.Context, request operations.AccountExistsRe
 		return nil, fmt.Errorf("error populating query params: %w", err)
 	}
 
-	client := s.sdkConfiguration.SecurityClient
-
 	req, err = s.sdkConfiguration.Hooks.BeforeRequest(hooks.BeforeRequestContext{hookCtx}, req)
 	if err != nil {
 		return nil, err
 	}
+
+	client := s.sdkConfiguration.SecurityClient
 
 	httpRes, err := client.Do(req)
 	if err != nil || httpRes == nil {
@@ -465,7 +461,6 @@ func (s *Account) Detect(ctx context.Context, request operations.AccountExistsRe
 			return nil, err
 		}
 	}
-
 	contentType := httpRes.Header.Get("Content-Type")
 
 	res := &operations.AccountExistsResponse{
@@ -523,12 +518,12 @@ func (s *Account) GetDetails(ctx context.Context, request operations.AccountGetR
 
 	utils.PopulateHeaders(ctx, req, request)
 
-	client := s.sdkConfiguration.SecurityClient
-
 	req, err = s.sdkConfiguration.Hooks.BeforeRequest(hooks.BeforeRequestContext{hookCtx}, req)
 	if err != nil {
 		return nil, err
 	}
+
+	client := s.sdkConfiguration.SecurityClient
 
 	httpRes, err := client.Do(req)
 	if err != nil || httpRes == nil {
@@ -551,7 +546,6 @@ func (s *Account) GetDetails(ctx context.Context, request operations.AccountGetR
 			return nil, err
 		}
 	}
-
 	contentType := httpRes.Header.Get("Content-Type")
 
 	res := &operations.AccountGetResponse{
@@ -627,12 +621,12 @@ func (s *Account) UpdateAddress(ctx context.Context, request operations.AccountA
 
 	utils.PopulateHeaders(ctx, req, request)
 
-	client := s.sdkConfiguration.SecurityClient
-
 	req, err = s.sdkConfiguration.Hooks.BeforeRequest(hooks.BeforeRequestContext{hookCtx}, req)
 	if err != nil {
 		return nil, err
 	}
+
+	client := s.sdkConfiguration.SecurityClient
 
 	httpRes, err := client.Do(req)
 	if err != nil || httpRes == nil {
@@ -655,7 +649,6 @@ func (s *Account) UpdateAddress(ctx context.Context, request operations.AccountA
 			return nil, err
 		}
 	}
-
 	contentType := httpRes.Header.Get("Content-Type")
 
 	res := &operations.AccountAddressEditResponse{

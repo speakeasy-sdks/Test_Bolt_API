@@ -53,12 +53,12 @@ func (s *Guest) Initialize(ctx context.Context, request operations.GuestPayments
 
 	utils.PopulateHeaders(ctx, req, request)
 
-	client := utils.ConfigureSecurityClient(s.sdkConfiguration.DefaultClient, withSecurity(security))
-
 	req, err = s.sdkConfiguration.Hooks.BeforeRequest(hooks.BeforeRequestContext{hookCtx}, req)
 	if err != nil {
 		return nil, err
 	}
+
+	client := utils.ConfigureSecurityClient(s.sdkConfiguration.DefaultClient, withSecurity(security))
 
 	httpRes, err := client.Do(req)
 	if err != nil || httpRes == nil {
@@ -81,7 +81,6 @@ func (s *Guest) Initialize(ctx context.Context, request operations.GuestPayments
 			return nil, err
 		}
 	}
-
 	contentType := httpRes.Header.Get("Content-Type")
 
 	res := &operations.GuestPaymentsInitializeResponse{
@@ -155,12 +154,12 @@ func (s *Guest) PerformAction(ctx context.Context, request operations.GuestPayme
 
 	utils.PopulateHeaders(ctx, req, request)
 
-	client := utils.ConfigureSecurityClient(s.sdkConfiguration.DefaultClient, withSecurity(security))
-
 	req, err = s.sdkConfiguration.Hooks.BeforeRequest(hooks.BeforeRequestContext{hookCtx}, req)
 	if err != nil {
 		return nil, err
 	}
+
+	client := utils.ConfigureSecurityClient(s.sdkConfiguration.DefaultClient, withSecurity(security))
 
 	httpRes, err := client.Do(req)
 	if err != nil || httpRes == nil {
@@ -183,7 +182,6 @@ func (s *Guest) PerformAction(ctx context.Context, request operations.GuestPayme
 			return nil, err
 		}
 	}
-
 	contentType := httpRes.Header.Get("Content-Type")
 
 	res := &operations.GuestPaymentsActionResponse{
@@ -257,12 +255,12 @@ func (s *Guest) Update(ctx context.Context, request operations.GuestPaymentsUpda
 
 	utils.PopulateHeaders(ctx, req, request)
 
-	client := utils.ConfigureSecurityClient(s.sdkConfiguration.DefaultClient, withSecurity(security))
-
 	req, err = s.sdkConfiguration.Hooks.BeforeRequest(hooks.BeforeRequestContext{hookCtx}, req)
 	if err != nil {
 		return nil, err
 	}
+
+	client := utils.ConfigureSecurityClient(s.sdkConfiguration.DefaultClient, withSecurity(security))
 
 	httpRes, err := client.Do(req)
 	if err != nil || httpRes == nil {
@@ -285,7 +283,6 @@ func (s *Guest) Update(ctx context.Context, request operations.GuestPaymentsUpda
 			return nil, err
 		}
 	}
-
 	contentType := httpRes.Header.Get("Content-Type")
 
 	res := &operations.GuestPaymentsUpdateResponse{
