@@ -285,20 +285,16 @@ Determine whether or not an identifier is associated with an existing Bolt accou
 package main
 
 import(
-	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
 	testboltapi "github.com/speakeasy-sdks/Test_Bolt_API"
 	"context"
+	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/shared"
 	"github.com/speakeasy-sdks/Test_Bolt_API/pkg/models/operations"
 	"log"
 	"net/http"
 )
 
 func main() {
-    s := testboltapi.New(
-        testboltapi.WithSecurity(shared.Security{
-            APIKey: testboltapi.String("<YOUR_API_KEY_HERE>"),
-        }),
-    )
+    s := testboltapi.New()
 
     ctx := context.Background()
     res, err := s.Account.Detect(ctx, operations.AccountExistsRequest{
