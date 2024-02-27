@@ -319,3 +319,13 @@ Based on:
 - [go v0.16.2] .
 ### Releases
 - [Go v0.16.2] https://github.com/speakeasy-sdks/Test_Bolt_API/releases/tag/v0.16.2 - .
+
+## 2024-02-27 00:46:32
+### Changes
+Based on:
+- OpenAPI Doc 3.0.1 
+- Speakeasy CLI 1.194.0 (2.272.7) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.16.3] .
+### Releases
+- [Go v0.16.3] https://github.com/speakeasy-sdks/Test_Bolt_API/releases/tag/v0.16.3 - .
