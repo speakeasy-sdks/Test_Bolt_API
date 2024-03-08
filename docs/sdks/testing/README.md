@@ -51,7 +51,6 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-
     if res.AccountTestCreationData != nil {
         // handle response
     }
@@ -106,7 +105,6 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-
     if res.TestCreditCard != nil {
         // handle response
     }
