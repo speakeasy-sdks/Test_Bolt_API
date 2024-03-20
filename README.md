@@ -37,27 +37,14 @@ func main() {
 	)
 
 	ctx := context.Background()
-	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
+	res, err := s.Account.DeleteAddress(ctx, operations.AccountAddressDeleteRequest{
 		XPublishableKey: "<value>",
-		AddressListing: shared.AddressListingInput{
-			Company:        testboltapi.String("ACME Corporation"),
-			CountryCode:    shared.CountryCodeUs,
-			Email:          testboltapi.String("alice@example.com"),
-			FirstName:      "Alice",
-			IsDefault:      testboltapi.Bool(true),
-			LastName:       "Baker",
-			Locality:       "San Francisco",
-			Phone:          testboltapi.String("+14155550199"),
-			PostalCode:     "94105",
-			Region:         testboltapi.String("CA"),
-			StreetAddress1: "535 Mission St, Ste 1401",
-			StreetAddress2: testboltapi.String("c/o Shipping Department"),
-		},
+		ID:              "D4g3h5tBuVYK9",
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.AddressListing != nil {
+	if res != nil {
 		// handle response
 	}
 }
@@ -70,13 +57,10 @@ func main() {
 
 ### [Account](docs/sdks/account/README.md)
 
-* [AddAddress](docs/sdks/account/README.md#addaddress) - Add an address
-* [AddPaymentMethod](docs/sdks/account/README.md#addpaymentmethod) - Add a payment method to a shopper's Bolt account Wallet.
 * [DeleteAddress](docs/sdks/account/README.md#deleteaddress) - Delete an existing address
 * [DeletePaymentMethod](docs/sdks/account/README.md#deletepaymentmethod) - Delete an existing payment method
 * [Detect](docs/sdks/account/README.md#detect) - Determine the existence of a Bolt account
 * [GetDetails](docs/sdks/account/README.md#getdetails) - Retrieve account details
-* [UpdateAddress](docs/sdks/account/README.md#updateaddress) - Edit an existing address
 
 
 ### [Payments.Guest](docs/sdks/guest/README.md)
@@ -120,10 +104,10 @@ func main() {
 
 Handling errors in this SDK should largely match your expectations.  All operations return a response object or an error, they will never return both.  When specified by the OpenAPI spec document, the SDK will return the appropriate subclass.
 
-| Error Object                               | Status Code                                | Content Type                               |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| sdkerrors.AccountAddressCreateResponseBody | 4XX                                        | application/json                           |
-| sdkerrors.SDKError                         | 4xx-5xx                                    | */*                                        |
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.Error    | 4XX                | application/json   |
+| sdkerrors.SDKError | 4xx-5xx            | */*                |
 
 ### Example
 
@@ -148,26 +132,13 @@ func main() {
 	)
 
 	ctx := context.Background()
-	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
+	res, err := s.Account.DeleteAddress(ctx, operations.AccountAddressDeleteRequest{
 		XPublishableKey: "<value>",
-		AddressListing: shared.AddressListingInput{
-			Company:        testboltapi.String("ACME Corporation"),
-			CountryCode:    shared.CountryCodeUs,
-			Email:          testboltapi.String("alice@example.com"),
-			FirstName:      "Alice",
-			IsDefault:      testboltapi.Bool(true),
-			LastName:       "Baker",
-			Locality:       "San Francisco",
-			Phone:          testboltapi.String("+14155550199"),
-			PostalCode:     "94105",
-			Region:         testboltapi.String("CA"),
-			StreetAddress1: "535 Mission St, Ste 1401",
-			StreetAddress2: testboltapi.String("c/o Shipping Department"),
-		},
+		ID:              "D4g3h5tBuVYK9",
 	})
 	if err != nil {
 
-		var e *sdkerrors.AccountAddressCreateResponseBody
+		var e *sdkerrors.Error
 		if errors.As(err, &e) {
 			// handle error
 			log.Fatal(e.Error())
@@ -219,27 +190,14 @@ func main() {
 	)
 
 	ctx := context.Background()
-	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
+	res, err := s.Account.DeleteAddress(ctx, operations.AccountAddressDeleteRequest{
 		XPublishableKey: "<value>",
-		AddressListing: shared.AddressListingInput{
-			Company:        testboltapi.String("ACME Corporation"),
-			CountryCode:    shared.CountryCodeUs,
-			Email:          testboltapi.String("alice@example.com"),
-			FirstName:      "Alice",
-			IsDefault:      testboltapi.Bool(true),
-			LastName:       "Baker",
-			Locality:       "San Francisco",
-			Phone:          testboltapi.String("+14155550199"),
-			PostalCode:     "94105",
-			Region:         testboltapi.String("CA"),
-			StreetAddress1: "535 Mission St, Ste 1401",
-			StreetAddress2: testboltapi.String("c/o Shipping Department"),
-		},
+		ID:              "D4g3h5tBuVYK9",
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.AddressListing != nil {
+	if res != nil {
 		// handle response
 	}
 }
@@ -274,27 +232,14 @@ func main() {
 	)
 
 	ctx := context.Background()
-	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
+	res, err := s.Account.DeleteAddress(ctx, operations.AccountAddressDeleteRequest{
 		XPublishableKey: "<value>",
-		AddressListing: shared.AddressListingInput{
-			Company:        testboltapi.String("ACME Corporation"),
-			CountryCode:    shared.CountryCodeUs,
-			Email:          testboltapi.String("alice@example.com"),
-			FirstName:      "Alice",
-			IsDefault:      testboltapi.Bool(true),
-			LastName:       "Baker",
-			Locality:       "San Francisco",
-			Phone:          testboltapi.String("+14155550199"),
-			PostalCode:     "94105",
-			Region:         testboltapi.String("CA"),
-			StreetAddress1: "535 Mission St, Ste 1401",
-			StreetAddress2: testboltapi.String("c/o Shipping Department"),
-		},
+		ID:              "D4g3h5tBuVYK9",
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.AddressListing != nil {
+	if res != nil {
 		// handle response
 	}
 }
@@ -367,27 +312,14 @@ func main() {
 	)
 
 	ctx := context.Background()
-	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
+	res, err := s.Account.DeleteAddress(ctx, operations.AccountAddressDeleteRequest{
 		XPublishableKey: "<value>",
-		AddressListing: shared.AddressListingInput{
-			Company:        testboltapi.String("ACME Corporation"),
-			CountryCode:    shared.CountryCodeUs,
-			Email:          testboltapi.String("alice@example.com"),
-			FirstName:      "Alice",
-			IsDefault:      testboltapi.Bool(true),
-			LastName:       "Baker",
-			Locality:       "San Francisco",
-			Phone:          testboltapi.String("+14155550199"),
-			PostalCode:     "94105",
-			Region:         testboltapi.String("CA"),
-			StreetAddress1: "535 Mission St, Ste 1401",
-			StreetAddress2: testboltapi.String("c/o Shipping Department"),
-		},
+		ID:              "D4g3h5tBuVYK9",
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.AddressListing != nil {
+	if res != nil {
 		// handle response
 	}
 }

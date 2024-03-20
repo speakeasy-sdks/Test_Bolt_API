@@ -18,27 +18,14 @@ func main() {
 	)
 
 	ctx := context.Background()
-	res, err := s.Account.AddAddress(ctx, operations.AccountAddressCreateRequest{
+	res, err := s.Account.DeleteAddress(ctx, operations.AccountAddressDeleteRequest{
 		XPublishableKey: "<value>",
-		AddressListing: shared.AddressListingInput{
-			Company:        testboltapi.String("ACME Corporation"),
-			CountryCode:    shared.CountryCodeUs,
-			Email:          testboltapi.String("alice@example.com"),
-			FirstName:      "Alice",
-			IsDefault:      testboltapi.Bool(true),
-			LastName:       "Baker",
-			Locality:       "San Francisco",
-			Phone:          testboltapi.String("+14155550199"),
-			PostalCode:     "94105",
-			Region:         testboltapi.String("CA"),
-			StreetAddress1: "535 Mission St, Ste 1401",
-			StreetAddress2: testboltapi.String("c/o Shipping Department"),
-		},
+		ID:              "D4g3h5tBuVYK9",
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.AddressListing != nil {
+	if res != nil {
 		// handle response
 	}
 }
